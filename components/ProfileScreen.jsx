@@ -1,10 +1,10 @@
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const DetailsScreen = ({navigation}) => {
+const ProfileScreen = ({navigation}) => {
   return (
     <View style={styles.box1}>
-      <Text style={styles.homeText}>Details</Text>
+      <Text style={styles.homeText}>Profile</Text>
       <Text style={{padding: 20}}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Sed egestas egestas
@@ -16,15 +16,11 @@ const DetailsScreen = ({navigation}) => {
         Pretium viverra suspendisse potenti nullam ac tortor. Amet dictum sit
         amet justo. Blandit aliquam etiam erat velit scelerisque in.
       </Text>
-      <Button
-        title="Back to Home"
-        onPress={() => navigation.navigate('Home')}
-      />
     </View>
   );
 };
 
-export default DetailsScreen;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   box1: {

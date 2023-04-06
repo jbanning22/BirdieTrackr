@@ -1,14 +1,17 @@
 // import {StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LandingScreen from './components/LandingScreen';
 import SignInScreen from './components/SignInScreen';
-import HomeScreen from './components/Scorecard';
-import DetailsScreen from './components/DetailsScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Scorecard from './components/Scorecard';
+import ProfileScreen from './components/ProfileScreen';
+import CourseScreen from './components/CourseScreen';
+import ThrowsScreen from './components/ThrowsScreen';
+
 const AuthStack = createNativeStackNavigator();
 
 const AuthStackScreen = () => (
@@ -49,31 +52,53 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
-const AppStack = createNativeStackNavigator();
-
+// const AppStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 const AppStackScreen = () => (
-  <AppStack.Navigator initialRouteName="Home">
-    <AppStack.Screen
-      name="Home"
-      component={Scorecard}
+  //   <AppStack.Navigator initialRouteName="Home">
+  <Tab.Navigator initialRouteName="Scorecard">
+    <Tab.Screen
+      name="Courses"
+      component={CourseScreen}
       options={{
-        title: 'Home',
-        headerStyle: {backgroundColor: 'blue'},
-        headerTintColor: 'white',
-      }}
-    />
-    <AppStack.Screen
-      name="Details"
-      component={DetailsScreen}
-      options={{
-        title: 'Details',
+        title: 'Courses',
         headerStyle: {
           backgroundColor: 'blue',
         },
         headerTintColor: 'white',
       }}
     />
-  </AppStack.Navigator>
+    <Tab.Screen
+      name="Scorecard"
+      component={Scorecard}
+      options={{
+        title: 'Home',
+        headerStyle: {backgroundColor: '#E58315'},
+        headerTintColor: 'white',
+      }}
+    />
+    <Tab.Screen
+      name="Throws"
+      component={ThrowsScreen}
+      options={{
+        title: 'Throws',
+        headerStyle: {backgroundColor: '#E58315'},
+        headerTintColor: 'white',
+      }}
+    />
+    <Tab.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{
+        title: 'Profile',
+        headerStyle: {
+          backgroundColor: 'blue',
+        },
+        headerTintColor: 'white',
+      }}
+    />
+  </Tab.Navigator>
+  //   </AppStack.Navigator>
 );
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
