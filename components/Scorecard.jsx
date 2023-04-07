@@ -32,7 +32,7 @@ const Scorecard = ({navigation}) => {
     console.log('render item is: ', item);
     return (
       <View style={styles.renderItemStyle}>
-        <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: '600'}}>
+        <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: '200'}}>
           {item}
         </Text>
       </View>
@@ -66,8 +66,6 @@ const Scorecard = ({navigation}) => {
         data={scorecardData}
         contentContainerStyle={styles.flatlistStyle}
       />
-      {/* <Button title="Details" onPress={() => navigation.navigate('Details')} /> */}
-      {/* <Button title="Sign out" onPress={signOutUser} /> */}
     </View>
   );
 };
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
   },
   homeText: {
     fontSize: 40,
-    fontWeight: '200',
+    fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 20,
   },

@@ -8,19 +8,8 @@ const ThrowsScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.signUpButton}
         onPress={() => navigation.navigate('CreateScorecard')}>
-        <Text>Measure Throw</Text>
+        <Text style={styles.buttonText}>Measure Throw</Text>
       </TouchableOpacity>
-      <Text style={{padding: 20}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Sed egestas egestas
-        fringilla phasellus faucibus scelerisque eleifend donec pretium. Nulla
-        facilisi cras fermentum odio eu feugiat pretium. Diam ut venenatis
-        tellus in metus vulputate eu. Dignissim suspendisse in est ante in nibh
-        mauris cursus mattis. Sed lectus vestibulum mattis ullamcorper velit
-        sed. Faucibus et molestie ac feugiat sed. Nunc eget lorem dolor sed.
-        Pretium viverra suspendisse potenti nullam ac tortor. Amet dictum sit
-        amet justo. Blandit aliquam etiam erat velit scelerisque in.
-      </Text>
     </View>
   );
 };
@@ -35,16 +24,19 @@ const styles = StyleSheet.create({
   },
   homeText: {
     fontSize: 40,
-    fontWeight: '500',
+    fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
   },
   signUpButton: {
     width: 200,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3AE832',
+    backgroundColor: '#0C7DEE',
     marginTop: 10,
     marginBottom: 40,
     borderRadius: 8,

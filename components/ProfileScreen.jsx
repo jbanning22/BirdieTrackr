@@ -1,22 +1,31 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const ProfileScreen = ({navigation}) => {
   return (
-    <View style={styles.box1}>
-      <Text style={styles.homeText}>Profile</Text>
-      <Text style={{padding: 20}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Sed egestas egestas
-        fringilla phasellus faucibus scelerisque eleifend donec pretium. Nulla
-        facilisi cras fermentum odio eu feugiat pretium. Diam ut venenatis
-        tellus in metus vulputate eu. Dignissim suspendisse in est ante in nibh
-        mauris cursus mattis. Sed lectus vestibulum mattis ullamcorper velit
-        sed. Faucibus et molestie ac feugiat sed. Nunc eget lorem dolor sed.
-        Pretium viverra suspendisse potenti nullam ac tortor. Amet dictum sit
-        amet justo. Blandit aliquam etiam erat velit scelerisque in.
-      </Text>
-    </View>
+    <SafeAreaView>
+      <View style={styles.box1}>
+        <Text style={styles.homeText}>Profile</Text>
+        <View style={styles.box3}>
+          <TouchableOpacity style={styles.signUpButton}>
+            <Text style={styles.buttonText}>picture</Text>
+          </TouchableOpacity>
+          <View style={styles.box2}>
+            <Text style={styles.dataFieldText}>jbanning</Text>
+            <Text style={styles.dataFieldText}>Jack Banning</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.box21}>
+        <Text style={styles.dataFieldText}>Throws</Text>
+        <Text style={styles.dataFieldText}>Rounds</Text>
+        <Text style={styles.dataFieldText}>Courses</Text>
+      </View>
+      <TouchableOpacity style={styles.SignOutButton}>
+        <Text style={styles.buttonText}>Sign Out</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
@@ -24,13 +33,59 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  box2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  box21: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginTop: 50,
+  },
+  box3: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  signUpButton: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'grey',
+    marginRight: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  SignOutButton: {
+    width: 80,
+    height: 30,
+    borderRadius: 25,
+    backgroundColor: 'red',
+    alignContent: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    marginLeft: 156,
+    marginTop: 170,
+  },
+  buttonText: {
+    fontSize: 12,
+    alignSelf: 'center',
+    color: 'white',
+  },
+  dataFieldText: {
+    fontSize: 20,
+    color: 'black',
+    fontWeight: '400',
+    padding: 10,
+  },
   homeText: {
     fontSize: 40,
-    fontWeight: '500',
+    fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 80,
   },

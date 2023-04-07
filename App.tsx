@@ -63,7 +63,7 @@ const AppStackScreen = () => (
       options={{
         title: 'Courses',
         headerStyle: {
-          backgroundColor: 'blue',
+          backgroundColor: '#E58315',
         },
         headerTintColor: 'white',
       }}
@@ -92,7 +92,7 @@ const AppStackScreen = () => (
       options={{
         title: 'Profile',
         headerStyle: {
-          backgroundColor: 'blue',
+          backgroundColor: '#E58315',
         },
         headerTintColor: 'white',
       }}
@@ -110,6 +110,8 @@ const App = () => {
         console.log('token is', token);
         if (token !== null) {
           setSignedIn(true);
+        } else if (token === false) {
+          setSignedIn(false);
         }
       } catch (error) {
         console.error('Error fetching logged-in status:', error);

@@ -5,6 +5,7 @@ const CourseScreen = ({navigation}) => {
   return (
     <View style={styles.box1}>
       <Text style={styles.homeText}>Nearby Courses</Text>
+      {/* call for rest API with data on courses based off extracted long and lat. */}
       <Text style={{padding: 20}}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Sed egestas egestas
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   homeText: {
     fontSize: 40,
-    fontWeight: '500',
+    fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 80,
   },
