@@ -3,12 +3,11 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import {useContext, createContext} from 'react';
 import LandingScreen from './components/LandingScreen';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Scorecard from './components/Scorecard';
+import ScorecardStack from './components/ScorecardStack';
 import ProfileScreen from './components/ProfileScreen';
 import CourseScreen from './components/CourseScreen';
 import ThrowsScreen from './components/ThrowsScreen';
@@ -52,7 +51,8 @@ const AuthStackScreen = () => (
     />
   </AuthStack.Navigator>
 );
-
+// const Tab = createMaterialBottomTabNavigator();
+// const ScorecardStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const AppStackScreen = () => (
   <Tab.Navigator initialRouteName="Scorecard">
@@ -69,9 +69,9 @@ const AppStackScreen = () => (
     />
     <Tab.Screen
       name="Scorecard"
-      component={Scorecard}
+      component={ScorecardStack}
       options={{
-        title: 'Home',
+        title: 'Scorecards',
         headerStyle: {backgroundColor: '#E58315'},
         headerTintColor: 'white',
       }}

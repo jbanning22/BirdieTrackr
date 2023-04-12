@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import CreateScorecard1 from '../components/CreateScorecard1';
 
-const Scorecard = ({navigation}) => {
+const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
@@ -58,7 +59,7 @@ const Scorecard = ({navigation}) => {
       <Text style={styles.homeText}>Scorecards</Text>
       <TouchableOpacity
         style={styles.signUpButton}
-        onPress={() => navigation.navigate('CreateScorecard')}>
+        onPress={() => navigation.navigate('CreateScorecard1')}>
         <Text>Create Scorecard</Text>
       </TouchableOpacity>
       <FlatList
@@ -70,7 +71,7 @@ const Scorecard = ({navigation}) => {
   );
 };
 
-export default Scorecard;
+export default Scorecards;
 
 const styles = StyleSheet.create({
   box1: {
