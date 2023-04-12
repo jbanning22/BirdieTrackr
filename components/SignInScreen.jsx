@@ -16,7 +16,6 @@ import {useNavigation} from '@react-navigation/native';
 // import {setSignedIn} from '../redux/signedInSlice';
 
 const SignInScreen = ({navigation}) => {
-  const navigation1 = useNavigation();
   //   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,14 +26,16 @@ const SignInScreen = ({navigation}) => {
         email: email,
         password: password,
       });
-      console.log(signInRes.data.access_token);
+      //   console.log(signInRes.data.access_token);
       if (signInRes.status === 200) {
         const access_token = await signInRes.data.access_token;
         const refresh_token = await signInRes.data.refresh_token;
 
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
-        // navigation1.navigate('Scorecard');
+        await AsyncStorage.setItem('signedIn_status', 'allGood');
+        // navigation.navigate('Scorecards');
+
         // navigation1.navigate('AppStackScreen', {
         //   screen: 'Scorecard',
         // });

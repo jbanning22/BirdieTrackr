@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import CreateScorecard1 from '../components/CreateScorecard1';
 
@@ -14,7 +15,30 @@ const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
+  const renderItem = ({item}) => {
+    console.log('render item is: ', item);
+    return (
+      <View style={styles.renderItemStyle}>
+        <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: '200'}}>
+          {item.courseName}
+        </Text>
+        <Text style={{alignSelf: 'center'}}>Holes: {item.courseLength}</Text>
+      </View>
+    );
+  };
+
+  const fetchLoggedInStatus = async () => {
+    try {
+      const Atoken = await AsyncStorage.getItem('token');
+      console.log('token is', token);
+      setToken(Atoken);
+    } catch (error) {
+      console.error('Error fetching logged-in status:', error);
+    }
+  };
+
   const getScorecards = async () => {
+    const token = await AsyncStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -22,37 +46,19 @@ const Scorecards = ({navigation}) => {
       const scoreC = await axios.get(`http://localhost:3000/scorecard`, {
         headers,
       });
-      console.log(scoreC.data);
+      console.log('scorecard data is: ', scoreC.data);
       setScorecardData(scoreC.data);
     } catch (error) {
-      console.log(error);
+      console.log('get Scorecard error is: ', error);
     }
   };
 
-  const renderItem = ({item}) => {
-    console.log('render item is: ', item);
-    return (
-      <View style={styles.renderItemStyle}>
-        <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: '200'}}>
-          {item}
-        </Text>
-      </View>
-    );
-  };
-
   useEffect(() => {
-    const fetchLoggedInStatus = async () => {
-      try {
-        const Atoken = await AsyncStorage.getItem('token');
-        console.log('token is', token);
-        setToken(Atoken);
-      } catch (error) {
-        console.error('Error fetching logged-in status:', error);
-      }
-    };
-
     fetchLoggedInStatus();
-  }, []);
+  });
+  useEffect(() => {
+    getScorecards();
+  });
 
   return (
     <View style={styles.box1}>
@@ -97,7 +103,11 @@ const styles = StyleSheet.create({
   flatlistStyle: {
     width: 300,
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: 'black',
     padding: 10,
+    marginTop: 40,
+    margin: 10,
+    borderWidth: 2,
+    borderBottomColor: 'black',
   },
 });

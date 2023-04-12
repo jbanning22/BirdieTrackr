@@ -36,6 +36,7 @@ const SignUpScreen = ({navigation}) => {
         const refresh_token = await signUpRes.data.refresh_token;
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
+        await AsyncStorage.setItem('signedIn_status', 'allGood');
         // navigation.navigate('Scorecard', {
         //   screen: 'Scorecard',
         //   initial: true,

@@ -6,7 +6,9 @@ const Stack = createNativeStackNavigator();
 
 const ScorecardStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Scorecards">
+    <Stack.Navigator
+      initialRouteName="Scorecards"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="Scorecards" component={Scorecards} />
       <Stack.Screen name="CreateScorecard1" component={CreateScorecard1} />
     </Stack.Navigator>

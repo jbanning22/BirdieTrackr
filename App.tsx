@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import jwtDecode from 'jwt-decode';
 import LandingScreen from './components/LandingScreen';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
@@ -101,16 +102,33 @@ const AppStackScreen = () => (
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
+  const decodeToken = async () => {
+    try {
+      const currentDate = new Date();
+      const token = await AsyncStorage.getItem('token');
+      const decodedToken = jwtDecode(token);
+      const expirationDate = new Date(decodedToken.exp * 1000);
+      console.log('expiration timeDate is: ', expirationDate);
+      console.log('current timeDate is: ', currentDate);
+      if (currentDate > expirationDate) {
+        setSignedIn(false);
+      } else if (expirationDate > currentDate) {
+        setSignedIn(true);
+      } else {
+        setSignedIn(false);
+      }
+    } catch (error) {
+      console.log('decode token error is: ', error);
+    }
+  };
   const fetchLoggedInStatus = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      const ReToken = await AsyncStorage.getItem('ReToken');
-      console.log('signed in status is', signedIn);
-      console.log('token is', token);
-      console.log('refresh token is', ReToken);
-      if (ReToken !== null) {
+      const status = await AsyncStorage.getItem('signedIn_status');
+      if (status === 'allGood') {
         setSignedIn(true);
-      } else if (ReToken === null) {
+      } else if (status === 'noGood') {
+        setSignedIn(false);
+      } else {
         setSignedIn(false);
       }
     } catch (error) {
@@ -119,7 +137,10 @@ const App = () => {
   };
   useEffect(() => {
     fetchLoggedInStatus();
-  }, []);
+  });
+  useEffect(() => {
+    decodeToken();
+  });
 
   return (
     // <TokenContext.Provider value="token">

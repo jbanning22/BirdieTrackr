@@ -15,6 +15,7 @@ const ProfileScreen = ({navigation}) => {
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
+        await AsyncStorage.setItem('signedIn_status', 'noGood');
       }
     } catch (error) {
       console.log('error signing out', error.message);
