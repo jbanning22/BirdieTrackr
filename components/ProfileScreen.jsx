@@ -1,8 +1,26 @@
 import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = ({navigation}) => {
+  const signOut = async () => {
+    try {
+      const signOutRes = await axios.post(
+        'http://localhost:3000/auth/signout',
+        {},
+      );
+      console.log(signOutRes.data);
+      if (signOutRes.status === 201) {
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('ReToken');
+      }
+    } catch (error) {
+      console.log('error signing out', error.message);
+    }
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.box1}>
@@ -23,7 +41,9 @@ const ProfileScreen = ({navigation}) => {
         <Text style={styles.dataFieldText}>Courses</Text>
       </View>
       <TouchableOpacity style={styles.SignOutButton}>
-        <Text style={styles.buttonText}>Sign Out</Text>
+        <Text style={styles.buttonText} onPress={signOut}>
+          Sign Out
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

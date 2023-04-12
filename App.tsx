@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import {useContext, createContext} from 'react';
 import LandingScreen from './components/LandingScreen';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
@@ -52,10 +53,8 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
-// const AppStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const AppStackScreen = () => (
-  //   <AppStack.Navigator initialRouteName="Home">
   <Tab.Navigator initialRouteName="Scorecard">
     <Tab.Screen
       name="Courses"
@@ -98,34 +97,37 @@ const AppStackScreen = () => (
       }}
     />
   </Tab.Navigator>
-  //   </AppStack.Navigator>
 );
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
-  useEffect(() => {
-    const fetchLoggedInStatus = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        console.log('token is', token);
-        if (token !== null) {
-          setSignedIn(true);
-        } else if (token === false) {
-          setSignedIn(false);
-        }
-      } catch (error) {
-        console.error('Error fetching logged-in status:', error);
+  const fetchLoggedInStatus = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const ReToken = await AsyncStorage.getItem('ReToken');
+      console.log('signed in status is', signedIn);
+      console.log('token is', token);
+      console.log('refresh token is', ReToken);
+      if (ReToken !== null) {
+        setSignedIn(true);
+      } else if (ReToken === null) {
+        setSignedIn(false);
       }
-    };
-
+    } catch (error) {
+      console.error('Error fetching logged-in status:', error);
+    }
+  };
+  useEffect(() => {
     fetchLoggedInStatus();
   }, []);
 
   return (
+    // <TokenContext.Provider value="token">
     <NavigationContainer>
       {signedIn === false ? <AuthStackScreen /> : <AppStackScreen />}
       {/* <AuthStackScreen /> */}
     </NavigationContainer>
+    // </TokenContext.Provider>
   );
 };
 

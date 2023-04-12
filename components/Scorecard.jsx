@@ -10,7 +10,7 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Scorecard = ({navigation}) => {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
   const getScorecards = async () => {

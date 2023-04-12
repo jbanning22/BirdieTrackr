@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
 // import {authentication} from '../firebase/firebase-config';
 // import {createUserWithEmailAndPassword} from 'firebase/auth';
@@ -16,6 +16,7 @@ import axios from 'axios';
 // import {setSignedIn} from '../redux/signedInSlice';
 
 const SignUpScreen = ({navigation}) => {
+  const navigation1 = useNavigation();
   //   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,10 +30,18 @@ const SignUpScreen = ({navigation}) => {
         username: username,
       });
       console.log('sign up res', signUpRes.data.access_token);
+      console.log('sign up res', signUpRes.data.refresh_token);
       if (signUpRes.status === 201) {
         const access_token = await signUpRes.data.access_token;
+        const refresh_token = await signUpRes.data.refresh_token;
         await AsyncStorage.setItem('token', access_token);
-        return true;
+        await AsyncStorage.setItem('ReToken', refresh_token);
+        // navigation.navigate('Scorecard', {
+        //   screen: 'Scorecard',
+        //   initial: true,
+        // });
+        // navigation1.navigate('AppStackScreen', {screen: 'Scorecard'});
+        return signUpRes.data;
       } else {
         return false;
       }

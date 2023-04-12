@@ -9,12 +9,14 @@ import {
 import React, {useState} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 // import {signInWithEmailAndPassword} from 'firebase/auth';
 // import {authentication} from '../firebase/firebase-co                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        nfig';
 // import {useDispatch} from 'react-redux';
 // import {setSignedIn} from '../redux/signedInSlice';
 
 const SignInScreen = ({navigation}) => {
+  const navigation1 = useNavigation();
   //   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +30,15 @@ const SignInScreen = ({navigation}) => {
       console.log(signInRes.data.access_token);
       if (signInRes.status === 200) {
         const access_token = await signInRes.data.access_token;
+        const refresh_token = await signInRes.data.refresh_token;
+
         await AsyncStorage.setItem('token', access_token);
+        await AsyncStorage.setItem('ReToken', refresh_token);
+        // navigation1.navigate('Scorecard');
+        // navigation1.navigate('AppStackScreen', {
+        //   screen: 'Scorecard',
+        // });
+        return signInRes.data;
       }
     } catch (error) {
       console.log('error signing in', error);
