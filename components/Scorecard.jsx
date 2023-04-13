@@ -55,10 +55,10 @@ const Scorecards = ({navigation}) => {
 
   useEffect(() => {
     fetchLoggedInStatus();
-  });
+  }, []);
   useEffect(() => {
     getScorecards();
-  });
+  }, []);
 
   return (
     <View style={styles.box1}>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     padding: 10,
     marginTop: 40,
-    margin: 10,
+    margin: 15,
     borderWidth: 2,
     borderBottomColor: 'black',
   },

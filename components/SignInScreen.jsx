@@ -6,19 +6,18 @@ import {
   TextInput,
   Button,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-// import {signInWithEmailAndPassword} from 'firebase/auth';
-// import {authentication} from '../firebase/firebase-co                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        nfig';
-// import {useDispatch} from 'react-redux';
-// import {setSignedIn} from '../redux/signedInSlice';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 
 const SignInScreen = ({navigation}) => {
-  //   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigateToScorecards = () => {
+    navigation.navigate('Scorecards');
+  };
 
   const signIn = async () => {
     try {
@@ -26,7 +25,6 @@ const SignInScreen = ({navigation}) => {
         email: email,
         password: password,
       });
-      //   console.log(signInRes.data.access_token);
       if (signInRes.status === 200) {
         const access_token = await signInRes.data.access_token;
         const refresh_token = await signInRes.data.refresh_token;
@@ -34,17 +32,32 @@ const SignInScreen = ({navigation}) => {
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
         await AsyncStorage.setItem('signedIn_status', 'allGood');
-        // navigation.navigate('Scorecards');
-
-        // navigation1.navigate('AppStackScreen', {
-        //   screen: 'Scorecard',
-        // });
+        navigateToScorecards();
         return signInRes.data;
       }
     } catch (error) {
       console.log('error signing in', error);
     }
   };
+
+  const checkStatus = async () => {
+    try {
+      const status = await AsyncStorage.getItem('signedIn_status');
+      if (status === 'allGood') {
+        // navigation.navigate('Scorecards');
+      } else if (status === 'noGood') {
+        console.log('not signed in');
+      } else {
+        navigation.navigate('LandingScreen');
+      }
+    } catch (error) {
+      console.log('check status error is: ', error);
+    }
+  };
+
+  useEffect(() => {
+    checkStatus();
+  }, []);
 
   return (
     <View style={styles.box1}>
