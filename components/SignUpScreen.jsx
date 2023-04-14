@@ -16,7 +16,6 @@ import axios from 'axios';
 // import {setSignedIn} from '../redux/signedInSlice';
 
 const SignUpScreen = ({navigation}) => {
-  const navigation1 = useNavigation();
   //   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,14 +36,8 @@ const SignUpScreen = ({navigation}) => {
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
         await AsyncStorage.setItem('signedIn_status', 'allGood');
-        // navigation.navigate('Scorecard', {
-        //   screen: 'Scorecard',
-        //   initial: true,
-        // });
-        // navigation1.navigate('AppStackScreen', {screen: 'Scorecard'});
+        navigation.navigate('App', {screen: 'Scorecard'});
         return signUpRes.data;
-      } else {
-        return false;
       }
     } catch (error) {
       console.log('error signing up', error);

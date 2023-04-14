@@ -15,10 +15,6 @@ const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigateToScorecards = () => {
-    navigation.navigate('Scorecards');
-  };
-
   const signIn = async () => {
     try {
       const signInRes = await axios.post('http://localhost:3000/auth/signin', {
@@ -32,7 +28,7 @@ const SignInScreen = ({navigation}) => {
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
         await AsyncStorage.setItem('signedIn_status', 'allGood');
-        navigateToScorecards();
+        navigation.navigate('App', {screen: 'Scorecard'});
         return signInRes.data;
       }
     } catch (error) {
@@ -40,24 +36,24 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
-  const checkStatus = async () => {
-    try {
-      const status = await AsyncStorage.getItem('signedIn_status');
-      if (status === 'allGood') {
-        // navigation.navigate('Scorecards');
-      } else if (status === 'noGood') {
-        console.log('not signed in');
-      } else {
-        navigation.navigate('LandingScreen');
-      }
-    } catch (error) {
-      console.log('check status error is: ', error);
-    }
-  };
+  //   const checkStatus = async () => {
+  //     try {
+  //       const status = await AsyncStorage.getItem('signedIn_status');
+  //       if (status === 'allGood') {
+  //         // navigation.navigate('Scorecards');
+  //       } else if (status === 'noGood') {
+  //         console.log('not signed in');
+  //       } else {
+  //         navigation.navigate('LandingScreen');
+  //       }
+  //     } catch (error) {
+  //       console.log('check status error is: ', error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    checkStatus();
-  }, []);
+  //   useEffect(() => {
+  //     checkStatus();
+  //   }, []);
 
   return (
     <View style={styles.box1}>

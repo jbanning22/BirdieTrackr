@@ -16,7 +16,7 @@ const Scorecards = ({navigation}) => {
   const [scorecardData, setScorecardData] = useState([]);
 
   const renderItem = ({item}) => {
-    console.log('render item is: ', item);
+    // console.log('render item is: ', item);
     return (
       <View style={styles.renderItemStyle}>
         <Text style={{alignSelf: 'center', fontSize: 20, fontWeight: '200'}}>
@@ -30,7 +30,7 @@ const Scorecards = ({navigation}) => {
   const fetchLoggedInStatus = async () => {
     try {
       const Atoken = await AsyncStorage.getItem('token');
-      console.log('token is', token);
+      //   console.log('token is', token);
       setToken(Atoken);
     } catch (error) {
       console.error('Error fetching logged-in status:', error);
@@ -46,8 +46,11 @@ const Scorecards = ({navigation}) => {
       const scoreC = await axios.get(`http://localhost:3000/scorecard`, {
         headers,
       });
-      console.log('scorecard data is: ', scoreC.data);
+      //   if (scoreC.data === []) {
+      //     setScorecardData(['You have not recorded any rounds yet.']);
+      //   } else {
       setScorecardData(scoreC.data);
+      //   }
     } catch (error) {
       console.log('get Scorecard error is: ', error);
     }

@@ -121,34 +121,44 @@ const App = () => {
       console.log('decode token error is: ', error);
     }
   };
-  const fetchLoggedInStatus = async () => {
-    try {
-      const status = await AsyncStorage.getItem('signedIn_status');
-      if (status === 'allGood') {
-        setSignedIn(true);
-      } else if (status === 'noGood') {
-        setSignedIn(false);
-      } else {
-        setSignedIn(false);
-      }
-    } catch (error) {
-      console.error('Error fetching logged-in status:', error);
-    }
-  };
-  useEffect(() => {
-    fetchLoggedInStatus();
-  });
+  //   const fetchLoggedInStatus = async () => {
+  //     try {
+  //       const status = await AsyncStorage.getItem('signedIn_status');
+  //       if (status === 'allGood') {
+  //         setSignedIn(true);
+  //       } else if (status === 'noGood') {
+  //         setSignedIn(false);
+  //       } else {
+  //         setSignedIn(false);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching logged-in status:', error);
+  //     }
+  //   };
+  //   useEffect(() => {
+  //     fetchLoggedInStatus();
+  //   });
   useEffect(() => {
     decodeToken();
   });
 
+  const RootStack = createNativeStackNavigator();
   return (
-    // <TokenContext.Provider value="token">
     <NavigationContainer>
-      {signedIn === false ? <AuthStackScreen /> : <AppStackScreen />}
-      {/* <AuthStackScreen /> */}
+      <RootStack.Navigator>
+        <RootStack.Screen
+          name="Auth"
+          component={AuthStackScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="App"
+          component={AppStackScreen}
+          options={{headerShown: false}}
+        />
+      </RootStack.Navigator>
+      {/* {signedIn === false ? <AuthStackScreen /> : <AppStackScreen />} */}
     </NavigationContainer>
-    // </TokenContext.Provider>
   );
 };
 
