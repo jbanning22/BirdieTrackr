@@ -23,6 +23,8 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
+  //   const
+
   return (
     <SafeAreaView>
       <View style={styles.box1}>

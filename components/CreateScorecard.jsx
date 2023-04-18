@@ -9,12 +9,14 @@ import {
 import React, {useState} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const CreateScorecard1 = ({navigation}) => {
+const CreateScorecard = ({navigation}) => {
   const [courseLength, setCourseLength] = useState(0);
   const [courseName, setCourseName] = useState('');
   const [active9Button, setActive9Button] = useState(false);
   const [active18Button, setActive18Button] = useState(false);
+  const [scorecardData, setScorecardData] = useState({});
 
   function setLength9() {
     setCourseLength(9);
@@ -38,12 +40,23 @@ const CreateScorecard1 = ({navigation}) => {
         {courseLength: courseLength, courseName: courseName},
         {headers},
       );
+      if (courseLength === 9) {
+        navigation.navigate('HalfScorecard', {
+          id: scorecard.data.id,
+        });
+      } else {
+        navigation.navigate('FullScorecard', {
+          id: scorecard.data.id,
+        });
+      }
+      return setScorecardData(scorecard.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
-    <View style={styles.box1}>
+    <SafeAreaView style={styles.box1}>
       <Text style={styles.questionText}>Name of the course?</Text>
       <TextInput
         placeholder="Course Name"
@@ -79,16 +92,17 @@ const CreateScorecard1 = ({navigation}) => {
           <Text style={styles.backButtonText}>Go Back</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default CreateScorecard1;
+export default CreateScorecard;
 
 const styles = StyleSheet.create({
   box1: {
     flex: 1,
     alignItems: 'center',
+    alignContent: 'center',
     justifyContent: 'center',
   },
   box2: {

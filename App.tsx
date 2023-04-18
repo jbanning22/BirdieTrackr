@@ -57,7 +57,7 @@ const AuthStackScreen = () => (
 const Tab = createBottomTabNavigator();
 const AppStackScreen = () => (
   <Tab.Navigator initialRouteName="Scorecard">
-    <Tab.Screen
+    {/* <Tab.Screen
       name="Courses"
       component={CourseScreen}
       options={{
@@ -67,17 +67,18 @@ const AppStackScreen = () => (
         },
         headerTintColor: 'white',
       }}
-    />
+    /> */}
     <Tab.Screen
       name="Scorecard"
       component={ScorecardStack}
       options={{
         title: 'Scorecards',
         headerStyle: {backgroundColor: '#E58315'},
+        headerShown: false,
         headerTintColor: 'white',
       }}
     />
-    <Tab.Screen
+    {/* <Tab.Screen
       name="Throws"
       component={ThrowsScreen}
       options={{
@@ -85,7 +86,7 @@ const AppStackScreen = () => (
         headerStyle: {backgroundColor: '#E58315'},
         headerTintColor: 'white',
       }}
-    />
+    /> */}
     <Tab.Screen
       name="Profile"
       component={ProfileScreen}

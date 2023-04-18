@@ -20,6 +20,8 @@ const SignUpScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const signUp = async () => {
     try {
@@ -52,6 +54,20 @@ const SignUpScreen = ({navigation}) => {
         style={styles.emailInput}
         value={username}
         onChangeText={setUsername}
+        clearButtonMode={'always'}
+      />
+      <TextInput
+        placeholder="First Name"
+        style={styles.emailInput}
+        value={firstName}
+        onChangeText={setFirstName}
+        clearButtonMode={'always'}
+      />
+      <TextInput
+        placeholder="Last Name"
+        style={styles.emailInput}
+        value={lastName}
+        onChangeText={setLastName}
         clearButtonMode={'always'}
       />
       <TextInput
