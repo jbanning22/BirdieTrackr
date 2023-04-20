@@ -17,13 +17,42 @@ const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
+  const handleScorecardPressed = async (id, courseLength) => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const scorecard = await axios.get(
+        `http://localhost:3000/scorecard/${id}`,
+        {
+          headers,
+        },
+      );
+      if (courseLength === 9) {
+        navigation.navigate('HalfScorecard', {
+          id: scorecard.data.id,
+        });
+      } else {
+        navigation.navigate('FullScorecard', {
+          id: scorecard.data.id,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
     return (
       <View style={styles.flatlistStyle}>
-        <Text style={styles.renderCourseName}>{item.courseName}</Text>
-        <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
-        <Text style={styles.renderText}>{date}</Text>
+        <TouchableOpacity
+          onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
+          <Text style={styles.renderCourseName}>{item.courseName}</Text>
+          <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
+          <Text style={styles.renderText}>{date}</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -90,20 +119,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#BDE9FF',
+    backgroundColor: '#DB6F52',
   },
   homeText: {
     fontSize: 40,
     fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 5,
+    color: 'white',
   },
   signUpButton: {
     width: 200,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0C7DEE',
+    backgroundColor: '#52BEDB',
     marginTop: 10,
     borderRadius: 8,
     marginBottom: 20,
@@ -115,8 +145,6 @@ const styles = StyleSheet.create({
   },
   flatlistStyle: {
     width: 300,
-    borderWidth: 0.5,
-    borderColor: 'black',
     borderRadius: 10,
     marginBottom: 10,
     backgroundColor: 'white',

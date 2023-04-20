@@ -10,6 +10,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
+// import {Dimensions} from 'react-native';
 
 const HalfScorecard = ({route, navigation}) => {
   const {id} = route.params;
@@ -36,8 +37,28 @@ const HalfScorecard = ({route, navigation}) => {
     return (
       <View style={styles.flatlistView}>
         <Text style={styles.renderParentText}>Hole {item.holeNumber}</Text>
-        <Text style={styles.renderText}>Par: {item.par}</Text>
-        <Text style={styles.renderText}>Strokes: {item.strokes}</Text>
+        <View style={styles.parStrokeView}>
+          <Text style={styles.renderText}>Par: {item.par}</Text>
+          <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+              <Text style={styles.buttonTextPlus}>+</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+              <Text style={styles.buttonTextMinus}>-</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.parStrokeView}>
+          <Text style={styles.renderText}>Strokes: {item.strokes}</Text>
+          <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+              <Text style={styles.buttonTextPlus}>+</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+              <Text style={styles.buttonTextMinus}>-</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     );
   };
@@ -56,6 +77,11 @@ const HalfScorecard = ({route, navigation}) => {
           horizontal={true}
         />
       </View>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('Scorecards')}>
+        <Text style={{alignSelf: 'center'}}>Back</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -66,18 +92,43 @@ const styles = StyleSheet.create({
   box1: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#DDDDDD',
   },
   homeText: {
-    fontSize: 40,
+    fontSize: 44,
     fontWeight: '400',
     fontFamily: 'Helvetica',
     textAlign: 'center',
+    color: '#DB6F52',
+  },
+  parButton: {
+    height: 25,
+    width: 25,
+  },
+  buttonTextPlus: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    fontSize: 24,
+    fontWeight: '400',
+    color: '#13E12B',
+  },
+  buttonTextMinus: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    fontSize: 24,
+    fontWeight: '400',
+    color: '#EA5C09',
+  },
+  parStrokeView: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   flatlistContainer: {
     flex: 0,
     width: '100%',
-    marginTop: 40,
+    // marginTop: 10,
   },
   renderParentText: {
     alignSelf: 'center',
@@ -98,8 +149,8 @@ const styles = StyleSheet.create({
     width: 395,
     alignContent: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     padding: 10,
     marginTop: 20,
   },

@@ -74,7 +74,7 @@ const SignInScreen = ({navigation}) => {
       <TouchableOpacity style={styles.loginButton} onPress={signIn}>
         <Text style={styles.textButton}>Log in</Text>
       </TouchableOpacity>
-      <Button title="Back" onPress={() => navigation.navigate('Landing')} />
+      {/* <Button title="Back" onPress={() => navigation.navigate('Landing')} />@ */}
     </View>
   );
 };
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#32B1E8',
+    backgroundColor: '#52BEDB',
     marginBottom: 40,
     marginTop: 20,
   },

@@ -10,47 +10,41 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
-// import {authentication} from '../firebase/firebase-config';
-// import {createUserWithEmailAndPassword} from 'firebase/auth';
-// import {useDispatch} from 'react-redux';
-// import {setSignedIn} from '../redux/signedInSlice';
 
-const SignUpScreen = ({navigation}) => {
-  //   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
+const EditUserScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const signUp = async () => {
+  const editUser = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     try {
-      const signUpRes = await axios.post('http://localhost:3000/auth/signup', {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        userName: userName,
-      });
-      //   console.log('sign up res', signUpRes.data.access_token);
-      //   console.log('sign up res', signUpRes.data.refresh_token);
-      if (signUpRes.status === 201) {
-        const access_token = await signUpRes.data.access_token;
-        const refresh_token = await signUpRes.data.refresh_token;
-        await AsyncStorage.setItem('token', access_token);
-        await AsyncStorage.setItem('ReToken', refresh_token);
-        // await AsyncStorage.setItem('signedIn_status', 'allGood');
-        navigation.navigate('App', {screen: 'Scorecard'});
-        return signUpRes.data;
-      }
+      const editMeRes = await axios.patch(
+        'http://localhost:3000/users',
+        {
+          password: password,
+          userName: userName,
+          fistName: firstName,
+          lastName: lastName,
+        },
+        {
+          headers: headers,
+        },
+      );
+      console.log('edit user returned data is: ', editMeRes.data);
+      navigation.navigate('ProfileLanding');
     } catch (error) {
-      console.log('error signing up', error);
+      console.log(error);
     }
   };
 
   return (
     <View style={styles.box1}>
-      <Text style={styles.singUpText}>Join the IDISC Community!</Text>
+      <Text style={styles.singUpText}>Edit Profile</Text>
       <TextInput
         placeholder="Username"
         style={styles.emailInput}
@@ -73,13 +67,6 @@ const SignUpScreen = ({navigation}) => {
         clearButtonMode={'always'}
       />
       <TextInput
-        placeholder="Email"
-        style={styles.emailInput}
-        value={email}
-        onChangeText={setEmail}
-        clearButtonMode={'always'}
-      />
-      <TextInput
         placeholder="Password"
         style={styles.loginTextInput}
         value={password}
@@ -87,17 +74,18 @@ const SignUpScreen = ({navigation}) => {
         clearButtonMode={'always'}
         secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.signUpButton}>
-        <Text style={styles.textButton} onPress={signUp}>
-          Sign Up
-        </Text>
+      <TouchableOpacity style={styles.signUpButton} onPress={editUser}>
+        <Text style={styles.textButton}>Edit</Text>
       </TouchableOpacity>
-      <Button title="Back" onPress={() => navigation.navigate('Landing')} />
+      <Button
+        title="Back"
+        onPress={() => navigation.navigate('ProfileLanding')}
+      />
     </View>
   );
 };
 
-export default SignUpScreen;
+export default EditUserScreen;
 
 const styles = StyleSheet.create({
   box1: {
@@ -116,7 +104,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DB6F52',
+    backgroundColor: '#52BEDB',
     marginTop: 35,
     marginBottom: 15,
   },

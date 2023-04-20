@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#32B1E8',
+    backgroundColor: '#52BEDB',
     marginBottom: 40,
     marginTop: 20,
   },
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E58315',
+    backgroundColor: '#DB6F52',
     marginTop: 10,
   },
   homeText: {
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
   },
   textButton2: {
     fontSize: 18,
-    color: 'black',
+    color: 'white',
   },
 });

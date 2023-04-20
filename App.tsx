@@ -1,4 +1,3 @@
-// import {StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -9,9 +8,7 @@ import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScorecardStack from './components/ScorecardStack';
-import ProfileScreen from './components/ProfileScreen';
-import CourseScreen from './components/CourseScreen';
-import ThrowsScreen from './components/ThrowsScreen';
+import ProfileStack from './components/ProfileStack';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -23,7 +20,7 @@ const AuthStackScreen = () => (
       options={{
         title: 'Get Started',
         headerStyle: {
-          backgroundColor: '#E58315',
+          backgroundColor: '#DB6F52',
         },
         headerTintColor: 'black',
       }}
@@ -34,7 +31,7 @@ const AuthStackScreen = () => (
       options={{
         title: 'Login',
         headerStyle: {
-          backgroundColor: '#E58315',
+          backgroundColor: '#DB6F52',
         },
         headerTintColor: 'white',
       }}
@@ -45,7 +42,7 @@ const AuthStackScreen = () => (
       options={{
         title: 'SignUp',
         headerStyle: {
-          backgroundColor: '#E58315',
+          backgroundColor: '#DB6F52',
         },
         headerTintColor: 'black',
       }}
@@ -63,7 +60,7 @@ const AppStackScreen = () => (
       options={{
         title: 'Courses',
         headerStyle: {
-          backgroundColor: '#E58315',
+          backgroundColor: '#DB6F52',
         },
         headerTintColor: 'white',
       }}
@@ -73,7 +70,7 @@ const AppStackScreen = () => (
       component={ScorecardStack}
       options={{
         title: 'Scorecards',
-        headerStyle: {backgroundColor: '#E58315'},
+        headerStyle: {backgroundColor: '#DB6F52'},
         headerShown: false,
         headerTintColor: 'white',
       }}
@@ -83,17 +80,17 @@ const AppStackScreen = () => (
       component={ThrowsScreen}
       options={{
         title: 'Throws',
-        headerStyle: {backgroundColor: '#E58315'},
+        headerStyle: {backgroundColor: '#DB6F52'},
         headerTintColor: 'white',
       }}
     /> */}
     <Tab.Screen
       name="Profile"
-      component={ProfileScreen}
+      component={ProfileStack}
       options={{
         title: 'Profile',
         headerStyle: {
-          backgroundColor: '#E58315',
+          backgroundColor: '#DB6F52',
         },
         headerTintColor: 'white',
       }}
@@ -109,8 +106,8 @@ const App = () => {
       const token = await AsyncStorage.getItem('token');
       const decodedToken = jwtDecode(token);
       const expirationDate = new Date(decodedToken.exp * 1000);
-      console.log('expiration timeDate is: ', expirationDate);
-      console.log('current timeDate is: ', currentDate);
+      //   console.log('expiration timeDate is: ', expirationDate);
+      //   console.log('current timeDate is: ', currentDate);
       if (currentDate > expirationDate) {
         setSignedIn(false);
       } else if (expirationDate > currentDate) {

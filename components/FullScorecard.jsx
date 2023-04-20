@@ -16,6 +16,7 @@ const FullScorecard = ({route, navigation}) => {
   const {id} = route.params;
   const [scorecardData, setScorecardData] = useState({});
   const [holesData, setHolesData] = useState([]);
+  const [holeId, setHoleId] = useState();
 
   const getScorecard = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -28,7 +29,48 @@ const FullScorecard = ({route, navigation}) => {
       });
       setScorecardData(scoreC.data);
       setHolesData(scoreC.data.holes);
-      console.log(scoreC.data);
+      console.log('get scorecard is: ', scoreC.data.holes[1].id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateStrokesPlus = async id => {
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHoleP = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {strokes: strokes + 1},
+        {headers},
+      );
+      //   console.log('updatedStrokes plus called', updatedHoleP);
+      getScorecard();
+      // setData([...updatedHoleP.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateStrokesMinus = async id => {
+    console.log('id in update stroke minus is:', id);
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHoleM = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {strokes: strokes - 1},
+        {headers},
+      );
+      //   setData(updatedHoleM.data);
+      //   console.log(updatedHoleM.data);
+      getScorecard();
     } catch (error) {
       console.log(error);
     }
@@ -52,10 +94,16 @@ const FullScorecard = ({route, navigation}) => {
         <View style={styles.parStrokeView}>
           <Text style={styles.renderText}>Strokes: {item.strokes}</Text>
           <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateStrokesPlus(item.id)}>
               <Text style={styles.buttonTextPlus}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateStrokesMinus(item.id)}>
               <Text style={styles.buttonTextMinus}>-</Text>
             </TouchableOpacity>
           </View>
@@ -78,6 +126,11 @@ const FullScorecard = ({route, navigation}) => {
           horizontal={true}
         />
       </View>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('Scorecards')}>
+        <Text style={{alignSelf: 'center', marginTop: 50}}>Back</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -92,28 +145,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
   },
   homeText: {
-    fontSize: 40,
+    fontSize: 44,
     fontWeight: '400',
     fontFamily: 'Helvetica',
     textAlign: 'center',
+    color: '#DB6F52',
   },
   parButton: {
     height: 25,
     width: 25,
-    // backgroundColor: '#EA9009',
   },
   buttonTextPlus: {
     alignSelf: 'center',
     justifyContent: 'center',
     fontSize: 24,
-    fontWeight: '400',
+    fontWeight: '600',
     color: '#13E12B',
   },
   buttonTextMinus: {
     alignSelf: 'center',
     justifyContent: 'center',
     fontSize: 24,
-    fontWeight: '400',
+    fontWeight: '600',
     color: '#EA5C09',
   },
   parStrokeView: {
@@ -124,7 +177,7 @@ const styles = StyleSheet.create({
   flatlistContainer: {
     flex: 0,
     width: '100%',
-    marginTop: 40,
+    // marginTop: 40,
   },
   renderParentText: {
     alignSelf: 'center',
@@ -145,8 +198,8 @@ const styles = StyleSheet.create({
     width: 395,
     alignContent: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     padding: 10,
     marginTop: 20,
   },
