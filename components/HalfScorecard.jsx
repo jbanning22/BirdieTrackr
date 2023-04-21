@@ -32,6 +32,78 @@ const HalfScorecard = ({route, navigation}) => {
       console.log(error);
     }
   };
+  const updateStrokesPlus = async (id, strokes) => {
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHoleP = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {strokes: strokes + 1},
+        {headers},
+      );
+      getScorecard();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateStrokesMinus = async (id, strokes) => {
+    console.log('id in update stroke minus is:', id);
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHoleM = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {strokes: strokes - 1},
+        {headers},
+      );
+      getScorecard();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateParPlus = async (id, par) => {
+    console.log('par in update par plus is: ', par);
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHolePar = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {par: par + 1},
+        {headers},
+      );
+      getScorecard();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateParMinus = async (id, par) => {
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const updatedHoleParM = await axios.patch(
+        `http://localhost:3000/hole/${id}`,
+        {par: par - 1},
+        {headers},
+      );
+      getScorecard();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderItem = ({item}) => {
     return (
@@ -40,10 +112,16 @@ const HalfScorecard = ({route, navigation}) => {
         <View style={styles.parStrokeView}>
           <Text style={styles.renderText}>Par: {item.par}</Text>
           <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateParPlus(item.id, item.par)}>
               <Text style={styles.buttonTextPlus}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateParMinus(item.id, item.par)}>
               <Text style={styles.buttonTextMinus}>-</Text>
             </TouchableOpacity>
           </View>
@@ -51,10 +129,16 @@ const HalfScorecard = ({route, navigation}) => {
         <View style={styles.parStrokeView}>
           <Text style={styles.renderText}>Strokes: {item.strokes}</Text>
           <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateStrokesPlus(item.id, item.strokes)}>
               <Text style={styles.buttonTextPlus}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.parButton} activeOpacity={0.5}>
+            <TouchableOpacity
+              style={styles.parButton}
+              activeOpacity={0.5}
+              onPress={() => updateStrokesMinus(item.id, item.strokes)}>
               <Text style={styles.buttonTextMinus}>-</Text>
             </TouchableOpacity>
           </View>
@@ -66,13 +150,14 @@ const HalfScorecard = ({route, navigation}) => {
   useEffect(() => {
     getScorecard();
   }, []);
+  const sortedData = holesData.sort((a, b) => a.holeNumber - b.holeNumber);
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.homeText}>{scorecardData.courseName} Scorecard</Text>
       <View style={styles.flatlistContainer}>
         <FlatList
           renderItem={renderItem}
-          data={holesData}
+          data={sortedData}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
         />
