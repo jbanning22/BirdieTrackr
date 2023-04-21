@@ -29,15 +29,9 @@ const Scorecards = ({navigation}) => {
           headers,
         },
       );
-      if (courseLength === 9) {
-        navigation.navigate('HalfScorecard', {
-          id: scorecard.data.id,
-        });
-      } else {
-        navigation.navigate('FullScorecard', {
-          id: scorecard.data.id,
-        });
-      }
+      navigation.navigate('FullScorecard', {
+        id: scorecard.data.id,
+      });
     } catch (error) {
       console.log(error);
     }

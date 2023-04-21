@@ -63,6 +63,8 @@ const SignInScreen = ({navigation}) => {
         style={styles.loginTextInput}
         value={email}
         onChangeText={setEmail}
+        autoCorrect={false}
+        autoCapitalize={'none'}
       />
       <TextInput
         placeholder="Password"
@@ -70,6 +72,7 @@ const SignInScreen = ({navigation}) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
+        autoCorrect={false}
       />
       <TouchableOpacity style={styles.loginButton} onPress={signIn}>
         <Text style={styles.textButton}>Log in</Text>

@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = ({navigation}) => {
   const [userDetails, setUserDetails] = useState({});
+  const [scorecardData, setScorecardData] = useState([]);
 
   const signOut = async () => {
     try {
@@ -40,8 +41,28 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
+  const getScorecards = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const scoreC = await axios.get(`http://localhost:3000/scorecard`, {
+        headers,
+      });
+      if (scoreC.data === []) {
+        setScorecardData(['You have not recorded any rounds yet.']);
+      } else {
+        setScorecardData(scoreC.data);
+      }
+    } catch (error) {
+      console.log('get Scorecard error is: ', error);
+    }
+  };
+
   useEffect(() => {
     getMe();
+    getScorecards();
   }, []);
 
   return (
@@ -61,7 +82,6 @@ const ProfileScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.box21}>
-        <Text style={styles.dataFieldText}>Throws</Text>
         <Text style={styles.dataFieldText}>Rounds</Text>
         <Text style={styles.dataFieldText}>Courses</Text>
       </View>

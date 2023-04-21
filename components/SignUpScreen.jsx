@@ -57,6 +57,7 @@ const SignUpScreen = ({navigation}) => {
         value={userName}
         onChangeText={setUserName}
         clearButtonMode={'always'}
+        autoCorrect={false}
       />
       <TextInput
         placeholder="First Name"
@@ -64,6 +65,7 @@ const SignUpScreen = ({navigation}) => {
         value={firstName}
         onChangeText={setFirstName}
         clearButtonMode={'always'}
+        autoCorrect={false}
       />
       <TextInput
         placeholder="Last Name"
@@ -71,6 +73,7 @@ const SignUpScreen = ({navigation}) => {
         value={lastName}
         onChangeText={setLastName}
         clearButtonMode={'always'}
+        autoCorrect={false}
       />
       <TextInput
         placeholder="Email"
@@ -78,6 +81,8 @@ const SignUpScreen = ({navigation}) => {
         value={email}
         onChangeText={setEmail}
         clearButtonMode={'always'}
+        autoCorrect={false}
+        autoCapitalize={'none'}
       />
       <TextInput
         placeholder="Password"
@@ -86,6 +91,7 @@ const SignUpScreen = ({navigation}) => {
         onChangeText={setPassword}
         clearButtonMode={'always'}
         secureTextEntry={true}
+        autoCorrect={false}
       />
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.textButton} onPress={signUp}>

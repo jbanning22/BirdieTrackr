@@ -16,7 +16,7 @@ const FullScorecard = ({route, navigation}) => {
   const {id} = route.params;
   const [scorecardData, setScorecardData] = useState({});
   const [holesData, setHolesData] = useState([]);
-  const [holeId, setHoleId] = useState();
+  const [showEndButton, setShowEndButton] = useState(false);
 
   const getScorecard = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -29,7 +29,6 @@ const FullScorecard = ({route, navigation}) => {
       });
       setScorecardData(scoreC.data);
       setHolesData(scoreC.data.holes);
-      console.log('get scorecard is: ', scoreC.data.holes[1].id);
     } catch (error) {
       console.log(error);
     }
@@ -47,16 +46,13 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes + 1},
         {headers},
       );
-      //   console.log('updatedStrokes plus called', updatedHoleP);
       getScorecard();
-      // setData([...updatedHoleP.data]);
     } catch (error) {
       console.log(error);
     }
   };
 
   const updateStrokesMinus = async (id, strokes) => {
-    console.log('id in update stroke minus is:', id);
     const token = await AsyncStorage.getItem('token');
 
     const headers = {
@@ -68,8 +64,6 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes - 1},
         {headers},
       );
-      //   setData(updatedHoleM.data);
-      //   console.log(updatedHoleM.data);
       getScorecard();
     } catch (error) {
       console.log(error);
@@ -77,7 +71,6 @@ const FullScorecard = ({route, navigation}) => {
   };
 
   const updateParPlus = async (id, par) => {
-    console.log('par in update par plus is: ', par);
     const token = await AsyncStorage.getItem('token');
 
     const headers = {
@@ -107,6 +100,24 @@ const FullScorecard = ({route, navigation}) => {
         {headers},
       );
       getScorecard();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const finishScorecard = async () => {
+    const scorecardId = scorecardData.id;
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const finishCard = await axios.patch(
+        `http://localhost:3000/scorecard/${scorecardId}`,
+        {isCompleted: true, courseLength: scorecardData.courseLength},
+        {headers},
+      );
+      navigation.navigate('Scorecards');
     } catch (error) {
       console.log(error);
     }
@@ -157,6 +168,11 @@ const FullScorecard = ({route, navigation}) => {
   useEffect(() => {
     getScorecard();
   }, []);
+
+  const handleEndReached = () => {
+    setShowEndButton(true);
+  };
+
   const sortedData = holesData.sort((a, b) => a.holeNumber - b.holeNumber);
   return (
     <SafeAreaView style={styles.box1}>
@@ -167,8 +183,16 @@ const FullScorecard = ({route, navigation}) => {
           data={sortedData}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
+          onEndReached={handleEndReached}
         />
       </View>
+      {showEndButton && (
+        <TouchableOpacity
+          style={styles.scorecardButton}
+          onPress={finishScorecard}>
+          <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
+        </TouchableOpacity>
+      )}
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={() => navigation.navigate('Scorecards')}>
@@ -211,6 +235,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: '#EA5C09',
+  },
+  scorecardButton: {
+    width: 150,
+    height: 40,
+    borderRadius: 25,
+    backgroundColor: '#52BEDB',
+    justifyContent: 'center',
+    padding: 5,
+    // marginLeft: 150,
+    // marginTop: 20,
+  },
+  scorecardButtonText: {
+    color: 'white',
+    fontWeight: '500',
+    alignSelf: 'center',
+    fontSize: 16,
   },
   parStrokeView: {
     flexDirection: 'row',
