@@ -2,9 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
   TextInput,
   Button,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -49,7 +51,8 @@ const SignUpScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.box1}>
+    // <SafeAreaView style={styles.box1}>
+    <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.singUpText}>Join the IDISC Community!</Text>
       <TextInput
         placeholder="Username"
@@ -99,7 +102,8 @@ const SignUpScreen = ({navigation}) => {
         </Text>
       </TouchableOpacity>
       <Button title="Back" onPress={() => navigation.navigate('Landing')} />
-    </View>
+    </ScrollView>
+    // {/* </SafeAreaView> */}
   );
 };
 

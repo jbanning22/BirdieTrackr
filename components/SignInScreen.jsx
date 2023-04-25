@@ -2,9 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Button,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -56,7 +58,8 @@ const SignInScreen = ({navigation}) => {
   //   }, []);
 
   return (
-    <View style={styles.box1}>
+    // <SafeAreaView>
+    <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.homeText}>Welcome Back!</Text>
       <TextInput
         placeholder="Email"
@@ -78,7 +81,8 @@ const SignInScreen = ({navigation}) => {
         <Text style={styles.textButton}>Log in</Text>
       </TouchableOpacity>
       {/* <Button title="Back" onPress={() => navigation.navigate('Landing')} />@ */}
-    </View>
+    </ScrollView>
+    // {/* </SafeAreaView> */}
   );
 };
 

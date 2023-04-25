@@ -18,7 +18,8 @@ const ProfileScreen = ({navigation}) => {
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
-        navigation.navigate('Auth', {screen: 'Landing'});
+        await AsyncStorage.setItem('status', 'signedOut');
+        // navigation.navigate('Auth', {screen: 'Landing'});
       }
     } catch (error) {
       console.log('error signing out', error.message);
@@ -82,8 +83,8 @@ const ProfileScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.box21}>
-        <Text style={styles.dataFieldText}>Rounds</Text>
-        <Text style={styles.dataFieldText}>Courses</Text>
+        {/* <Text style={styles.dataFieldText}>Rounds</Text>
+        <Text style={styles.dataFieldText}>Courses</Text> */}
       </View>
       <TouchableOpacity
         style={styles.editButton}
