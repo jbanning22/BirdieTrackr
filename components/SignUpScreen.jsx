@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,13 +25,16 @@ const SignUpScreen = ({navigation}) => {
 
   const signUp = async () => {
     try {
-      const signUpRes = await axios.post('http://localhost:3000/auth/signup', {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        userName: userName,
-      });
+      const signUpRes = await axios.post(
+        'http://192.168.1.154:3000/auth/signup',
+        {
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          userName: userName,
+        },
+      );
       //   console.log('sign up res', signUpRes.data.access_token);
       //   console.log('sign up res', signUpRes.data.refresh_token);
       if (signUpRes.status === 201) {
@@ -51,48 +55,58 @@ const SignUpScreen = ({navigation}) => {
     // <SafeAreaView style={styles.box1}>
     <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.singUpText}>Join the IDISC Community!</Text>
-      <TextInput
-        placeholder="Username"
-        style={styles.emailInput}
-        value={userName}
-        onChangeText={setUserName}
-        clearButtonMode={'always'}
-        autoCorrect={false}
-      />
-      <TextInput
-        placeholder="First Name"
-        style={styles.emailInput}
-        value={firstName}
-        onChangeText={setFirstName}
-        clearButtonMode={'always'}
-        autoCorrect={false}
-      />
-      <TextInput
-        placeholder="Last Name"
-        style={styles.emailInput}
-        value={lastName}
-        onChangeText={setLastName}
-        clearButtonMode={'always'}
-        autoCorrect={false}
-      />
-      <TextInput
-        placeholder="Email"
-        style={styles.emailInput}
-        value={email}
-        onChangeText={setEmail}
-        clearButtonMode={'always'}
-        autoCorrect={false}
-        autoCapitalize={'none'}
-      />
-      <TextInput
-        placeholder="Password"
-        style={styles.loginTextInput}
-        value={password}
-        onChangeText={setPassword}
-        clearButtonMode={'always'}
-        secureTextEntry={true}
-        autoCorrect={false}
-      />
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Username"
+          style={styles.emailInput}
+          value={userName}
+          onChangeText={setUserName}
+          clearButtonMode={'always'}
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="First Name"
+          style={styles.emailInput}
+          value={firstName}
+          onChangeText={setFirstName}
+          clearButtonMode={'always'}
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Last Name"
+          style={styles.emailInput}
+          value={lastName}
+          onChangeText={setLastName}
+          clearButtonMode={'always'}
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Email"
+          style={styles.emailInput}
+          value={email}
+          onChangeText={setEmail}
+          clearButtonMode={'always'}
+          autoCorrect={false}
+          autoCapitalize={'none'}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Password"
+          style={styles.loginTextInput}
+          value={password}
+          onChangeText={setPassword}
+          clearButtonMode={'always'}
+          secureTextEntry={true}
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.textButton} onPress={signUp}>
           Sign Up

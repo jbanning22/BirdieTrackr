@@ -3,6 +3,8 @@ import {
   Text,
   View,
   TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
   Button,
   TouchableOpacity,
 } from 'react-native';
@@ -24,7 +26,7 @@ const EditUserScreen = ({navigation}) => {
     };
     try {
       const editMeRes = await axios.patch(
-        'http://localhost:3000/users',
+        'http://192.168.1.154:3000/users',
         {
           password: password,
           userName: userName,
@@ -45,35 +47,43 @@ const EditUserScreen = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.singUpText}>Edit Profile</Text>
-      <TextInput
-        placeholder="Username"
-        style={styles.emailInput}
-        value={userName}
-        onChangeText={setUserName}
-        clearButtonMode={'always'}
-      />
-      <TextInput
-        placeholder="First Name"
-        style={styles.emailInput}
-        value={firstName}
-        onChangeText={setFirstName}
-        clearButtonMode={'always'}
-      />
-      <TextInput
-        placeholder="Last Name"
-        style={styles.emailInput}
-        value={lastName}
-        onChangeText={setLastName}
-        clearButtonMode={'always'}
-      />
-      <TextInput
-        placeholder="Password"
-        style={styles.loginTextInput}
-        value={password}
-        onChangeText={setPassword}
-        clearButtonMode={'always'}
-        secureTextEntry={true}
-      />
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Username"
+          style={styles.emailInput}
+          value={userName}
+          onChangeText={setUserName}
+          clearButtonMode={'always'}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="First Name"
+          style={styles.emailInput}
+          value={firstName}
+          onChangeText={setFirstName}
+          clearButtonMode={'always'}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Last Name"
+          style={styles.emailInput}
+          value={lastName}
+          onChangeText={setLastName}
+          clearButtonMode={'always'}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Password"
+          style={styles.loginTextInput}
+          value={password}
+          onChangeText={setPassword}
+          clearButtonMode={'always'}
+          secureTextEntry={true}
+        />
+      </KeyboardAvoidingView>
       <TouchableOpacity style={styles.signUpButton} onPress={editUser}>
         <Text style={styles.textButton}>Edit</Text>
       </TouchableOpacity>

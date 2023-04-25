@@ -13,7 +13,7 @@ const ProfileScreen = ({navigation}) => {
   const signOut = async () => {
     try {
       const signOutRes = await axios.post(
-        'http://localhost:3000/auth/signout',
+        'http://192.168.1.154:3000/auth/signout',
         {},
       );
       console.log(signOutRes.data);
@@ -33,7 +33,7 @@ const ProfileScreen = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const getMeRes = await axios.get('http://localhost:3000/users/me', {
+      const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
       console.log(getMeRes.data);
@@ -49,7 +49,7 @@ const ProfileScreen = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const scoreC = await axios.get(`http://localhost:3000/scorecard`, {
+      const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
         headers,
       });
       if (scoreC.data === []) {

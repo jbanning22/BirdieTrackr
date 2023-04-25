@@ -27,7 +27,7 @@ const Scorecards = ({navigation}) => {
     };
     try {
       const scorecard = await axios.get(
-        `http://localhost:3000/scorecard/${id}`,
+        `http://192.168.1.154:3000/scorecard/${id}`,
         {
           headers,
         },
@@ -77,7 +77,7 @@ const Scorecards = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const scoreC = await axios.get(`http://localhost:3000/scorecard`, {
+      const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
         headers,
       });
       //   if (scoreC.data === []) {

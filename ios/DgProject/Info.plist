@@ -32,8 +32,14 @@
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
+                <key>NSAllowsArbitraryLoads</key>
+				<true/>
 			</dict>
 		</dict>
+        
+             <key>NSAllowsLocalNetworking</key>
+             <true/>
+        
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>

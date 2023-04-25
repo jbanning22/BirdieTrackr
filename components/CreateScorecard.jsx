@@ -5,6 +5,7 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
@@ -36,7 +37,7 @@ const CreateScorecard = ({navigation}) => {
     };
     try {
       const scorecard = await axios.post(
-        'http://localhost:3000/scorecard',
+        'http://192.168.1.154:3000/scorecard',
         {courseLength: courseLength, courseName: courseName},
         {headers},
       );
@@ -52,12 +53,14 @@ const CreateScorecard = ({navigation}) => {
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.questionText}>Name of the course?</Text>
-      <TextInput
-        placeholder="Course Name"
-        style={styles.loginTextInput}
-        value={courseName}
-        onChangeText={setCourseName}
-      />
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Course Name"
+          style={styles.loginTextInput}
+          value={courseName}
+          onChangeText={setCourseName}
+        />
+      </KeyboardAvoidingView>
       <Text style={styles.questionText}>How Many Holes?</Text>
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
@@ -82,7 +85,7 @@ const CreateScorecard = ({navigation}) => {
       <View style={styles.box2}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.navigate('Scorecards')}>
+          onPress={() => navigation.navigate('Scorecard')}>
           <Text style={styles.backButtonText}>Go Back</Text>
         </TouchableOpacity>
       </View>

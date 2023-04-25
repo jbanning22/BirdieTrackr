@@ -24,9 +24,12 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const scoreC = await axios.get(`http://localhost:3000/scorecard/${id}`, {
-        headers,
-      });
+      const scoreC = await axios.get(
+        `http://192.168.1.154:3000/scorecard/${id}`,
+        {
+          headers,
+        },
+      );
       setScorecardData(scoreC.data);
       setHolesData(scoreC.data.holes);
     } catch (error) {
@@ -42,7 +45,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleP = await axios.patch(
-        `http://localhost:3000/hole/${id}`,
+        `http://192.168.1.154:3000/hole/${id}`,
         {strokes: strokes + 1},
         {headers},
       );
@@ -60,7 +63,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleM = await axios.patch(
-        `http://localhost:3000/hole/${id}`,
+        `http://192.168.1.154:3000/hole/${id}`,
         {strokes: strokes - 1},
         {headers},
       );
@@ -78,7 +81,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHolePar = await axios.patch(
-        `http://localhost:3000/hole/${id}`,
+        `http://192.168.1.154:3000/hole/${id}`,
         {par: par + 1},
         {headers},
       );
@@ -95,7 +98,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleParM = await axios.patch(
-        `http://localhost:3000/hole/${id}`,
+        `http://192.168.1.154:3000/hole/${id}`,
         {par: par - 1},
         {headers},
       );
@@ -113,7 +116,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const finishCard = await axios.patch(
-        `http://localhost:3000/scorecard/${scorecardId}`,
+        `http://192.168.1.154:3000/scorecard/${scorecardId}`,
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );

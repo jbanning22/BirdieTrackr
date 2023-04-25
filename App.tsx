@@ -105,7 +105,7 @@ const App = () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
       const refresh = await axios.post(
-        'http://localhost:3000/auth/refresh',
+        'http://192.168.1.154:3000/auth/refresh',
         null,
         {
           headers: {

@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
@@ -22,10 +23,18 @@ const SignInScreen = ({navigation}) => {
 
   const signIn = async () => {
     try {
-      const signInRes = await axios.post('http://localhost:3000/auth/signin', {
-        email: email,
-        password: password,
-      });
+      const signInRes = await axios.post(
+        'http://192.168.1.154:3000/auth/signin',
+        {
+          email: email,
+          password: password,
+        },
+        // {
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // },
+      );
       if (signInRes.status === 200) {
         const access_token = await signInRes.data.access_token;
         const refresh_token = await signInRes.data.refresh_token;
@@ -64,22 +73,26 @@ const SignInScreen = ({navigation}) => {
     // <SafeAreaView>
     <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.homeText}>Welcome Back!</Text>
-      <TextInput
-        placeholder="Email"
-        style={styles.loginTextInput}
-        value={email}
-        onChangeText={setEmail}
-        autoCorrect={false}
-        autoCapitalize={'none'}
-      />
-      <TextInput
-        placeholder="Password"
-        style={styles.loginTextInput}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={true}
-        autoCorrect={false}
-      />
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Email"
+          style={styles.loginTextInput}
+          value={email}
+          onChangeText={setEmail}
+          autoCorrect={false}
+          autoCapitalize={'none'}
+        />
+      </KeyboardAvoidingView>
+      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="Password"
+          style={styles.loginTextInput}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
       <TouchableOpacity style={styles.loginButton} onPress={signIn}>
         <Text style={styles.textButton}>Log in</Text>
       </TouchableOpacity>
