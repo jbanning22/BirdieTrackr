@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScorecardStack from './components/ScorecardStack';
 import ProfileStack from './components/ProfileStack';
 import axios from 'axios';
+import {AuthContext} from './AuthContext';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -147,30 +148,35 @@ const App = () => {
   //     }
   //   };
 
+  const authContextValue = {
+    signedIn,
+    setSignedIn,
+  };
   useEffect(() => {
     refreshAccess();
   });
 
   const RootStack = createNativeStackNavigator();
   return (
-    // <ThemeContext></ThemeContext>
-    <NavigationContainer>
-      <RootStack.Navigator>
-        {signedIn === false ? (
-          <RootStack.Screen
-            name="Auth"
-            component={AuthStackScreen}
-            options={{headerShown: false}}
-          />
-        ) : (
-          <RootStack.Screen
-            name="App"
-            component={AppStackScreen}
-            options={{headerShown: false}}
-          />
-        )}
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={authContextValue}>
+      <NavigationContainer>
+        <RootStack.Navigator>
+          {signedIn === false ? (
+            <RootStack.Screen
+              name="Auth"
+              component={AuthStackScreen}
+              options={{headerShown: false}}
+            />
+          ) : (
+            <RootStack.Screen
+              name="App"
+              component={AppStackScreen}
+              options={{headerShown: false}}
+            />
+          )}
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 

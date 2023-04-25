@@ -1,10 +1,12 @@
 import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../AuthContext';
 
 const ProfileScreen = ({navigation}) => {
+  const {signedIn, setSignedIn} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState({});
   const [scorecardData, setScorecardData] = useState([]);
 
@@ -17,9 +19,8 @@ const ProfileScreen = ({navigation}) => {
       console.log(signOutRes.data);
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
-        // await AsyncStorage.removeItem('ReToken');
-        // await AsyncStorage.setItem('status', 'signedOut');
-        navigation.navigate('Auth', {screen: 'Landing'});
+        await AsyncStorage.removeItem('ReToken');
+        setSignedIn(false);
       }
     } catch (error) {
       console.log('error signing out', error.message);

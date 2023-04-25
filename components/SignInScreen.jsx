@@ -8,12 +8,15 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, CommonActions} from '@react-navigation/native';
+import {AuthContext} from '../AuthContext';
 
 const SignInScreen = ({navigation}) => {
+  const {signedIn, setSignedIn} = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,7 +32,7 @@ const SignInScreen = ({navigation}) => {
 
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
-        // await AsyncStorage.setItem('status', 'signedIn');
+        setSignedIn(true);
         navigation.navigate('App', {screen: 'Scorecard'});
         return signInRes.data;
       }

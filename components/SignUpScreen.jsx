@@ -8,17 +8,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
-// import {authentication} from '../firebase/firebase-config';
-// import {createUserWithEmailAndPassword} from 'firebase/auth';
-// import {useDispatch} from 'react-redux';
-// import {setSignedIn} from '../redux/signedInSlice';
+import {AuthContext} from '../AuthContext';
 
 const SignUpScreen = ({navigation}) => {
-  //   const dispatch = useDispatch();
+  const {signedIn, setSignedIn} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -41,7 +38,7 @@ const SignUpScreen = ({navigation}) => {
         const refresh_token = await signUpRes.data.refresh_token;
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
-        // await AsyncStorage.setItem('signedIn_status', 'allGood');
+        setSignedIn(true);
         navigation.navigate('App', {screen: 'Scorecard'});
         return signUpRes.data;
       }
