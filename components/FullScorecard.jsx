@@ -117,7 +117,7 @@ const FullScorecard = ({route, navigation}) => {
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );
-      navigation.navigate('Scorecards');
+      navigation.navigate('Scorecard');
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +195,7 @@ const FullScorecard = ({route, navigation}) => {
       )}
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => navigation.navigate('Scorecards')}>
+        onPress={() => navigation.navigate('Scorecard')}>
         <Text style={{alignSelf: 'center', marginTop: 50}}>Back</Text>
       </TouchableOpacity>
     </SafeAreaView>

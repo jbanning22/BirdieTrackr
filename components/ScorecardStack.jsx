@@ -8,10 +8,10 @@ const Stack = createNativeStackNavigator();
 const ScorecardStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Scorecards"
+      initialRouteName="Scorecard"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Scorecards" component={Scorecards} />
-      <Stack.Screen name="CreateScorecard1" component={CreateScorecard} />
+      <Stack.Screen name="Scorecard" component={Scorecards} />
+      <Stack.Screen name="CreateScorecard" component={CreateScorecard} />
       <Stack.Screen name="FullScorecard" component={FullScorecard} />
     </Stack.Navigator>
   );

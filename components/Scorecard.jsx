@@ -12,6 +12,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
+// import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
@@ -92,7 +93,7 @@ const Scorecards = ({navigation}) => {
       <Text style={styles.homeText}>Scorecards</Text>
       <TouchableOpacity
         style={styles.signUpButton}
-        onPress={() => navigation.navigate('CreateScorecard1')}>
+        onPress={() => navigation.navigate('CreateScorecard')}>
         <Text style={styles.buttonText}>Create Scorecard</Text>
       </TouchableOpacity>
       <FlatList

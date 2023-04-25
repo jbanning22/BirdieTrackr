@@ -40,15 +40,9 @@ const CreateScorecard = ({navigation}) => {
         {courseLength: courseLength, courseName: courseName},
         {headers},
       );
-      if (courseLength === 9) {
-        navigation.navigate('HalfScorecard', {
-          id: scorecard.data.id,
-        });
-      } else {
-        navigation.navigate('FullScorecard', {
-          id: scorecard.data.id,
-        });
-      }
+      navigation.navigate('FullScorecard', {
+        id: scorecard.data.id,
+      });
       return setScorecardData(scorecard.data);
     } catch (error) {
       console.log(error);

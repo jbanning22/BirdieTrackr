@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import jwtDecode from 'jwt-decode';
 import LandingScreen from './components/LandingScreen';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScorecardStack from './components/ScorecardStack';
 import ProfileStack from './components/ProfileStack';
+import axios from 'axios';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -66,7 +66,7 @@ const AppStackScreen = () => (
       }}
     /> */}
     <Tab.Screen
-      name="Scorecard"
+      name="Scorecards"
       component={ScorecardStack}
       options={{
         title: 'Scorecards',
@@ -100,62 +100,81 @@ const AppStackScreen = () => (
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
-  const decodeToken = async () => {
+  const refreshAccess = async () => {
+    console.log('refresh called');
+    const reToken = await AsyncStorage.getItem('ReToken');
+    console.log('reToken inside refreshAccess is: ', reToken);
+    // const headers = {
+    //   Authorization: `Bearer ${reToken}`,
+    // };
     try {
-      const currentDate = new Date();
-      const token = await AsyncStorage.getItem('token');
-      const decodedToken = jwtDecode(token);
-      const expirationDate = new Date(decodedToken.exp * 1000);
-      //   console.log('expiration timeDate is: ', expirationDate);
-      //   console.log('current timeDate is: ', currentDate);
-      if (currentDate > expirationDate) {
-        setSignedIn(false);
-      } else if (expirationDate > currentDate) {
+      const refresh = await axios.post(
+        'http://localhost:3000/auth/refresh',
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${reToken}`,
+          },
+        },
+      );
+      if (refresh.status === 201) {
+        const access_token = await refresh.data.access_token;
+        const refresh_token = await refresh.data.refresh_token;
+
+        await AsyncStorage.setItem('token', access_token);
+        await AsyncStorage.setItem('ReToken', refresh_token);
         setSignedIn(true);
+        return refresh.data;
       } else {
         setSignedIn(false);
       }
     } catch (error) {
-      console.log('decode token error is: ', error);
+      console.log('error signing in', error);
     }
   };
-  //   const fetchLoggedInStatus = async () => {
+
+  //   const decodeToken = async () => {
   //     try {
-  //       const status = await AsyncStorage.getItem('signedIn_status');
-  //       if (status === 'allGood') {
+  //       const currentDate = new Date();
+  //       const refresh_token = await AsyncStorage.getItem('ReToken');
+  //       const decodedToken = jwtDecode(refresh_token);
+  //       const expirationDate = new Date(decodedToken.exp * 1000);
+  //       //   const access_token = await AsyncStorage.getItem('token');
+  //       //   const access_token_decoded = jwtDecode(access_token);
+  //       //   const accessExpirationDate = new Date(access_token_decoded.exp * 1000);
+  //       if (expirationDate < currentDate) {
   //         setSignedIn(true);
-  //       } else if (status === 'noGood') {
-  //         setSignedIn(false);
-  //       } else {
-  //         setSignedIn(false);
+  //         await refreshAccess();
+  //         // navigation.navigate('App', {screen: 'Scorecards'});
   //       }
   //     } catch (error) {
-  //       console.error('Error fetching logged-in status:', error);
+  //       console.log('decode token error is: ', error);
   //     }
   //   };
-  //   useEffect(() => {
-  //     fetchLoggedInStatus();
-  //   });
+
   useEffect(() => {
-    decodeToken();
+    refreshAccess();
+    // decodeToken();
   });
 
   const RootStack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        <RootStack.Screen
-          name="Auth"
-          component={AuthStackScreen}
-          options={{headerShown: false}}
-        />
-        <RootStack.Screen
-          name="App"
-          component={AppStackScreen}
-          options={{headerShown: false}}
-        />
+        {signedIn === false ? (
+          <RootStack.Screen
+            name="Auth"
+            component={AuthStackScreen}
+            options={{headerShown: false}}
+          />
+        ) : (
+          <RootStack.Screen
+            name="App"
+            component={AppStackScreen}
+            options={{headerShown: false}}
+          />
+        )}
       </RootStack.Navigator>
-      {/* {signedIn === false ? <AuthStackScreen /> : <AppStackScreen />} */}
     </NavigationContainer>
   );
 };
