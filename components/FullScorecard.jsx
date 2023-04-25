@@ -183,7 +183,9 @@ const FullScorecard = ({route, navigation}) => {
           data={sortedData}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
+          pagingEnabled={true}
           onEndReached={handleEndReached}
+          snapToAlignment={'center'}
         />
       </View>
       {showEndButton && (
@@ -281,7 +283,7 @@ const styles = StyleSheet.create({
     width: 395,
     alignContent: 'center',
     justifyContent: 'center',
-    // borderWidth: 2,
+    // borderRightWidth: 2,
     // borderColor: 'black',
     padding: 10,
     marginTop: 20,

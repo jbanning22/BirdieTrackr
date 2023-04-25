@@ -17,9 +17,9 @@ const ProfileScreen = ({navigation}) => {
       console.log(signOutRes.data);
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
-        await AsyncStorage.removeItem('ReToken');
-        await AsyncStorage.setItem('status', 'signedOut');
-        // navigation.navigate('Auth', {screen: 'Landing'});
+        // await AsyncStorage.removeItem('ReToken');
+        // await AsyncStorage.setItem('status', 'signedOut');
+        navigation.navigate('Auth', {screen: 'Landing'});
       }
     } catch (error) {
       console.log('error signing out', error.message);

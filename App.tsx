@@ -101,35 +101,30 @@ const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
   const refreshAccess = async () => {
-    const status = await AsyncStorage.getItem('status');
-    if (status === 'signedOut') {
-      setSignedIn(false);
-    } else {
-      const reToken = await AsyncStorage.getItem('ReToken');
-      try {
-        const refresh = await axios.post(
-          'http://localhost:3000/auth/refresh',
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${reToken}`,
-            },
+    const reToken = await AsyncStorage.getItem('ReToken');
+    try {
+      const refresh = await axios.post(
+        'http://localhost:3000/auth/refresh',
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${reToken}`,
           },
-        );
-        if (refresh.status === 201) {
-          const access_token = await refresh.data.access_token;
-          const refresh_token = await refresh.data.refresh_token;
+        },
+      );
+      if (refresh.status === 201) {
+        const access_token = await refresh.data.access_token;
+        const refresh_token = await refresh.data.refresh_token;
 
-          await AsyncStorage.setItem('token', access_token);
-          await AsyncStorage.setItem('ReToken', refresh_token);
-          setSignedIn(true);
-          return refresh.data;
-        } else {
-          setSignedIn(false);
-        }
-      } catch (error) {
-        console.log('error signing in', error);
+        await AsyncStorage.setItem('token', access_token);
+        await AsyncStorage.setItem('ReToken', refresh_token);
+        setSignedIn(true);
+        return refresh.data;
+      } else {
+        setSignedIn(false);
       }
+    } catch (error) {
+      console.log('error signing in', error);
     }
   };
 
@@ -154,11 +149,11 @@ const App = () => {
 
   useEffect(() => {
     refreshAccess();
-    // decodeToken();
   });
 
   const RootStack = createNativeStackNavigator();
   return (
+    // <ThemeContext></ThemeContext>
     <NavigationContainer>
       <RootStack.Navigator>
         {signedIn === false ? (
@@ -180,5 +175,4 @@ const App = () => {
 };
 
 export default App;
-
 // const styles = StyleSheet.create({});

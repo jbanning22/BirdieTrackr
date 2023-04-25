@@ -43,7 +43,7 @@ const EditUserScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.box1}>
+    <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.singUpText}>Edit Profile</Text>
       <TextInput
         placeholder="Username"
@@ -81,7 +81,7 @@ const EditUserScreen = ({navigation}) => {
         title="Back"
         onPress={() => navigation.navigate('ProfileLanding')}
       />
-    </View>
+    </ScrollView>
   );
 };
 
