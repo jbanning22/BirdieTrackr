@@ -12,7 +12,9 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
+import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 
 const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
@@ -40,14 +42,22 @@ const Scorecards = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
+    const icon = item.isCompleted ? (
+      <FontAwesomeIcon icon={faCheck} color={'green'} size={18} />
+    ) : (
+      <FontAwesomeIcon icon={faExclamation} color={'red'} size={18} />
+    );
     return (
-      <View style={styles.flatlistStyle}>
-        <TouchableOpacity
-          onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
-          <Text style={styles.renderCourseName}>{item.courseName}</Text>
-          <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
-          <Text style={styles.renderText}>{date}</Text>
-        </TouchableOpacity>
+      <View style={styles.flatListParent}>
+        <View style={styles.flatlistStyle}>
+          <TouchableOpacity
+            onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
+            <Text style={styles.renderCourseName}>{item.courseName}</Text>
+            <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
+            <Text style={styles.renderText}>{date}</Text>
+          </TouchableOpacity>
+        </View>
+        {icon}
       </View>
     );
   };
@@ -73,6 +83,7 @@ const Scorecards = ({navigation}) => {
       //   if (scoreC.data === []) {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
+      console.log(scoreC.data);
       setScorecardData(scoreC.data);
       //   }
     } catch (error) {
@@ -116,6 +127,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#DB6F52',
   },
+  flatListParent: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
   homeText: {
     fontSize: 40,
     fontWeight: '400',
@@ -139,10 +158,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   flatlistStyle: {
-    width: 300,
-    borderRadius: 10,
-    marginBottom: 10,
-    backgroundColor: 'white',
+    width: 250,
+    marginLeft: 15,
   },
   renderItemStyle: {
     flexDirection: 'column',
