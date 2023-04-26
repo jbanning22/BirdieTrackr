@@ -1,14 +1,27 @@
-import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import ImagePicker from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState({});
   const [scorecardData, setScorecardData] = useState([]);
+  const [imageBool, setImageBool] = useState(false);
+  const [imageData, setImageData] = useState([]);
 
   const signOut = async () => {
     try {
@@ -16,7 +29,7 @@ const ProfileScreen = ({navigation}) => {
         'http://192.168.1.154:3000/auth/signout',
         {},
       );
-      console.log(signOutRes.data);
+      //   console.log(signOutRes.data);
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
@@ -36,7 +49,7 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      console.log(getMeRes.data);
+      //   console.log(getMeRes.data);
       setUserDetails(getMeRes.data);
     } catch (error) {
       console.log(error);
@@ -62,6 +75,20 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
+  const handleChoosePhoto = async () => {
+    const options = {
+      noData: true,
+    };
+
+    await launchImageLibrary(options, response => {
+      if (response.assets) {
+        console.log('launchImageLibrary response: ', response.assets);
+        setImageData(response.assets);
+        setImageBool(true);
+      }
+    });
+  };
+
   useEffect(() => {
     getMe();
     getScorecards();
@@ -70,10 +97,23 @@ const ProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView>
       <View style={styles.box1}>
-        {/* <Text style={styles.homeText}>Profile</Text> */}
+        <Text style={styles.homeText}>Profile</Text>
         <View style={styles.box3}>
-          <TouchableOpacity style={styles.signUpButton}>
-            <Text style={styles.buttonText}>picture</Text>
+          <TouchableOpacity
+            style={styles.signUpButton}
+            onPress={handleChoosePhoto}>
+            {imageBool ? (
+              <Image
+                source={{uri: imageData[0].uri}}
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 50,
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faUser} color={'grey'} size={34} />
+            )}
           </TouchableOpacity>
           <View style={styles.box2}>
             <Text style={styles.dataFieldText}>{userDetails.userName}</Text>
@@ -128,7 +168,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: 'grey',
+    borderWidth: 0.25,
+    // backgroundColor: 'grey',
     marginRight: 30,
     alignItems: 'center',
     justifyContent: 'center',
@@ -144,6 +185,14 @@ const styles = StyleSheet.create({
     marginLeft: 150,
     marginTop: 20,
   },
+  //   image: {
+  //
+  //     // borderRadius: 25,
+  //     marginTop: 20,
+  //     padding: 5,
+  //     marginLeft: 150,
+  //     resizeMode: 'contain',
+  //   },
   editButton: {
     width: 80,
     height: 30,

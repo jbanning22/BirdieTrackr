@@ -83,7 +83,7 @@ const Scorecards = ({navigation}) => {
       //   if (scoreC.data === []) {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
-      console.log(scoreC.data);
+      //   console.log(scoreC.data);
       setScorecardData(scoreC.data);
       //   }
     } catch (error) {

@@ -93,6 +93,7 @@ const AppStackScreen = () => (
         headerStyle: {
           backgroundColor: '#DB6F52',
         },
+        headerShown: false,
         headerTintColor: 'white',
       }}
     />
