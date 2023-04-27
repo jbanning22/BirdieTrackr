@@ -10,6 +10,7 @@ import ScorecardStack from './components/ScorecardStack';
 import ProfileStack from './components/ProfileStack';
 import axios from 'axios';
 import {AuthContext} from './AuthContext';
+import ThrowsScreen from './components/ThrowsScreen';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -76,7 +77,7 @@ const AppStackScreen = () => (
         headerTintColor: 'white',
       }}
     />
-    {/* <Tab.Screen
+    <Tab.Screen
       name="Throws"
       component={ThrowsScreen}
       options={{
@@ -84,7 +85,7 @@ const AppStackScreen = () => (
         headerStyle: {backgroundColor: '#DB6F52'},
         headerTintColor: 'white',
       }}
-    /> */}
+    />
     <Tab.Screen
       name="Profile"
       component={ProfileStack}
