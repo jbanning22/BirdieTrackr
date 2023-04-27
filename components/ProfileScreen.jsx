@@ -13,8 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
-import ImagePicker from 'react-native-image-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
+// import {Platform} from 'react-native';
+// import {PERMISSIONS, request} from 'react-native-permissions';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
@@ -49,7 +50,6 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      //   console.log(getMeRes.data);
       setUserDetails(getMeRes.data);
     } catch (error) {
       console.log(error);
@@ -75,36 +75,79 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
+  const getProfilePic = async key => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        setImageData(value);
+        setImageBool(true);
+        return value;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleChoosePhoto = async () => {
     const options = {
       noData: true,
     };
+    const permission = checkCameraRollPermission();
+    if (permission === 'denied') {
+      requestCameraRollPermission();
+    } else {
+      await launchImageLibrary(options, async response => {
+        if (response.assets) {
+          setImageData(response.assets[0].uri);
+          setImageBool(true);
+          await AsyncStorage.setItem(
+            'profileImageData',
+            response.assets[0].uri,
+          );
+        }
+      });
+    }
+  };
 
-    await launchImageLibrary(options, response => {
-      if (response.assets) {
-        console.log('launchImageLibrary response: ', response.assets);
-        setImageData(response.assets);
-        setImageBool(true);
-      }
-    });
+  const requestCameraRollPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const results = await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
+      console.log('request camera roll permisson result: ', results);
+      return results;
+    } else {
+      const result = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+      return result;
+    }
+  };
+
+  const checkCameraRollPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const result = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
+      console.log('check camera roll permisson result: ', result);
+      return result;
+    } else {
+      const result = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+      return result;
+    }
   };
 
   useEffect(() => {
     getMe();
     getScorecards();
+    getProfilePic('profileImageData');
   }, []);
 
   return (
     <SafeAreaView>
       <View style={styles.box1}>
-        <Text style={styles.homeText}>Profile</Text>
+        <Text style={styles.homeText}>{userDetails.userName}</Text>
         <View style={styles.box3}>
           <TouchableOpacity
             style={styles.signUpButton}
             onPress={handleChoosePhoto}>
             {imageBool ? (
               <Image
-                source={{uri: imageData[0].uri}}
+                source={{uri: imageData}}
                 style={{
                   height: 100,
                   width: 100,
@@ -112,11 +155,11 @@ const ProfileScreen = ({navigation}) => {
                 }}
               />
             ) : (
-              <FontAwesomeIcon icon={faUser} color={'grey'} size={34} />
+              <FontAwesomeIcon icon={faUser} color={'black'} size={34} />
             )}
           </TouchableOpacity>
           <View style={styles.box2}>
-            <Text style={styles.dataFieldText}>{userDetails.userName}</Text>
+            {/* <Text style={styles.dataFieldText}>{userDetails.userName}</Text> */}
             <Text style={styles.dataFieldText}>
               {userDetails.firstName} {userDetails.lastName}
             </Text>
@@ -124,8 +167,8 @@ const ProfileScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.box21}>
-        {/* <Text style={styles.dataFieldText}>Rounds</Text>
-        <Text style={styles.dataFieldText}>Courses</Text> */}
+        {/* <Text style={styles.dataFieldText}>{scorecardData[0].courseName}</Text> */}
+        {/* <Text style={styles.dataFieldText}>Courses</Text> */}
       </View>
       <TouchableOpacity
         style={styles.editButton}
@@ -185,14 +228,6 @@ const styles = StyleSheet.create({
     marginLeft: 150,
     marginTop: 20,
   },
-  //   image: {
-  //
-  //     // borderRadius: 25,
-  //     marginTop: 20,
-  //     padding: 5,
-  //     marginLeft: 150,
-  //     resizeMode: 'contain',
-  //   },
   editButton: {
     width: 80,
     height: 30,
@@ -217,7 +252,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   homeText: {
-    fontSize: 40,
+    fontSize: 36,
     fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 80,
