@@ -83,6 +83,7 @@ const AppStackScreen = () => (
       options={{
         title: 'Throws',
         headerStyle: {backgroundColor: '#DB6F52'},
+        headerShown: false,
         headerTintColor: 'white',
       }}
     />
