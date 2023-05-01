@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Dimensions, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker} from 'react-native-maps';
@@ -213,5 +220,17 @@ const styles = StyleSheet.create({
   titleView: {
     flex: 2,
     justifyContent: 'flex-start',
+  },
+  backButton: {
+    width: 20,
+    height: 10,
+    padding: 5,
+  },
+  buttonText: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 22,
   },
 });
