@@ -89,6 +89,7 @@ const SignInScreen = ({navigation}) => {
           style={styles.loginTextInput}
           value={password}
           onChangeText={setPassword}
+          autoCapitalize={'none'}
           secureTextEntry={true}
           autoCorrect={false}
         />

@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     height: 25,
     width: 50,
     borderRadius: 5,
-    backgroundColor: '#E24D4D',
+    backgroundColor: '#EBDD37',
     justifyContent: 'center',
     alignSelf: 'center',
     paddingLeft: 7,
   },
   resetText: {
     fontSize: 14,
-    color: 'white',
+    color: 'black',
   },
 });

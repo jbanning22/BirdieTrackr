@@ -1,146 +1,68 @@
-import {StyleSheet, Text, View, Dimensions, SafeAreaView} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import Geolocation from 'react-native-geolocation-service';
-import MapView, {Marker} from 'react-native-maps';
-import StartThrow from './StartThrow';
-import EndThrow from './EndThrow';
-import ResetButton from './ResetButton';
-import {Platform} from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const ThrowsScreen = ({navigation}) => {
-  const [startingLocation, setStartLocation] = useState(null);
-  const [endingLocation, setEndLocation] = useState(null);
-  const [endingDist, setEndingDist] = useState(null);
-  const [presentLocation, setPresentLocation] = useState(null);
+  const [throwData, setThrowData] = useState('');
 
-  useEffect(() => {
-    // console.log('height is: ', windowHeight, 'width is: ', windowWidth);
-    if (presentLocation === null) {
-      getPresentLocation();
+  const getThrows = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const measuredThrows = await axios.get(
+        'http://localhost:3000/measure-throws',
+        {headers},
+      );
+      console.log('measured Throws console.log is: ', measuredThrows.data);
+      setThrowData(measuredThrows.data);
+    } catch (error) {
+      console.log(error);
     }
-  }, [presentLocation]);
-
-  const getPresentLocation = () => {
-    return Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        console.log(
-          'getCurrentPosition latitude is: ',
-          latitude,
-          'longitude is: ',
-          longitude,
-        );
-        setPresentLocation({latitude, longitude});
-      },
-      error => {
-        console.log(
-          'error.code: ',
-          error.code,
-          'error.message: ',
-          error.message,
-        );
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
   };
 
-  function distance(lat2, lon2) {
-    setEndLocation({lat2, lon2});
-    console.log('startingLocation in distance method is', startingLocation);
-    console.log('endingLocation in distance method is', endingLocation);
-    const lat1 = startingLocation.latitude;
-    const lon1 = startingLocation.longitude;
-    if (lat1 === lat2 && lon1 === lon2) {
-      setEndingDist(0);
-    } else {
-      let radlat1 = (Math.PI * lat1) / 180;
-      let radlat2 = (Math.PI * lat2) / 180;
-      let theta = lon1 - lon2;
-      let radtheta = (Math.PI * theta) / 180;
-      let dist =
-        Math.sin(radlat1) * Math.sin(radlat2) +
-        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = (dist * 180) / Math.PI;
-      dist = dist * 60 * 1.1515;
-      dist = Math.round(dist * 5280);
-      setEndingDist(dist);
-    }
-  }
-
+  const renderItem = ({item}) => {
+    const date = moment(item.createdAt).format('MMMM Do, YYYY');
+    return (
+      <View style={styles.flatListParent}>
+        <View style={styles.flatlistStyle}>
+          <TouchableOpacity
+          // onPress={() => handleScorecardPressed(item.id, item.courseLength)}
+          >
+            <Text style={styles.renderCourseName}>{item.distance} ft</Text>
+            <Text style={styles.renderHoleText}>{item.disc}</Text>
+            <Text style={styles.renderText}>{date}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
   useEffect(() => {
-    if (Platform.OS === 'ios') {
-      Geolocation.requestAuthorization('always');
-    }
-  }, []);
-
-  function reset() {
-    setStartLocation(null);
-    setEndLocation(null);
-    setEndingDist(null);
-  }
+    getThrows();
+  });
   return (
     <SafeAreaView style={styles.box1}>
-      <View>
-        <Text style={styles.titleStyle}>Disc Distance</Text>
-        {endingDist !== null ? (
-          <Text style={styles.distanceText}>{`${endingDist}ft`}</Text>
-        ) : (
-          <Text style={styles.distanceText2}>Measure Your Throw!</Text>
-        )}
-      </View>
-
-      {presentLocation !== null && (
-        <MapView
-          mapType="satellite"
-          showsUserLocation={true}
-          style={styles.mapSizing}
-          initialRegion={{
-            latitude: presentLocation.latitude,
-            longitude: presentLocation.longitude,
-            latitudeDelta: 0.002,
-            longitudeDelta: 0.002,
-          }}>
-          {startingLocation !== null && (
-            <Marker
-              coordinate={{
-                latitude: startingLocation.latitude,
-                longitude: startingLocation.longitude,
-              }}
-            />
-          )}
-          {endingLocation !== null && (
-            <Marker
-              coordinate={{
-                latitude: endingLocation.latitude,
-                longitude: endingLocation.longitude,
-              }}
-            />
-          )}
-        </MapView>
-      )}
-
-      <View style={styles.buttonContainer}>
-        <StartThrow setStart={setStartLocation} />
-        <ResetButton resetValues={reset} />
-        <EndThrow
-          calcDistance={distance}
-          setEnd={setEndLocation}
-          startingLocation={startingLocation}
-        />
-      </View>
-
-      <View style={styles.lastView}>
-        <Text style={styles.textStyle1}>
-          All distances are accurate within 20ft.
-        </Text>
-      </View>
+      <Text style={styles.titleText}>Throws</Text>
+      <FlatList
+        renderItem={renderItem}
+        data={throwData}
+        showsVerticalScrollIndicator={false}
+      />
+      <TouchableOpacity
+        style={styles.measureThrowButton}
+        onPress={() => navigation.navigate('ThrowsScreen2')}>
+        <Text style={styles.buttonText}>Meaasure a Throw</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -153,58 +75,63 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#DB6F52',
   },
-  buttonContainer: {
+  titleText: {
+    fontSize: 36,
+    alignSelf: 'center',
+    fontWeight: '500',
+    color: 'white',
+    marginBottom: 20,
+  },
+  flatListParent: {
     flexDirection: 'row',
+    backgroundColor: '#52BEDB',
     justifyContent: 'center',
-    //alignSelf: 'center',
+    alignContent: 'center',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  measureThrowButton: {
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#52BEDB',
+    marginTop: 10,
+    borderRadius: 8,
+    marginBottom: 20,
   },
-  distanceText: {
-    fontSize: 24,
-    alignSelf: 'center',
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
     fontWeight: '500',
-    color: 'blue',
-    marginTop: 12,
   },
-  buttonStyle: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 20,
+  flatlistStyle: {
+    width: 250,
+    marginLeft: 15,
   },
-  distanceText2: {
-    fontSize: 24,
+  renderItemStyle: {
+    flexDirection: 'column',
+    margin: 10,
+  },
+  renderCourseName: {
     alignSelf: 'center',
-    fontWeight: '500',
-    color: 'blue',
-    marginTop: 12,
-  },
-  textStyle1: {
-    fontSize: 10,
+    fontSize: 26,
+    fontWeight: '600',
     color: 'white',
   },
-  lastView: {
-    justifyContent: 'flex-end',
-    marginTop: 15,
-  },
-  mapSizing: {
-    margin: 15,
-    height: '80%',
-    width: '95%',
-  },
-  mapStyle: {
-    flex: 2,
-    justifyContent: 'center',
-  },
-  titleStyle: {
-    fontSize: 30,
-    color: 'black',
-    fontFamily: 'Helvetica',
+  renderHoleText: {
     alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: '500',
+    color: 'white',
   },
-  titleView: {
-    flex: 2,
-    justifyContent: 'flex-start',
+  renderText: {
+    alignSelf: 'center',
+    fontSize: 14,
+    fontWeight: '400',
+    marginBottom: 5,
+    color: 'white',
   },
 });
