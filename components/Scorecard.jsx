@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import {Alert} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
@@ -15,6 +16,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
+import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 
 const Scorecards = ({navigation}) => {
   const [token, setToken] = useState(null);
@@ -49,6 +51,7 @@ const Scorecards = ({navigation}) => {
     );
     return (
       <View style={styles.flatListParent}>
+        {icon}
         <View style={styles.flatlistStyle}>
           <TouchableOpacity
             onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
@@ -57,11 +60,41 @@ const Scorecards = ({navigation}) => {
             <Text style={styles.renderText}>{date}</Text>
           </TouchableOpacity>
         </View>
-        {icon}
+        <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
+          <FontAwesomeIcon icon={faTrashCan} color={'black'} size={12} />
+        </TouchableOpacity>
       </View>
     );
   };
 
+  const deleteScorecard = async id => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    Alert.alert(
+      'Delete Throw',
+      'Are you sure you want to delete this throw?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Delete',
+          onPress: async () => {
+            try {
+              const deleteScorecard = await axios.delete(
+                `http://localhost:3000/scorecard/${id}`,
+                {headers},
+              );
+              getScorecards();
+            } catch (error) {
+              console.log(error);
+            }
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   const fetchLoggedInStatus = async () => {
     try {
       const Atoken = await AsyncStorage.getItem('token');

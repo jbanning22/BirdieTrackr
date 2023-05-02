@@ -91,11 +91,15 @@ const ThrowsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.titleText}>Throws</Text>
+      {/* {throwData === [] ? (
+        <Text>You have not recorded any throws yet.</Text>
+      ) : ( */}
       <FlatList
         renderItem={renderItem}
         data={throwData}
         showsVerticalScrollIndicator={false}
       />
+      {/* )} */}
       <TouchableOpacity
         style={styles.measureThrowButton}
         onPress={() => navigation.navigate('ThrowsScreen2')}>
