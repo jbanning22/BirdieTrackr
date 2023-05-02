@@ -87,7 +87,7 @@ const ThrowsScreen = ({navigation}) => {
   };
   useEffect(() => {
     getThrows();
-  }, []);
+  }, [throwData]);
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.titleText}>Throws</Text>

@@ -45,9 +45,9 @@ const Scorecards = ({navigation}) => {
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
     const icon = item.isCompleted ? (
-      <FontAwesomeIcon icon={faCheck} color={'green'} size={18} />
+      <FontAwesomeIcon icon={faCheck} color={'green'} size={12} />
     ) : (
-      <FontAwesomeIcon icon={faExclamation} color={'red'} size={18} />
+      <FontAwesomeIcon icon={faExclamation} color={'red'} size={12} />
     );
     return (
       <View style={styles.flatListParent}>
@@ -61,7 +61,7 @@ const Scorecards = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
-          <FontAwesomeIcon icon={faTrashCan} color={'black'} size={12} />
+          <FontAwesomeIcon icon={faTrashCan} color={'black'} size={10} />
         </TouchableOpacity>
       </View>
     );
@@ -129,7 +129,7 @@ const Scorecards = ({navigation}) => {
   }, []);
   useEffect(() => {
     getScorecards();
-  }, []);
+  }, [scorecardData]);
 
   return (
     // <ScrollView>
@@ -193,10 +193,12 @@ const styles = StyleSheet.create({
   flatlistStyle: {
     width: 250,
     marginLeft: 15,
+    alignContent: 'center',
+    alignSelf: 'center',
   },
   renderItemStyle: {
     flexDirection: 'column',
-    margin: 10,
+    // margin: 10,
   },
   renderCourseName: {
     alignSelf: 'center',

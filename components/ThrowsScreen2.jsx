@@ -5,6 +5,7 @@ import {
   Dimensions,
   SafeAreaView,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import Geolocation from 'react-native-geolocation-service';
@@ -151,6 +152,11 @@ const ThrowsScreen2 = ({navigation}) => {
       </View>
 
       <View style={styles.lastView}>
+        <TouchableOpacity
+          style={{alignSelf: 'center'}}
+          onPress={() => navigation.navigate('ThrowScreen')}>
+          <Text>Back</Text>
+        </TouchableOpacity>
         <Text style={styles.textStyle1}>
           All distances are accurate within 20ft.
         </Text>
@@ -180,7 +186,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '500',
     color: 'white',
-    marginTop: 12,
+    marginTop: 5,
   },
   buttonStyle: {
     borderColor: 'black',
@@ -203,8 +209,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   mapSizing: {
-    margin: 15,
-    height: '80%',
+    margin: 10,
+    height: '75%',
     width: '95%',
   },
   mapStyle: {
