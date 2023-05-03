@@ -93,10 +93,7 @@ const CreateThrowScreen = ({navigation, route}) => {
       <TouchableOpacity style={styles.signUpButton} onPress={createThrow}>
         <Text style={styles.textButton}>Create Throw</Text>
       </TouchableOpacity>
-      <Button
-        title="Back"
-        onPress={() => navigation.navigate('ThrowsScreen')}
-      />
+      <Button title="Back" onPress={() => navigation.navigate('ThrowScreen')} />
     </ScrollView>
   );
 };

@@ -77,7 +77,7 @@ const ThrowsScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => deleteThrow(item.id)}>
           <FontAwesomeIcon
             icon={faTrashCan}
-            color={'black'}
+            color={'white'}
             size={12}
             style={{margin: 4}}
           />
@@ -88,18 +88,19 @@ const ThrowsScreen = ({navigation}) => {
   useEffect(() => {
     getThrows();
   }, [throwData]);
+  //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.titleText}>Throws</Text>
-      {/* {throwData === [] ? (
+      {throwData.length === 0 ? (
         <Text>You have not recorded any throws yet.</Text>
-      ) : ( */}
-      <FlatList
-        renderItem={renderItem}
-        data={throwData}
-        showsVerticalScrollIndicator={false}
-      />
-      {/* )} */}
+      ) : (
+        <FlatList
+          renderItem={renderItem}
+          data={throwData}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
       <TouchableOpacity
         style={styles.measureThrowButton}
         onPress={() => navigation.navigate('ThrowsScreen2')}>

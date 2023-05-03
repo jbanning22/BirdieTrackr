@@ -45,9 +45,19 @@ const Scorecards = ({navigation}) => {
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
     const icon = item.isCompleted ? (
-      <FontAwesomeIcon icon={faCheck} color={'green'} size={12} />
+      <FontAwesomeIcon
+        icon={faCheck}
+        color={'green'}
+        size={12}
+        style={{marginLeft: 5, marginTop: 4}}
+      />
     ) : (
-      <FontAwesomeIcon icon={faExclamation} color={'red'} size={12} />
+      <FontAwesomeIcon
+        icon={faExclamation}
+        color={'red'}
+        size={12}
+        style={{marginLeft: 5, marginTop: 4}}
+      />
     );
     return (
       <View style={styles.flatListParent}>
@@ -61,7 +71,12 @@ const Scorecards = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
-          <FontAwesomeIcon icon={faTrashCan} color={'black'} size={10} />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            color={'black'}
+            size={10}
+            style={{marginRight: 5, marginTop: 4}}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -135,17 +150,17 @@ const Scorecards = ({navigation}) => {
     // <ScrollView>
     <SafeAreaView style={styles.box1}>
       <Text style={styles.homeText}>Scorecards</Text>
-      <TouchableOpacity
-        style={styles.signUpButton}
-        onPress={() => navigation.navigate('CreateScorecard')}>
-        <Text style={styles.buttonText}>Create Scorecard</Text>
-      </TouchableOpacity>
       <FlatList
         renderItem={renderItem}
         data={scorecardData}
         showsVerticalScrollIndicator={false}
         //   contentContainerStyle={styles.flatlistStyle}
       />
+      <TouchableOpacity
+        style={styles.signUpButton}
+        onPress={() => navigation.navigate('CreateScorecard')}>
+        <Text style={styles.buttonText}>Create Scorecard</Text>
+      </TouchableOpacity>
     </SafeAreaView>
     // </ScrollView>
   );
@@ -172,7 +187,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '400',
     fontFamily: 'Helvetica',
-    marginBottom: 5,
+    marginBottom: 15,
     color: 'white',
   },
   signUpButton: {
