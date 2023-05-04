@@ -34,7 +34,7 @@ const CreateThrowScreen = ({navigation, route}) => {
   } else if (dist >= 300 && dist < 400) {
     message = 'Amazing Throw!';
   } else if (dist >= 400) {
-    message = 'That was launched! Is your arm ok??';
+    message = 'That was launched! Is your arm ok?';
   }
   const createThrow = async () => {
     const token = await AsyncStorage.getItem('token');

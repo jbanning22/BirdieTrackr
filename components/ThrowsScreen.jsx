@@ -27,7 +27,7 @@ const ThrowsScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      console.log('measured Throws console.log is: ', measuredThrows.data);
+      //   console.log('measured Throws console.log is: ', measuredThrows.data);
       setThrowData(measuredThrows.data);
     } catch (error) {
       console.log(error);
@@ -85,9 +85,12 @@ const ThrowsScreen = ({navigation}) => {
       </View>
     );
   };
+  //   useEffect(() => {
+  //     getThrows();
+  //   }, [throwData]);
   useEffect(() => {
     getThrows();
-  }, [throwData]);
+  }, []);
   //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>

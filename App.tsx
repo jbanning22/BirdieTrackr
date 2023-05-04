@@ -10,8 +10,11 @@ import ScorecardStack from './components/ScorecardStack';
 import ProfileStack from './components/ProfileStack';
 import axios from 'axios';
 import {AuthContext} from './AuthContext';
-// import CourseScreen from './components/CourseScreen';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import ThrowsStack from './components/ThrowsStack';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
+import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -73,6 +76,15 @@ const AppStackScreen = () => (
       component={ScorecardStack}
       options={{
         title: 'Scorecards',
+        tabBarLabelStyle: {color: '#DB6F52'},
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({focused}) => (
+          <FontAwesomeIcon
+            icon={faRectangleList}
+            color={focused ? '#DB6F52' : 'black'}
+            size={20}
+          />
+        ),
         headerStyle: {backgroundColor: '#DB6F52'},
         headerShown: false,
         headerTintColor: 'white',
@@ -83,7 +95,15 @@ const AppStackScreen = () => (
       component={ThrowsStack}
       options={{
         title: 'Throws',
-        headerStyle: {backgroundColor: '#DB6F52'},
+        tabBarLabelStyle: {color: '#DB6F52'},
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({focused}) => (
+          <FontAwesomeIcon
+            icon={faRuler}
+            color={focused ? '#DB6F52' : 'black'}
+            size={20}
+          />
+        ),
         headerShown: false,
         headerTintColor: 'white',
       }}
@@ -93,6 +113,15 @@ const AppStackScreen = () => (
       component={ProfileStack}
       options={{
         title: 'Profile',
+        tabBarLabelStyle: {color: '#DB6F52'},
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({focused}) => (
+          <FontAwesomeIcon
+            icon={faUser}
+            color={focused ? '#DB6F52' : 'black'}
+            size={20}
+          />
+        ),
         headerStyle: {
           backgroundColor: '#DB6F52',
         },

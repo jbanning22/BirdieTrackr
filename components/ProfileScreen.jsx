@@ -11,21 +11,20 @@ import {
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
-import moment from 'moment';
+// import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {FlatList} from 'react-native';
-// import {Platform} from 'react-native';
-// import {PERMISSIONS, request} from 'react-native-permissions';
+import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
+import {Alert} from 'react-native';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState({});
-  const [scorecardData, setScorecardData] = useState([]);
-  const [throwData, setThrowData] = useState([]);
+  //   const [scorecardData, setScorecardData] = useState([]);
+  //   const [throwData, setThrowData] = useState([]);
   const [imageBool, setImageBool] = useState(false);
   const [imageData, setImageData] = useState([]);
 
@@ -60,6 +59,38 @@ const ProfileScreen = ({navigation}) => {
       console.log(error);
     }
   };
+  const deleteUser = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const id = userDetails.id;
+    console.log(`deleted users's id is`, id);
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete this account? You will not be able to accesss this account in the future.',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Delete',
+          onPress: async () => {
+            try {
+              const getMeRes = await axios.delete(
+                `http://192.168.1.154:3000/users/${id}`,
+                {
+                  headers,
+                },
+              );
+              setSignedIn(false);
+            } catch (error) {
+              console.log(error);
+            }
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
 
   const getScorecards = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -90,7 +121,7 @@ const ProfileScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      console.log('measured Throws console.log is: ', measuredThrows.data);
+      //   console.log('measured Throws console.log is: ', measuredThrows.data);
       setThrowData(measuredThrows.data);
     } catch (error) {
       console.log(error);
@@ -133,7 +164,7 @@ const ProfileScreen = ({navigation}) => {
   const requestCameraRollPermission = async () => {
     if (Platform.OS === 'ios') {
       const results = await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
-      console.log('request camera roll permisson result: ', results);
+      //   console.log('request camera roll permisson result: ', results);
       return results;
     } else {
       const result = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
@@ -144,7 +175,7 @@ const ProfileScreen = ({navigation}) => {
   const checkCameraRollPermission = async () => {
     if (Platform.OS === 'ios') {
       const result = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
-      console.log('check camera roll permisson result: ', result);
+      //   console.log('check camera roll permisson result: ', result);
       return result;
     } else {
       const result = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
@@ -163,8 +194,23 @@ const ProfileScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.box1}>
-      <View style={{marginBottom: 20}}>
-        <Text style={styles.homeText}>{userDetails.userName}</Text>
+      <View
+        style={{
+          marginBottom: 20,
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+        }}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.homeText}>{userDetails.userName}</Text>
+          <TouchableOpacity onPress={deleteUser}>
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              color={'red'}
+              size={14}
+              style={{alignSelf: 'flex-end'}}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.box3}>
           <TouchableOpacity
             style={styles.signUpButton}
@@ -189,8 +235,8 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={{flexDirection: 'row', alignContent: 'center'}}>
-        <View
+      {/* <View style={{flexDirection: 'row', alignContent: 'center'}}> */}
+      {/* <View
           style={{
             borderRightWidth: 1,
             borderColor: 'black',
@@ -201,15 +247,25 @@ const ProfileScreen = ({navigation}) => {
           <Text style={{alignSelf: 'center', fontSize: 16}}>
             {scorecardData.length}
           </Text>
-        </View>
-        <View style={{borderRightWidth: 1, borderColor: 'black', padding: 5}}>
+        </View> */}
+      {/* <View style={{borderRightWidth: 1, borderColor: 'black', padding: 5}}>
           <Text style={styles.roundsText}>Throws</Text>
           <Text style={{alignSelf: 'center', fontSize: 16}}>
             {throwData.length}
           </Text>
-        </View>
+        </View> */}
+      {/* </View> */}
+      <View style={{alignSelf: 'center'}}>
+        <Text style={{padding: 2, fontSize: 18, fontWeight: '400'}}>
+          Located in: {userDetails.city}, {userDetails.state}
+        </Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate('EditProfile')}>
@@ -229,8 +285,8 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     flexDirection: 'column',
   },
   box2: {
@@ -257,6 +313,7 @@ const styles = StyleSheet.create({
   box3: {
     flexDirection: 'row',
     alignContent: 'center',
+    padding: 10,
   },
   roundsText: {
     fontSize: 20,
@@ -278,6 +335,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 0.25,
     marginRight: 30,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -319,7 +377,8 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '400',
     fontFamily: 'Helvetica',
-    marginBottom: 80,
+    marginRight: 180,
+    padding: 20,
   },
   flatListParent: {
     flexDirection: 'row',

@@ -18,6 +18,8 @@ const EditUserScreen = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [userState, setUserState] = useState('');
+  const [city, setCity] = useState('');
 
   const editUser = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -28,16 +30,18 @@ const EditUserScreen = ({navigation}) => {
       const editMeRes = await axios.patch(
         'http://192.168.1.154:3000/users',
         {
-          password: password,
           userName: userName,
           fistName: firstName,
           lastName: lastName,
+          city: city,
+          state: userState,
+          password: password,
         },
         {
           headers: headers,
         },
       );
-      //   console.log('edit user returned data is: ', editMeRes.data);
+      console.log('edit user returned data is: ', editMeRes.data);
       navigation.navigate('ProfileLanding');
     } catch (error) {
       console.log(error);
@@ -55,8 +59,6 @@ const EditUserScreen = ({navigation}) => {
           onChangeText={setUserName}
           clearButtonMode={'always'}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="First Name"
           style={styles.emailInput}
@@ -64,8 +66,6 @@ const EditUserScreen = ({navigation}) => {
           onChangeText={setFirstName}
           clearButtonMode={'always'}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="Last Name"
           style={styles.emailInput}
@@ -73,8 +73,20 @@ const EditUserScreen = ({navigation}) => {
           onChangeText={setLastName}
           clearButtonMode={'always'}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="City"
+          style={styles.emailInput}
+          value={city}
+          onChangeText={setCity}
+          clearButtonMode={'always'}
+        />
+        <TextInput
+          placeholder="State"
+          style={styles.emailInput}
+          value={userState}
+          onChangeText={setUserState}
+          clearButtonMode={'always'}
+        />
         <TextInput
           placeholder="Password"
           style={styles.loginTextInput}

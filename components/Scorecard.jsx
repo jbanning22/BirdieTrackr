@@ -89,7 +89,7 @@ const Scorecards = ({navigation}) => {
     };
     Alert.alert(
       'Delete Throw',
-      'Are you sure you want to delete this throw?',
+      'Are you sure you want to delete this scorecard?',
       [
         {text: 'Cancel', style: 'cancel'},
         {
@@ -139,23 +139,31 @@ const Scorecards = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    fetchLoggedInStatus();
-  }, []);
+  //   useEffect(() => {
+  //     fetchLoggedInStatus();
+  //   }, []);
+  //   useEffect(() => {
+  //     getScorecards();
+  //   }, [scorecardData]);
   useEffect(() => {
     getScorecards();
-  }, [scorecardData]);
+  }, []);
 
   return (
     // <ScrollView>
     <SafeAreaView style={styles.box1}>
       <Text style={styles.homeText}>Scorecards</Text>
-      <FlatList
-        renderItem={renderItem}
-        data={scorecardData}
-        showsVerticalScrollIndicator={false}
-        //   contentContainerStyle={styles.flatlistStyle}
-      />
+      {scorecardData.length === 0 ? (
+        <Text>You have not recorded any rounds yet.</Text>
+      ) : (
+        <FlatList
+          renderItem={renderItem}
+          data={scorecardData}
+          showsVerticalScrollIndicator={false}
+          //   contentContainerStyle={styles.flatlistStyle}
+        />
+      )}
+
       <TouchableOpacity
         style={styles.signUpButton}
         onPress={() => navigation.navigate('CreateScorecard')}>
@@ -198,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#52BEDB',
     marginTop: 10,
     borderRadius: 8,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   buttonText: {
     color: 'white',
