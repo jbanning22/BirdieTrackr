@@ -11,6 +11,8 @@ import {
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
+import {check, request} from 'react-native-permissions';
+import {PERMISSIONS} from 'react-native-permissions';
 // import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
@@ -65,7 +67,6 @@ const ProfileScreen = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     const id = userDetails.id;
-    console.log(`deleted users's id is`, id);
     Alert.alert(
       'Delete Account',
       'Are you sure you want to delete this account? You will not be able to accesss this account in the future.',
@@ -202,14 +203,6 @@ const ProfileScreen = ({navigation}) => {
         }}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.homeText}>{userDetails.userName}</Text>
-          <TouchableOpacity onPress={deleteUser}>
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              color={'red'}
-              size={14}
-              style={{alignSelf: 'flex-end'}}
-            />
-          </TouchableOpacity>
         </View>
         <View style={styles.box3}>
           <TouchableOpacity
@@ -270,6 +263,14 @@ const ProfileScreen = ({navigation}) => {
           style={styles.editButton}
           onPress={() => navigation.navigate('EditProfile')}>
           <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={deleteUser}>
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            color={'red'}
+            size={14}
+            style={{margin: 30}}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.signOutButton}>
           <Text style={styles.buttonText} onPress={signOut}>
@@ -347,7 +348,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     padding: 5,
-    marginLeft: 50,
+    // marginLeft: 50,
     marginTop: 20,
   },
   editButton: {

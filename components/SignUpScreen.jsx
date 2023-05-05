@@ -22,6 +22,8 @@ const SignUpScreen = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [userState, setUserState] = useState('');
+  const [city, setCity] = useState('');
 
   const signUp = async () => {
     try {
@@ -64,8 +66,6 @@ const SignUpScreen = ({navigation}) => {
           clearButtonMode={'always'}
           autoCorrect={false}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="First Name"
           style={styles.emailInput}
@@ -74,8 +74,6 @@ const SignUpScreen = ({navigation}) => {
           clearButtonMode={'always'}
           autoCorrect={false}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="Last Name"
           style={styles.emailInput}
@@ -84,8 +82,6 @@ const SignUpScreen = ({navigation}) => {
           clearButtonMode={'always'}
           autoCorrect={false}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="Email"
           style={styles.emailInput}
@@ -95,8 +91,20 @@ const SignUpScreen = ({navigation}) => {
           autoCorrect={false}
           autoCapitalize={'none'}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
+        <TextInput
+          placeholder="City"
+          style={styles.emailInput}
+          value={city}
+          onChangeText={setCity}
+          clearButtonMode={'always'}
+        />
+        <TextInput
+          placeholder="State"
+          style={styles.emailInput}
+          value={userState}
+          onChangeText={setUserState}
+          clearButtonMode={'always'}
+        />
         <TextInput
           placeholder="Password"
           style={styles.loginTextInput}
