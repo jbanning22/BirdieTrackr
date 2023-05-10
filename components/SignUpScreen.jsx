@@ -17,42 +17,60 @@ import {AuthContext} from '../AuthContext';
 
 const SignUpScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [userState, setUserState] = useState('');
-  const [city, setCity] = useState('');
+  //   const [email, setEmail] = useState('');
+  //   const [password, setPassword] = useState('');
+  //   const [userName, setUserName] = useState('');
+  //   const [firstName, setFirstName] = useState('');
+  //   const [lastName, setLastName] = useState('');
+  //   const [userState, setUserState] = useState('');
+  //   const [city, setCity] = useState('');
+  const [validationErrors, setValidationErrors] = useState({});
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
+    city: '',
+    state: '',
+  });
 
   const signUp = async () => {
-    try {
-      const signUpRes = await axios.post(
-        'http://192.168.1.154:3000/auth/signup',
-        {
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          userName: userName,
-        },
-      );
-      //   console.log('sign up res', signUpRes.data.access_token);
-      //   console.log('sign up res', signUpRes.data.refresh_token);
-      if (signUpRes.status === 201) {
-        const access_token = await signUpRes.data.access_token;
-        const refresh_token = await signUpRes.data.refresh_token;
-        await AsyncStorage.setItem('token', access_token);
-        await AsyncStorage.setItem('ReToken', refresh_token);
-        setSignedIn(true);
-        navigation.navigate('App', {screen: 'Scorecard'});
-        return signUpRes.data;
+    const errorsExist = Object.values(validationErrors).some(
+      error => error !== '',
+    );
+    if (errorsExist) {
+      console.log('Please fix the form errors before signing up.');
+      return;
+    } else {
+      try {
+        const signUpRes = await axios.post(
+          'http://192.168.1.154:3000/auth/signup',
+          formData,
+        );
+        //   console.log('sign up res', signUpRes.data.access_token);
+        //   console.log('sign up res', signUpRes.data.refresh_token);
+        if (signUpRes.status === 201) {
+          const access_token = await signUpRes.data.access_token;
+          const refresh_token = await signUpRes.data.refresh_token;
+          await AsyncStorage.setItem('token', access_token);
+          await AsyncStorage.setItem('ReToken', refresh_token);
+          setSignedIn(true);
+          navigation.navigate('App', {screen: 'Scorecard'});
+          return signUpRes.data;
+        }
+      } catch (error) {
+        console.log('error signing up', error);
       }
-    } catch (error) {
-      console.log('error signing up', error);
     }
   };
-
+  const validateEmail = () => {
+    const isValid = /\S+@\S+\.\S+/.test(formData.email);
+    setValidationErrors({
+      ...validationErrors,
+      email: isValid ? '' : 'Email is required and must be valid.',
+    });
+  };
   return (
     // <SafeAreaView style={styles.box1}>
     <ScrollView contentContainerStyle={styles.box1}>
@@ -61,32 +79,35 @@ const SignUpScreen = ({navigation}) => {
         <TextInput
           placeholder="Username"
           style={styles.emailInput}
-          value={userName}
-          onChangeText={setUserName}
+          value={formData.userName}
+          onChangeText={text => setFormData({...formData, userName: text})}
           clearButtonMode={'always'}
           autoCorrect={false}
         />
         <TextInput
           placeholder="First Name"
           style={styles.emailInput}
-          value={firstName}
-          onChangeText={setFirstName}
+          value={formData.firstName}
+          onBlur={validateEmail}
+          onChangeText={text => setFormData({...formData, firstName: text})}
           clearButtonMode={'always'}
           autoCorrect={false}
         />
         <TextInput
           placeholder="Last Name"
           style={styles.emailInput}
-          value={lastName}
-          onChangeText={setLastName}
+          value={formData.lastName}
+          onChangeText={text => setFormData({...formData, lastName: text})}
           clearButtonMode={'always'}
           autoCorrect={false}
         />
         <TextInput
           placeholder="Email"
-          style={styles.emailInput}
-          value={email}
-          onChangeText={setEmail}
+          style={
+            validationErrors.email ? styles.emailInput2 : styles.emailInput
+          }
+          value={formData.email}
+          onChangeText={text => setFormData({...formData, email: text})}
           clearButtonMode={'always'}
           autoCorrect={false}
           autoCapitalize={'none'}
@@ -94,27 +115,28 @@ const SignUpScreen = ({navigation}) => {
         <TextInput
           placeholder="City"
           style={styles.emailInput}
-          value={city}
-          onChangeText={setCity}
+          value={formData.city}
+          onChangeText={text => setFormData({...formData, city: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="State"
           style={styles.emailInput}
-          value={userState}
-          onChangeText={setUserState}
+          value={formData.userState}
+          onChangeText={text => setFormData({...formData, state: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="Password"
           style={styles.loginTextInput}
-          value={password}
-          onChangeText={setPassword}
+          value={formData.password}
+          onChangeText={text => setFormData({...formData, password: text})}
           clearButtonMode={'always'}
           secureTextEntry={true}
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
+      <Text>{validationErrors.email}</Text>
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.textButton} onPress={signUp}>
           Sign Up
@@ -161,6 +183,13 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     backgroundColor: 'white',
+    marginBottom: 15,
+  },
+  emailInput2: {
+    height: 50,
+    width: 200,
+    padding: 10,
+    backgroundColor: '#F9908D',
     marginBottom: 15,
   },
   textButton: {

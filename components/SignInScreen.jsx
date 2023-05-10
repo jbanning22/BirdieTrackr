@@ -17,57 +17,52 @@ import {AuthContext} from '../AuthContext';
 
 const SignInScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [validationErrors, setValidationErrors] = useState({});
+  //   const [email, setEmail] = useState('');
+  //   const [password, setPassword] = useState('');
 
   const signIn = async () => {
-    try {
-      const signInRes = await axios.post(
-        'http://192.168.1.154:3000/auth/signin',
-        {
-          email: email,
-          password: password,
-        },
-        // {
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // },
-      );
-      if (signInRes.status === 200) {
-        const access_token = await signInRes.data.access_token;
-        const refresh_token = await signInRes.data.refresh_token;
+    const errorsExist = Object.values(validationErrors).some(
+      error => error !== '',
+    );
+    if (errorsExist) {
+      console.log('Please fix the form errors before signing up.');
+      return;
+    } else {
+      try {
+        const signInRes = await axios.post(
+          'http://192.168.1.154:3000/auth/signin',
+          {
+            email: formData.email,
+            password: formData.password,
+          },
+        );
+        if (signInRes.status === 200) {
+          const access_token = await signInRes.data.access_token;
+          const refresh_token = await signInRes.data.refresh_token;
 
-        await AsyncStorage.setItem('token', access_token);
-        await AsyncStorage.setItem('ReToken', refresh_token);
-        setSignedIn(true);
-        navigation.navigate('App', {screen: 'Scorecard'});
-        return signInRes.data;
+          await AsyncStorage.setItem('token', access_token);
+          await AsyncStorage.setItem('ReToken', refresh_token);
+          setSignedIn(true);
+          navigation.navigate('App', {screen: 'Scorecard'});
+          return signInRes.data;
+        }
+      } catch (error) {
+        console.log('error signing in', error);
       }
-    } catch (error) {
-      console.log('error signing in', error);
     }
   };
-
-  //   const checkStatus = async () => {
-  //     try {
-  //       const status = await AsyncStorage.getItem('signedIn_status');
-  //       if (status === 'allGood') {
-  //         // navigation.navigate('Scorecards');
-  //       } else if (status === 'noGood') {
-  //         console.log('not signed in');
-  //       } else {
-  //         navigation.navigate('LandingScreen');
-  //       }
-  //     } catch (error) {
-  //       console.log('check status error is: ', error);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     checkStatus();
-  //   }, []);
+  const validateEmail = () => {
+    const isValid = /\S+@\S+\.\S+/.test(formData.email);
+    setValidationErrors({
+      ...validationErrors,
+      email: isValid ? '' : 'Email is required and must be valid.',
+    });
+  };
 
   return (
     // <SafeAreaView>
@@ -76,25 +71,36 @@ const SignInScreen = ({navigation}) => {
       <KeyboardAvoidingView>
         <TextInput
           placeholder="Email"
-          style={styles.loginTextInput}
-          value={email}
-          onChangeText={setEmail}
+          style={
+            validationErrors.email
+              ? styles.loginTextInput2
+              : styles.loginTextInput1
+          }
+          value={formData.email}
+          onChangeText={text => setFormData({...formData, email: text})}
+          //   value={email}
+          //   onChangeText={setEmail}
+          onBlur={validateEmail}
           autoCorrect={false}
           autoCapitalize={'none'}
         />
-      </KeyboardAvoidingView>
-      <KeyboardAvoidingView>
         <TextInput
           placeholder="Password"
-          style={styles.loginTextInput}
-          value={password}
-          onChangeText={setPassword}
+          style={styles.loginTextInput1}
+          value={formData.password}
+          onChangeText={text => setFormData({...formData, password: text})}
+          //   value={password}
+          //   onChangeText={setPassword}
           autoCapitalize={'none'}
           secureTextEntry={true}
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
-      <TouchableOpacity style={styles.loginButton} onPress={signIn}>
+      <Text>{validationErrors.email}</Text>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={signIn}
+        testID="loginButton">
         <Text style={styles.textButton}>Log in</Text>
       </TouchableOpacity>
       {/* <Button title="Back" onPress={() => navigation.navigate('Landing')} />@ */}
@@ -126,7 +132,14 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 20,
   },
-  loginTextInput: {
+  loginTextInput2: {
+    height: 50,
+    width: 200,
+    padding: 10,
+    backgroundColor: '#F9908D',
+    marginTop: 10,
+  },
+  loginTextInput1: {
     height: 50,
     width: 200,
     padding: 10,

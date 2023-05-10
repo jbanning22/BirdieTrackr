@@ -15,7 +15,7 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
 
 const ThrowsScreen = ({navigation}) => {
-  const [throwData, setThrowData] = useState('');
+  const [throwData, setThrowData] = useState([]);
 
   const getThrows = async () => {
     const token = await AsyncStorage.getItem('token');

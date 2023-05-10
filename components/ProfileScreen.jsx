@@ -69,7 +69,7 @@ const ProfileScreen = ({navigation}) => {
     const id = userDetails.id;
     Alert.alert(
       'Delete Account',
-      'Are you sure you want to delete this account? You will not be able to accesss this account in the future.',
+      'Are you sure you want to delete this account? You will not be able to access this account in the future.',
       [
         {text: 'Cancel', style: 'cancel'},
         {
