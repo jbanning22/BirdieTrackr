@@ -84,6 +84,7 @@ const SignInScreen = ({navigation}) => {
           autoCorrect={false}
           autoCapitalize={'none'}
         />
+        <Text style={{color: 'red'}}>{validationErrors.email}</Text>
         <TextInput
           placeholder="Password"
           style={styles.loginTextInput1}
@@ -96,7 +97,6 @@ const SignInScreen = ({navigation}) => {
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
-      <Text>{validationErrors.email}</Text>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={signIn}

@@ -136,7 +136,9 @@ const SignUpScreen = ({navigation}) => {
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
-      <Text>{validationErrors.email}</Text>
+      <Text style={{color: 'red', marginTop: 10}}>
+        {validationErrors.email}
+      </Text>
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.textButton} onPress={signUp}>
           Sign Up
