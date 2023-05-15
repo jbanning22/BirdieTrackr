@@ -11,19 +11,11 @@ import {
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
 import {AuthContext} from '../AuthContext';
 
 const SignUpScreen = ({navigation}) => {
-  const {signedIn, setSignedIn} = useContext(AuthContext);
-  //   const [email, setEmail] = useState('');
-  //   const [password, setPassword] = useState('');
-  //   const [userName, setUserName] = useState('');
-  //   const [firstName, setFirstName] = useState('');
-  //   const [lastName, setLastName] = useState('');
-  //   const [userState, setUserState] = useState('');
-  //   const [city, setCity] = useState('');
+  const {setSignedIn} = useContext(AuthContext);
   const [validationErrors, setValidationErrors] = useState({});
   const [formData, setFormData] = useState({
     email: '',

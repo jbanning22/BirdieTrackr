@@ -19,7 +19,7 @@ import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 
 const Scorecards = ({navigation}) => {
-  const [token, setToken] = useState(null);
+  //   const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
   const handleScorecardPressed = async (id, courseLength) => {
@@ -110,14 +110,14 @@ const Scorecards = ({navigation}) => {
       {cancelable: false},
     );
   };
-  const fetchLoggedInStatus = async () => {
-    try {
-      const Atoken = await AsyncStorage.getItem('token');
-      setToken(Atoken);
-    } catch (error) {
-      console.error('Error fetching logged-in status:', error);
-    }
-  };
+  //   const fetchLoggedInStatus = async () => {
+  //     try {
+  //       const Atoken = await AsyncStorage.getItem('token');
+  //       setToken(Atoken);
+  //     } catch (error) {
+  //       console.error('Error fetching logged-in status:', error);
+  //     }
+  //   };
 
   const getScorecards = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -140,9 +140,6 @@ const Scorecards = ({navigation}) => {
   };
 
   //   useEffect(() => {
-  //     fetchLoggedInStatus();
-  //   }, []);
-  //   useEffect(() => {
   //     getScorecards();
   //   }, [scorecardData]);
   useEffect(() => {
@@ -150,7 +147,6 @@ const Scorecards = ({navigation}) => {
   }, []);
 
   return (
-    // <ScrollView>
     <SafeAreaView style={styles.box1}>
       <Text style={styles.homeText}>Scorecards</Text>
       {scorecardData.length === 0 ? (
@@ -170,7 +166,6 @@ const Scorecards = ({navigation}) => {
         <Text style={styles.buttonText}>Create Scorecard</Text>
       </TouchableOpacity>
     </SafeAreaView>
-    // </ScrollView>
   );
 };
 

@@ -99,12 +99,16 @@
     "preset": "react-native",
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest",
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+/@fortawesome/react-native-fontawesome/.+\\.js$": "babel-jest"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)",
+      "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation|@react-navigation|@fortawesome/react-native-fontawesome)",
       "node_modules/(?!(react-native|@react-native)/)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/__mocks__/setupAsyncStorageMock.js"
     ],
     "moduleFileExtensions": [
       "ts",

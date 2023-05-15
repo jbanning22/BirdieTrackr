@@ -97,13 +97,10 @@ const SignInScreen = ({navigation}) => {
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={signIn}
-        testID="loginButton">
+      <TouchableOpacity style={styles.loginButton} onPress={signIn}>
         <Text style={styles.textButton}>Log in</Text>
       </TouchableOpacity>
-      {/* <Button title="Back" onPress={() => navigation.navigate('Landing')} />@ */}
+      <Button title="Back" onPress={() => navigation.navigate('Landing')} />
     </ScrollView>
     // {/* </SafeAreaView> */}
   );
