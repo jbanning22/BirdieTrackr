@@ -132,16 +132,15 @@ const Scorecards = ({navigation}) => {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
       //   console.log(scoreC.data);
-      setScorecardData(scoreC.data);
+      act(() => {
+        setScorecardData(scoreC.data);
+      });
       //   }
     } catch (error) {
       console.log('get Scorecard error is: ', error);
     }
   };
 
-  //   useEffect(() => {
-  //     getScorecards();
-  //   }, [scorecardData]);
   useEffect(() => {
     getScorecards();
   }, []);

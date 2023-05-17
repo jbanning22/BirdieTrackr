@@ -9,7 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from 'react-native';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, CommonActions} from '@react-navigation/native';

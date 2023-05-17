@@ -56,7 +56,9 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      setUserDetails(getMeRes.data);
+      act(() => {
+        setUserDetails(getMeRes.data);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +107,9 @@ const ProfileScreen = ({navigation}) => {
       if (scoreC.data === []) {
         setScorecardData(['You have not recorded any rounds yet.']);
       } else {
-        setScorecardData(scoreC.data);
+        act(() => {
+          setScorecardData(scoreC.data);
+        });
       }
     } catch (error) {
       console.log('get Scorecard error is: ', error);
@@ -123,7 +127,9 @@ const ProfileScreen = ({navigation}) => {
         {headers},
       );
       //   console.log('measured Throws console.log is: ', measuredThrows.data);
-      setThrowData(measuredThrows.data);
+      act(() => {
+        setThrowData(measuredThrows.data);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -185,8 +191,8 @@ const ProfileScreen = ({navigation}) => {
   };
   useEffect(() => {
     getMe();
-    getScorecards();
-    getThrows();
+    // getScorecards();
+    // getThrows();
   }, []);
 
   useEffect(() => {

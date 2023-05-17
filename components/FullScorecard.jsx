@@ -30,8 +30,12 @@ const FullScorecard = ({route, navigation}) => {
           headers,
         },
       );
-      setScorecardData(scoreC.data);
-      setHolesData(scoreC.data.holes);
+      act(() => {
+        setScorecardData(scoreC.data);
+      });
+      act(() => {
+        setHolesData(scoreC.data.holes);
+      });
     } catch (error) {
       console.log(error);
     }

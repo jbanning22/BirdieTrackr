@@ -35,6 +35,7 @@ const CreateScorecard = ({navigation}) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
+    console.log(token);
     try {
       const scorecard = await axios.post(
         'http://192.168.1.154:3000/scorecard',

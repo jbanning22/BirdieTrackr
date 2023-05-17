@@ -27,8 +27,9 @@ const ThrowsScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      //   console.log('measured Throws console.log is: ', measuredThrows.data);
-      setThrowData(measuredThrows.data);
+      act(() => {
+        setThrowData(measuredThrows.data);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -51,8 +52,6 @@ const ThrowsScreen = ({navigation}) => {
                 `http://localhost:3000/measure-throws/${id}`,
                 {headers},
               );
-              //   console.log('measured Throws console.log is: ', measuredThrows.data);
-              //   setThrowData(measuredThrows.data);
               getThrows();
             } catch (error) {
               console.log(error);
@@ -107,7 +106,7 @@ const ThrowsScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.measureThrowButton}
         onPress={() => navigation.navigate('ThrowsScreen2')}>
-        <Text style={styles.buttonText}>Meaasure a Throw</Text>
+        <Text style={styles.buttonText}>Measure a Throw</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

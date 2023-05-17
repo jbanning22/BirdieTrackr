@@ -1,4 +1,4 @@
-import {BottomTabBar} from '@react-navigation/bottom-tabs';
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CreateThrowScreen from './CreateThrow';
 import ThrowsScreen from './ThrowsScreen';
@@ -11,7 +11,7 @@ const ThrowsStack = () => {
     <Stack.Navigator
       initialRouteName="Throws"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="ThrowScreen" component={ThrowsScreen} />
+      <Stack.Screen name="ThrowsScreen" component={ThrowsScreen} />
       <Stack.Screen name="ThrowsScreen2" component={ThrowsScreen2} />
       <Stack.Screen name="CreateThrow" component={CreateThrowScreen} />
     </Stack.Navigator>

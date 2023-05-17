@@ -99,6 +99,7 @@
     "preset": "react-native",
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest",
+      "^.+\\.jsx?$": "babel-jest",
       "^.+\\.tsx?$": "ts-jest",
       "^.+/@fortawesome/react-native-fontawesome/.+\\.js$": "babel-jest"
     },

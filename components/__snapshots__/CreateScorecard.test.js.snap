@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Scorecard Screen should match the snapshot 1`] = `
+<RNCSafeAreaView
+  edges={
+    [
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ]
+  }
+  style={
+    {
+      "alignContent": "center",
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "fontFamily": "Helvetica",
+        "fontSize": 20,
+        "fontWeight": "400",
+        "marginBottom": 20,
+        "marginTop": 20,
+      }
+    }
+  >
+    Name of the course?
+  </Text>
+  <View
+    onLayout={[Function]}
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Course Name"
+      style={
+        {
+          "backgroundColor": "white",
+          "height": 50,
+          "marginTop": 10,
+          "padding": 10,
+          "width": 200,
+        }
+      }
+      value=""
+    />
+  </View>
+  <Text
+    style={
+      {
+        "fontFamily": "Helvetica",
+        "fontSize": 20,
+        "fontWeight": "400",
+        "marginBottom": 20,
+        "marginTop": 20,
+      }
+    }
+  >
+    How Many Holes?
+  </Text>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#DB6F52",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "margin": 35,
+          "marginBottom": 15,
+          "opacity": 1,
+          "width": 50,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "color": "white",
+            "fontSize": 22,
+            "fontWeight": "400",
+          }
+        }
+      >
+        9
+      </Text>
+    </View>
+    <Text
+      style={
+        {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "color": "black",
+          "fontSize": 25,
+          "fontWeight": "400",
+          "marginTop": 18,
+        }
+      }
+    >
+      Or
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#DB6F52",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "margin": 35,
+          "marginBottom": 15,
+          "opacity": 1,
+          "width": 50,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "color": "white",
+            "fontSize": 22,
+            "fontWeight": "400",
+          }
+        }
+      >
+        18
+      </Text>
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignContent": "center",
+        "backgroundColor": "#52BEDB",
+        "borderRadius": 10,
+        "height": 60,
+        "justifyContent": "center",
+        "marginTop": 80,
+        "opacity": 1,
+        "padding": 10,
+        "width": 200,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "alignSelf": "center",
+          "color": "white",
+          "fontSize": 20,
+          "fontWeight": "600",
+        }
+      }
+    >
+      Create Scorecard
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignContent": "center",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "height": 40,
+          "marginTop": 50,
+          "opacity": 1,
+          "padding": 5,
+          "width": 80,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "color": "black",
+          }
+        }
+      >
+        Go Back
+      </Text>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

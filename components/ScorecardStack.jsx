@@ -1,7 +1,8 @@
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CreateScorecard from './CreateScorecard';
 import FullScorecard from './FullScorecard';
-import Scorecards from './Scorecard';
+import Scorecards from './Scorecards';
 
 const Stack = createNativeStackNavigator();
 

@@ -15,8 +15,8 @@ import axios from 'axios';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
-  const [value, setValue] = useState(42);
-  const [distance, setDistance] = useState('');
+  //   const [value, setValue] = useState(42);
+  //   const [distance, setDistance] = useState('');
   const [discName, setdiscName] = useState('');
   const [discColor, setDiscColor] = useState('');
   const [throwType, setThrowType] = useState('');
@@ -58,7 +58,7 @@ const CreateThrowScreen = ({navigation, route}) => {
     } catch (error) {
       console.log(error);
     }
-    navigation.navigate('ThrowScreen');
+    navigation.navigate('ThrowsScreen');
   };
 
   return (
@@ -93,7 +93,10 @@ const CreateThrowScreen = ({navigation, route}) => {
       <TouchableOpacity style={styles.signUpButton} onPress={createThrow}>
         <Text style={styles.textButton}>Create Throw</Text>
       </TouchableOpacity>
-      <Button title="Back" onPress={() => navigation.navigate('ThrowScreen')} />
+      <Button
+        title="Back"
+        onPress={() => navigation.navigate('ThrowsScreen')}
+      />
     </ScrollView>
   );
 };

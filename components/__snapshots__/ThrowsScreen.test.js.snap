@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Throws Screen should match the snapshot 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#DB6F52",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "alignSelf": "center",
+        "color": "white",
+        "fontSize": 36,
+        "fontWeight": "500",
+        "marginBottom": 20,
+      }
+    }
+  >
+    Throws
+  </Text>
+  <Text>
+    You have not recorded any throws yet.
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#52BEDB",
+        "borderRadius": 8,
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 20,
+        "marginTop": 10,
+        "opacity": 1,
+        "width": 200,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "white",
+          "fontSize": 16,
+          "fontWeight": "500",
+        }
+      }
+    >
+      Measure a Throw
+    </Text>
+  </View>
+</RCTSafeAreaView>
+`;

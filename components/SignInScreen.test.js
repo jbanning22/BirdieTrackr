@@ -4,24 +4,36 @@ import SignInScreen from './SignInScreen';
 import {AuthContext} from '../AuthContext';
 
 describe('Sign In Screen', () => {
-  it('should render title', () => {
+  it('should match the snapshot', () => {
     const authContextValue = {
       signedIn: false,
       setSignedIn: true,
     };
-    render(
+    const {toJSON} = render(
+      <AuthContext.Provider value={authContextValue}>
+        <SignInScreen />
+      </AuthContext.Provider>,
+    );
+    expect(toJSON()).toMatchSnapshot();
+  });
+  it('should render title', async () => {
+    const authContextValue = {
+      signedIn: false,
+      setSignedIn: true,
+    };
+    await render(
       <AuthContext.Provider value={authContextValue}>
         <SignInScreen />
       </AuthContext.Provider>,
     );
     expect(screen.getByText('Welcome Back!')).toBeTruthy();
   });
-  it('should display log in button', () => {
+  it('should display log in button', async () => {
     const authContextValue = {
       signedIn: false,
       setSignedIn: true,
     };
-    render(
+    await render(
       <AuthContext.Provider value={authContextValue}>
         <SignInScreen />
       </AuthContext.Provider>,
@@ -36,7 +48,7 @@ describe('Sign In Screen', () => {
     const navigation = {
       navigate: jest.fn(),
     };
-    const {getByText} = render(
+    const {getByText} = await render(
       <AuthContext.Provider value={authContextValue}>
         <SignInScreen navigation={navigation} />
       </AuthContext.Provider>,
