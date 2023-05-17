@@ -17,6 +17,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
+import {act} from 'react-test-renderer';
 
 const Scorecards = ({navigation}) => {
   //   const [token, setToken] = useState(null);

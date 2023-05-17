@@ -21,6 +21,7 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
+import {act} from 'react-test-renderer';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
@@ -40,7 +41,9 @@ const ProfileScreen = ({navigation}) => {
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
-        setSignedIn(false);
+        act(() => {
+          setSignedIn(false);
+        });
       }
     } catch (error) {
       console.log('error signing out', error.message);
@@ -84,7 +87,9 @@ const ProfileScreen = ({navigation}) => {
                   headers,
                 },
               );
-              setSignedIn(false);
+              act(() => {
+                setSignedIn(false);
+              });
             } catch (error) {
               console.log(error);
             }
@@ -95,51 +100,57 @@ const ProfileScreen = ({navigation}) => {
     );
   };
 
-  const getScorecards = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
-        headers,
-      });
-      if (scoreC.data === []) {
-        setScorecardData(['You have not recorded any rounds yet.']);
-      } else {
-        act(() => {
-          setScorecardData(scoreC.data);
-        });
-      }
-    } catch (error) {
-      console.log('get Scorecard error is: ', error);
-    }
-  };
+  //   const getScorecards = async () => {
+  //     const token = await AsyncStorage.getItem('token');
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //     };
+  //     try {
+  //       const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
+  //         headers,
+  //       });
+  //       if (scoreC.data === []) {
+  //         act(() => {
+  //           setScorecardData(['You have not recorded any rounds yet.']);
+  //         });
+  //       } else {
+  //         act(() => {
+  //           setScorecardData(scoreC.data);
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.log('get Scorecard error is: ', error);
+  //     }
+  //   };
 
-  const getThrows = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const measuredThrows = await axios.get(
-        'http://localhost:3000/measure-throws',
-        {headers},
-      );
-      //   console.log('measured Throws console.log is: ', measuredThrows.data);
-      act(() => {
-        setThrowData(measuredThrows.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   const getThrows = async () => {
+  //     const token = await AsyncStorage.getItem('token');
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //     };
+  //     try {
+  //       const measuredThrows = await axios.get(
+  //         'http://localhost:3000/measure-throws',
+  //         {headers},
+  //       );
+  //       //   console.log('measured Throws console.log is: ', measuredThrows.data);
+  //       act(() => {
+  //         setThrowData(measuredThrows.data);
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
   const getProfilePic = async key => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
-        setImageData(value);
-        setImageBool(true);
+        act(() => {
+          setImageData(value);
+        });
+        act(() => {
+          setImageBool(true);
+        });
         return value;
       }
     } catch (error) {
@@ -157,8 +168,12 @@ const ProfileScreen = ({navigation}) => {
     } else {
       await launchImageLibrary(options, async response => {
         if (response.assets) {
-          setImageData(response.assets[0].uri);
-          setImageBool(true);
+          act(() => {
+            setImageData(response.assets[0].uri);
+          });
+          act(() => {
+            setImageBool(true);
+          });
           await AsyncStorage.setItem(
             'profileImageData',
             response.assets[0].uri,
@@ -276,6 +291,7 @@ const ProfileScreen = ({navigation}) => {
             color={'red'}
             size={14}
             style={{margin: 30}}
+            testID={'trash-icon'}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.signOutButton}>

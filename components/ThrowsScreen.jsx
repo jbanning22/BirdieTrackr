@@ -13,6 +13,7 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
+import {act} from 'react-test-renderer';
 
 const ThrowsScreen = ({navigation}) => {
   const [throwData, setThrowData] = useState([]);
@@ -34,6 +35,7 @@ const ThrowsScreen = ({navigation}) => {
       console.log(error);
     }
   };
+
   const deleteThrow = async id => {
     const token = await AsyncStorage.getItem('token');
     const headers = {

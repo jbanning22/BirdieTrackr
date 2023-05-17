@@ -12,6 +12,7 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
+import {act} from 'react-test-renderer';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
@@ -53,7 +54,9 @@ const CreateThrowScreen = ({navigation, route}) => {
         {headers},
       );
       console.log(measuredThrow.data);
-      setThrowData(measuredThrow.data);
+      act(() => {
+        setThrowData(measuredThrow.data);
+      });
       // setThrowId(parseInt(measuredThrow.data.id, 10));
     } catch (error) {
       console.log(error);

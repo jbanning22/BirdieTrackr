@@ -7,7 +7,7 @@ describe('Sign Up Screen', () => {
   it('should match the snapshot', () => {
     const authContextValue = {
       signedIn: false,
-      setSignedIn: true,
+      setSignedIn: jest.fn(),
     };
     const {toJSON} = render(
       <AuthContext.Provider value={authContextValue}>
@@ -19,7 +19,7 @@ describe('Sign Up Screen', () => {
   it('should render title', async () => {
     const authContextValue = {
       signedIn: false,
-      setSignedIn: true,
+      setSignedIn: jest.fn(),
     };
     await render(
       <AuthContext.Provider value={authContextValue}>
@@ -31,7 +31,7 @@ describe('Sign Up Screen', () => {
   it('should display sign up button', async () => {
     const authContextValue = {
       signedIn: false,
-      setSignedIn: true,
+      setSignedIn: jest.fn(),
     };
     await render(
       <AuthContext.Provider value={authContextValue}>
@@ -43,7 +43,7 @@ describe('Sign Up Screen', () => {
   it('should navigate back to app landing', async () => {
     const authContextValue = {
       signedIn: false,
-      setSignedIn: true,
+      setSignedIn: jest.fn(),
     };
     const navigation = {
       navigate: jest.fn(),

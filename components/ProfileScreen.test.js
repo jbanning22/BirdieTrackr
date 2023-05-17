@@ -1,7 +1,7 @@
 import React from 'react';
-import {render, screen, waitFor} from '@testing-library/react-native';
+import {render, screen} from '@testing-library/react-native';
 import ProfileScreen from './ProfileScreen';
-import {PERMISSIONS} from 'react-native-permissions';
+import {AuthContext} from '../AuthContext';
 
 jest.mock('@fortawesome/react-native-fontawesome', () => ({
   FontAwesomeIcon: () => null,
@@ -13,34 +13,57 @@ jest.mock('react-native-permissions', () => ({
   check: jest.fn(),
   request: jest.fn(),
 }));
+jest.mock('react-native-image-picker', () => ({
+  launchImageLibrary: jest.fn(),
+}));
+
 describe('Profile Screen', () => {
-  //   it('should match the snapshot', () => {
-  //     const {toJSON} = render(<ProfileScreen />);
-  //     expect(toJSON()).toMatchSnapshot();
-  //   });
-//   it('should display edit profile button', async () => {
-//     PERMISSIONS.check.mockResolvedValueOnce('denied');
-//     render(<ProfileScreen />);
-//     await waitFor(() => {
-//       expect(screen.getByText('Edit')).toBeTruthy();
-//     });
+  it('should match the snapshot', async () => {
+    const authContextValue = {
+      signedIn: true,
+      setSignedIn: jest.fn(),
+    };
+    const {toJSON} = await render(
+      <AuthContext.Provider value={authContextValue}>
+        <ProfileScreen />
+      </AuthContext.Provider>,
+    );
+    expect(toJSON()).toMatchSnapshot();
   });
-  //   it('should display username', async () => {
-  //     const userDetails = {
-  //       userName: 'JackB',
-  //       firstName: 'Jack',
-  //       lastName: 'Banning',
-  //       city: 'Newark',
-  //       state: 'DE',
-  //     };
-  //     // axios.get.mockResolvedValueOnce({data: userDetails});
-  //     axios.get.mockImplementation(() => Promise.resolve({data: userDetails}));
-
-  //     const {getByText} = await render(<ProfileScreen />);
-
-  //     await waitFor(() => {
-  //       const usernameElement = getByText('JackB');
-  //       expect(usernameElement).toBeTruthy();
-  //     });
-  //   });
+  it('should display edit profile button', async () => {
+    const authContextValue = {
+      signedIn: true,
+      setSignedIn: jest.fn(),
+    };
+    await render(
+      <AuthContext.Provider value={authContextValue}>
+        <ProfileScreen />
+      </AuthContext.Provider>,
+    );
+    expect(screen.getByText('Edit')).toBeTruthy();
+  });
+  it('should display sign out button', async () => {
+    const authContextValue = {
+      signedIn: true,
+      setSignedIn: jest.fn(),
+    };
+    await render(
+      <AuthContext.Provider value={authContextValue}>
+        <ProfileScreen />
+      </AuthContext.Provider>,
+    );
+    expect(screen.getByText('Sign Out')).toBeTruthy();
+  });
+  it('should render FontAwesomeIcon', async () => {
+    const authContextValue = {
+      signedIn: true,
+      setSignedIn: jest.fn(),
+    };
+    await render(
+      <AuthContext.Provider value={authContextValue}>
+        <ProfileScreen />
+      </AuthContext.Provider>,
+    );
+    expect(screen.queryAllByTestId('trash-icon')).toBeTruthy();
+  });
 });
