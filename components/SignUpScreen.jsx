@@ -80,7 +80,6 @@ const SignUpScreen = ({navigation}) => {
           placeholder="First Name"
           style={styles.emailInput}
           value={formData.firstName}
-          onBlur={validateEmail}
           onChangeText={text => setFormData({...formData, firstName: text})}
           clearButtonMode={'always'}
           autoCorrect={false}
@@ -99,6 +98,7 @@ const SignUpScreen = ({navigation}) => {
             validationErrors.email ? styles.emailInput2 : styles.emailInput
           }
           value={formData.email}
+          onBlur={validateEmail}
           onChangeText={text => setFormData({...formData, email: text})}
           clearButtonMode={'always'}
           autoCorrect={false}

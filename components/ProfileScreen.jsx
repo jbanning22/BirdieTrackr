@@ -191,7 +191,7 @@ const ProfileScreen = ({navigation}) => {
     getMe();
     // getScorecards();
     // getThrows();
-  }, []);
+  }, [userDetails]);
 
   useEffect(() => {
     getProfilePic('profileImageData');
@@ -202,8 +202,6 @@ const ProfileScreen = ({navigation}) => {
       <View
         style={{
           marginBottom: 20,
-          //   alignItems: 'center',
-          //   justifyContent: 'center',
         }}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.homeText}>{userDetails.userName}</Text>

@@ -2,6 +2,7 @@ import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react-native';
 import Scorecards from './Scorecards';
 import axios from 'axios';
+import act from '@testing-library/react-native';
 
 jest.mock('@fortawesome/react-native-fontawesome', () => ({
   FontAwesomeIcon: () => null,
