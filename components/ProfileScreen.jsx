@@ -13,7 +13,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {check, request} from 'react-native-permissions';
 import {PERMISSIONS} from 'react-native-permissions';
-// import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -21,7 +20,6 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
-import {act} from 'react-test-renderer';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
@@ -37,13 +35,10 @@ const ProfileScreen = ({navigation}) => {
         'http://192.168.1.154:3000/auth/signout',
         {},
       );
-      //   console.log(signOutRes.data);
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
-        act(() => {
-          setSignedIn(false);
-        });
+        setSignedIn(false);
       }
     } catch (error) {
       console.log('error signing out', error.message);
@@ -59,9 +54,7 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      act(() => {
-        setUserDetails(getMeRes.data);
-      });
+      setUserDetails(getMeRes.data);
     } catch (error) {
       console.log(error);
     }
@@ -87,9 +80,7 @@ const ProfileScreen = ({navigation}) => {
                   headers,
                 },
               );
-              act(() => {
-                setSignedIn(false);
-              });
+              setSignedIn(false);
             } catch (error) {
               console.log(error);
             }
@@ -145,12 +136,8 @@ const ProfileScreen = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
-        act(() => {
-          setImageData(value);
-        });
-        act(() => {
-          setImageBool(true);
-        });
+        setImageData(value);
+        setImageBool(true);
         return value;
       }
     } catch (error) {
@@ -168,12 +155,8 @@ const ProfileScreen = ({navigation}) => {
     } else {
       await launchImageLibrary(options, async response => {
         if (response.assets) {
-          act(() => {
-            setImageData(response.assets[0].uri);
-          });
-          act(() => {
-            setImageBool(true);
-          });
+          setImageData(response.assets[0].uri);
+          setImageBool(true);
           await AsyncStorage.setItem(
             'profileImageData',
             response.assets[0].uri,

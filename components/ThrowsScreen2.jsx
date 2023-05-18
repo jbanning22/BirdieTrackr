@@ -14,8 +14,6 @@ import StartThrow from './StartThrow';
 import EndThrow from './EndThrow';
 import ResetButton from './ResetButton';
 import {Platform} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-// import {LocationContext} from '../LocationContext';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -39,14 +37,6 @@ const ThrowsScreen2 = ({navigation}) => {
     return Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        console.log(
-          'getCurrentPosition latitude is: ',
-          latitude,
-          'longitude is: ',
-          longitude,
-        );
-        // setLatitude(latitude);
-        // setLongitude(longitude);
         setPresentLocation({latitude, longitude});
       },
       error => {

@@ -12,7 +12,6 @@ import {
 import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, CommonActions} from '@react-navigation/native';
 import {AuthContext} from '../AuthContext';
 
 const SignInScreen = ({navigation}) => {

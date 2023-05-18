@@ -13,7 +13,6 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
-import {act} from 'react-test-renderer';
 
 const ThrowsScreen = ({navigation}) => {
   const [throwData, setThrowData] = useState([]);
@@ -28,9 +27,7 @@ const ThrowsScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      act(() => {
-        setThrowData(measuredThrows.data);
-      });
+      setThrowData(measuredThrows.data);
     } catch (error) {
       console.log(error);
     }
@@ -86,12 +83,12 @@ const ThrowsScreen = ({navigation}) => {
       </View>
     );
   };
-  //   useEffect(() => {
-  //     getThrows();
-  //   }, [throwData]);
   useEffect(() => {
     getThrows();
-  }, []);
+  }, [throwData]);
+  //   useEffect(() => {
+  //     getThrows();
+  //   }, []);
   //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>
