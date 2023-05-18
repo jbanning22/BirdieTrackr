@@ -188,6 +188,7 @@ const ProfileScreen = ({navigation}) => {
     }
   };
   useEffect(() => {
+    console.log('Profile screen useEffect called');
     getMe();
     // getScorecards();
     // getThrows();

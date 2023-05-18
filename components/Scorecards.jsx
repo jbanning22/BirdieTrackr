@@ -140,8 +140,9 @@ const Scorecards = ({navigation}) => {
   };
 
   useEffect(() => {
+    console.log('Scorecards screen useEffect called');
     getScorecards();
-  }, [scorecardData]);
+  }, []);
 
   return (
     <SafeAreaView style={styles.box1}>
