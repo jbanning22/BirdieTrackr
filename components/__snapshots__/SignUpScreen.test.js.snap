@@ -45,7 +45,6 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
       <TextInput
         autoCorrect={false}
         clearButtonMode="always"
-        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="First Name"
         style={
@@ -79,6 +78,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="always"
+        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="Email"
         style={
