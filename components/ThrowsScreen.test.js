@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
-import ThrowsScreen from './ThrowsScreen.jsx';
+import ThrowsScreen from './ThrowsScreen';
 import axios from 'axios';
 
 jest.mock('axios');

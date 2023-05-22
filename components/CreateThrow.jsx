@@ -8,18 +8,19 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import NavigationContainer from '@react-navigation/native';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
   //   const [value, setValue] = useState(42);
-  //   const [distance, setDistance] = useState('');
+  // const [distance, setDistance] = useState('');
   const [discName, setdiscName] = useState('');
   const [discColor, setDiscColor] = useState('');
   const [throwType, setThrowType] = useState('');
-  const [throwData, setThrowData] = useState('');
+  //   const [throwData, setThrowData] = useState('');
 
   let message = '';
   if (dist < 50) {
@@ -29,9 +30,11 @@ const CreateThrowScreen = ({navigation, route}) => {
   } else if (dist >= 100 && dist < 200) {
     message = 'Great throw!';
   } else if (dist >= 200 && dist < 300) {
-    message = 'Wow! That was far!';
-  } else if (dist >= 300 && dist < 400) {
+    message = 'What a throw!';
+  } else if (dist >= 300 && dist < 350) {
     message = 'Amazing Throw!';
+  } else if (dist >= 350 && dist < 400) {
+    message = 'That was bombed!';
   } else if (dist >= 400) {
     message = 'That was launched! Is your arm ok?';
   }
@@ -40,24 +43,26 @@ const CreateThrowScreen = ({navigation, route}) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
+    const throwDist = dist.toString();
     try {
       const measuredThrow = await axios.post(
         'http://localhost:3000/measure-throws',
         {
           disc: discName,
-          distance: dist.toString(),
+          distance: throwDist,
           throwtype: throwType,
           color: discColor,
         },
         {headers},
       );
-      console.log(measuredThrow.data);
-      setThrowData(measuredThrow.data);
-      // setThrowId(parseInt(measuredThrow.data.id, 10));
+      if (measuredThrow.status === 201) {
+        navigation.navigate('ThrowsScreen');
+      } else {
+        navigation.navigate('ThrowsScreen2');
+      }
     } catch (error) {
       console.log(error);
     }
-    navigation.navigate('ThrowsScreen');
   };
 
   return (
@@ -87,7 +92,6 @@ const CreateThrowScreen = ({navigation, route}) => {
         />
       </KeyboardAvoidingView>
       <Text style={styles.distance}>{dist} feet</Text>
-
       <Text style={styles.message}>{message}</Text>
       <TouchableOpacity style={styles.signUpButton} onPress={createThrow}>
         <Text style={styles.textButton}>Create Throw</Text>

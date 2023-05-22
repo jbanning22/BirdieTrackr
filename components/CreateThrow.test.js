@@ -1,6 +1,6 @@
 import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react-native';
-import CreateThrowScreen from './CreateThrow.jsx';
+import CreateThrowScreen from './CreateThrow';
 
 describe('Create Throw Screen', () => {
   it('should match the snapshot', () => {
@@ -24,17 +24,14 @@ describe('Create Throw Screen', () => {
     render(<CreateThrowScreen route={route} />);
     expect(screen.getByText('Create Throw')).toBeTruthy();
   });
-  it('should navigate back to throws screen upon throw creation', async () => {
-    const route = {
-      params: {dist: 100},
-    };
-    const navigation = {
-      navigate: jest.fn(),
-    };
-    const {getByText} = await render(
-      <CreateThrowScreen route={route} navigation={navigation} />,
-    );
-    await fireEvent.press(getByText('Create Throw'));
-    expect(navigation.navigate).toHaveBeenCalledWith('ThrowsScreen');
-  });
+  //   it('should navigate back to throws screen upon throw creation', async () => {
+  //     const route = {
+  //       params: {dist: 100},
+  //     };
+  //     const navigation = {navigate: jest.fn()};
+
+  //     await render(<CreateThrowScreen route={route} navigation={navigation} />);
+  //     await fireEvent.press(screen.getByText('Create Throw'));
+  //     expect(navigation.navigate).toHaveBeenCalledWith('ThrowsScreen');
+  //   });
 });

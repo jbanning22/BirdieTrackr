@@ -84,8 +84,9 @@ const ThrowsScreen = ({navigation}) => {
     );
   };
   useEffect(() => {
+    console.log('throw data useEffect called');
     getThrows();
-  }, [throwData]);
+  }, []);
   //   useEffect(() => {
   //     getThrows();
   //   }, []);

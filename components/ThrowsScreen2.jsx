@@ -20,11 +20,11 @@ const windowHeight = Dimensions.get('window').height;
 
 const ThrowsScreen2 = ({navigation}) => {
   const [startingLocation, setStartLocation] = useState(null);
-  const [endingLocation, setEndLocation] = useState(null);
+  const [endLocation, setEndLocation] = useState(null);
   const [endingDist, setEndingDist] = useState(null);
   const [presentLocation, setPresentLocation] = useState(null);
-  //   const [longitude, setLongitude] = useContext(LocationContext);
-  //   const [latitude, setLatitude] = useContext(LocationContext);
+  // const [longitude, setLongitude] = useContext(LocationContext);
+  // const [latitude, setLatitude] = useContext(LocationContext);
 
   useEffect(() => {
     // console.log('height is: ', windowHeight, 'width is: ', windowWidth);
@@ -40,12 +40,7 @@ const ThrowsScreen2 = ({navigation}) => {
         setPresentLocation({latitude, longitude});
       },
       error => {
-        console.log(
-          'error.code: ',
-          error.code,
-          'error.message: ',
-          error.message,
-        );
+        console.log(error.code, error.message);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -54,7 +49,7 @@ const ThrowsScreen2 = ({navigation}) => {
   async function distance(lat2, lon2) {
     setEndLocation({lat2, lon2});
     console.log('startingLocation in distance method is', startingLocation);
-    console.log('endingLocation in distance method is', endingLocation);
+    console.log('endLocation in distance method is', endLocation);
     const lat1 = startingLocation.latitude;
     const lon1 = startingLocation.longitude;
     if (lat1 === lat2 && lon1 === lon2) {
@@ -120,11 +115,11 @@ const ThrowsScreen2 = ({navigation}) => {
               }}
             />
           )}
-          {endingLocation !== null && (
+          {endLocation !== null && (
             <Marker
               coordinate={{
-                latitude: endingLocation.latitude,
-                longitude: endingLocation.longitude,
+                latitude: endLocation.latitude,
+                longitude: endLocation.longitude,
               }}
             />
           )}
@@ -144,7 +139,7 @@ const ThrowsScreen2 = ({navigation}) => {
       <View style={styles.lastView}>
         <TouchableOpacity
           style={{alignSelf: 'center'}}
-          onPress={() => navigation.navigate('ThrowScreen')}>
+          onPress={() => navigation.navigate('ThrowsScreen')}>
           <Text>Back</Text>
         </TouchableOpacity>
         <Text style={styles.textStyle1}>
