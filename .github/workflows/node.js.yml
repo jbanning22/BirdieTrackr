@@ -27,11 +27,13 @@ jobs:
           node-version: '18.x'
           cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci
+      #   - name: Install Dependencies
+      #     run: npm ci
 
       - name: Run Jest Tests
-        run: npm test
+        run: |
+          npm install  
+          npm run test
 
       - name: Run ESLint
         run: npm run lint
