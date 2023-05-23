@@ -34,7 +34,7 @@ const Scorecards = ({navigation}) => {
           headers,
         },
       );
-      navigation.navigate('FullScorecard', {
+      await navigation.navigate('FullScorecard', {
         id: scorecard.data.id,
       });
     } catch (error) {
@@ -132,7 +132,7 @@ const Scorecards = ({navigation}) => {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
       //   console.log(scoreC.data);
-      setScorecardData(scoreC.data);
+      await setScorecardData(scoreC.data);
       //   }
     } catch (error) {
       console.log('get Scorecard error is: ', error);
