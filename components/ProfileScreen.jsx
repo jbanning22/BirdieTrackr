@@ -192,7 +192,7 @@ const ProfileScreen = ({navigation}) => {
     getMe();
     // getScorecards();
     // getThrows();
-  }, [userDetails]);
+  }, []);
 
   useEffect(() => {
     getProfilePic('profileImageData');
