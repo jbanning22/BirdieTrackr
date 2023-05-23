@@ -41,7 +41,7 @@ const ProfileScreen = ({navigation}) => {
         await setSignedIn(false);
       }
     } catch (error) {
-      console.log('error signing out', error.message);
+      console.log('error signing out', error);
     }
   };
 
@@ -54,9 +54,10 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      await setUserDetails(getMeRes.data);
+      setUserDetails(getMeRes.data);
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error getting user details');
     }
   };
   const deleteUser = async () => {

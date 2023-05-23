@@ -30,10 +30,11 @@ const FullScorecard = ({route, navigation}) => {
           headers,
         },
       );
-      await setScorecardData(scoreC.data);
-      await setHolesData(scoreC.data.holes);
+      setScorecardData(scoreC.data);
+      setHolesData(scoreC.data.holes);
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error getting scorecard');
     }
   };
 
@@ -51,7 +52,8 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error updating stroke + 1');
     }
   };
 
@@ -69,7 +71,8 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error updating stroke - 1');
     }
   };
 
@@ -87,7 +90,8 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error updating stroke + 1');
     }
   };
   const updateParMinus = async (id, par) => {
@@ -104,7 +108,8 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error updating par - 1');
     }
   };
 
@@ -122,7 +127,8 @@ const FullScorecard = ({route, navigation}) => {
       );
       await navigation.navigate('Scorecard');
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      console.log('error completing scorecard');
     }
   };
 

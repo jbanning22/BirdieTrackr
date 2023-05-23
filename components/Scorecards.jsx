@@ -132,10 +132,11 @@ const Scorecards = ({navigation}) => {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
       //   console.log(scoreC.data);
-      await setScorecardData(scoreC.data);
+      setScorecardData(scoreC.data);
       //   }
     } catch (error) {
-      console.log('get Scorecard error is: ', error);
+      //   console.log('get Scorecard error is: ', error);
+      console.log('get Scorecard error');
     }
   };
 

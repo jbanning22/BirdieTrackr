@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
+import {render, fireEvent, act} from '@testing-library/react-native';
 import ThrowsScreen from './ThrowsScreen.jsx';
 import axios from 'axios';
 
@@ -14,8 +14,12 @@ describe('Throws Screen', () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it('should display screen title', () => {
-    const mockScorecards = [];
-    axios.get.mockImplementation(() => Promise.resolve({data: mockScorecards}));
+    const mockThrowData = [];
+    act(() => {
+      axios.get.mockImplementation(() =>
+        Promise.resolve({data: mockThrowData}),
+      );
+    });
 
     const {getByText} = render(<ThrowsScreen />);
     expect(getByText('Throws')).toBeTruthy();
