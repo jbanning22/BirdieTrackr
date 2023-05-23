@@ -38,7 +38,7 @@ const ProfileScreen = ({navigation}) => {
       if (signOutRes.status === 201) {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('ReToken');
-        setSignedIn(false);
+        await setSignedIn(false);
       }
     } catch (error) {
       console.log('error signing out', error.message);
@@ -54,7 +54,7 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      setUserDetails(getMeRes.data);
+      await setUserDetails(getMeRes.data);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +80,7 @@ const ProfileScreen = ({navigation}) => {
                   headers,
                 },
               );
-              setSignedIn(false);
+              await setSignedIn(false);
             } catch (error) {
               console.log(error);
             }
@@ -136,8 +136,8 @@ const ProfileScreen = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
-        setImageData(value);
-        setImageBool(true);
+        await setImageData(value);
+        await setImageBool(true);
         return value;
       }
     } catch (error) {

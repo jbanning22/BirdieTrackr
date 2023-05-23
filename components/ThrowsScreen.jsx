@@ -27,7 +27,7 @@ const ThrowsScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      setThrowData(measuredThrows.data);
+      await setThrowData(measuredThrows.data);
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +85,7 @@ const ThrowsScreen = ({navigation}) => {
   };
   useEffect(() => {
     getThrows();
-  }, [throwData]);
+  }, []);
   //   useEffect(() => {
   //     getThrows();
   //   }, []);

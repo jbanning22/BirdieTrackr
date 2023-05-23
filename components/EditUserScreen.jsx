@@ -42,7 +42,7 @@ const EditUserScreen = ({navigation}) => {
         },
       );
       //   console.log('edit user returned data is: ', editMeRes.data);
-      navigation.navigate('ProfileLanding');
+      await navigation.navigate('ProfileLanding');
     } catch (error) {
       console.log(error);
     }

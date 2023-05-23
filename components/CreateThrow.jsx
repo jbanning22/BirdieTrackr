@@ -52,7 +52,7 @@ const CreateThrowScreen = ({navigation, route}) => {
         {headers},
       );
       console.log(measuredThrow.data);
-      setThrowData(measuredThrow.data);
+      await setThrowData(measuredThrow.data);
       // setThrowId(parseInt(measuredThrow.data.id, 10));
     } catch (error) {
       console.log(error);

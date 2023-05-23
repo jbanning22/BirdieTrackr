@@ -46,8 +46,8 @@ const SignInScreen = ({navigation}) => {
 
           await AsyncStorage.setItem('token', access_token);
           await AsyncStorage.setItem('ReToken', refresh_token);
-          setSignedIn(true);
-          navigation.navigate('App', {screen: 'Scorecard'});
+          await setSignedIn(true);
+          await navigation.navigate('App', {screen: 'Scorecard'});
           return signInRes.data;
         }
       } catch (error) {

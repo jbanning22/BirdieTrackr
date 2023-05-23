@@ -35,7 +35,7 @@ const CourseScreen = ({navigation}) => {
         },
       );
       console.log('signin data.data: ', signInData.data);
-      setResponse(signInData.data);
+      await setResponse(signInData.data);
       //   setSessionId(signInData.data.sessionId);
       return signInData;
     } catch (error) {

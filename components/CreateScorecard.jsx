@@ -42,7 +42,7 @@ const CreateScorecard = ({navigation}) => {
         {courseLength: courseLength, courseName: courseName},
         {headers},
       );
-      navigation.navigate('FullScorecard', {
+      await navigation.navigate('FullScorecard', {
         id: scorecard.data.id,
       });
       return setScorecardData(scorecard.data);

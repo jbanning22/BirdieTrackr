@@ -30,8 +30,8 @@ const FullScorecard = ({route, navigation}) => {
           headers,
         },
       );
-      setScorecardData(scoreC.data);
-      setHolesData(scoreC.data.holes);
+      await setScorecardData(scoreC.data);
+      await setHolesData(scoreC.data.holes);
     } catch (error) {
       console.log(error);
     }
@@ -120,7 +120,7 @@ const FullScorecard = ({route, navigation}) => {
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );
-      navigation.navigate('Scorecard');
+      await navigation.navigate('Scorecard');
     } catch (error) {
       console.log(error);
     }
