@@ -2,7 +2,7 @@ import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react-native';
 import Scorecards from './Scorecards';
 import axios from 'axios';
-import act from '@testing-library/react-native';
+// import act from '@testing-library/react-native';
 
 jest.mock('@fortawesome/react-native-fontawesome', () => ({
   FontAwesomeIcon: () => null,
@@ -10,13 +10,15 @@ jest.mock('@fortawesome/react-native-fontawesome', () => ({
 jest.mock('axios');
 
 describe('Scorecards Landing', () => {
+  beforeEach(() => {
+    const mockScorecards = [];
+    axios.get.mockImplementation(() => Promise.resolve({data: mockScorecards}));
+  });
   it('should match the snapshot', () => {
     const {toJSON} = render(<Scorecards />);
     expect(toJSON()).toMatchSnapshot();
   });
   it('should display screen title', async () => {
-    const mockScorecards = [];
-    axios.get.mockImplementation(() => Promise.resolve({data: mockScorecards}));
     await render(<Scorecards />);
     expect(screen.getByText('Scorecards')).toBeTruthy();
   });

@@ -42,6 +42,7 @@ const ProfileScreen = ({navigation}) => {
       }
     } catch (error) {
       console.log('error signing out', error.message);
+      //   console.log('error signing out');
     }
   };
 
@@ -54,7 +55,7 @@ const ProfileScreen = ({navigation}) => {
       const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
         headers,
       });
-      setUserDetails(getMeRes.data);
+      await setUserDetails(getMeRes.data);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +81,7 @@ const ProfileScreen = ({navigation}) => {
                   headers,
                 },
               );
-              setSignedIn(false);
+              await setSignedIn(false);
             } catch (error) {
               console.log(error);
             }
@@ -136,8 +137,8 @@ const ProfileScreen = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
-        setImageData(value);
-        setImageBool(true);
+        await setImageData(value);
+        await setImageBool(true);
         return value;
       }
     } catch (error) {
@@ -155,8 +156,8 @@ const ProfileScreen = ({navigation}) => {
     } else {
       await launchImageLibrary(options, async response => {
         if (response.assets) {
-          setImageData(response.assets[0].uri);
-          setImageBool(true);
+          await setImageData(response.assets[0].uri);
+          await setImageBool(true);
           await AsyncStorage.setItem(
             'profileImageData',
             response.assets[0].uri,

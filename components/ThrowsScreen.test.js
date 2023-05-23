@@ -9,14 +9,15 @@ jest.mock('@fortawesome/react-native-fontawesome', () => ({
 }));
 
 describe('Throws Screen', () => {
+  beforeEach(() => {
+    const mockThrowData = [];
+    axios.get.mockImplementation(() => Promise.resolve({data: mockThrowData}));
+  });
   it('should match the snapshot', () => {
     const {toJSON} = render(<ThrowsScreen />);
     expect(toJSON()).toMatchSnapshot();
   });
   it('should display screen title', () => {
-    const mockScorecards = [];
-    axios.get.mockImplementation(() => Promise.resolve({data: mockScorecards}));
-
     const {getByText} = render(<ThrowsScreen />);
     expect(getByText('Throws')).toBeTruthy();
   });

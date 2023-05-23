@@ -27,7 +27,7 @@ const ThrowsScreen = ({navigation}) => {
         'http://localhost:3000/measure-throws',
         {headers},
       );
-      setThrowData(measuredThrows.data);
+      await setThrowData(measuredThrows.data);
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +51,7 @@ const ThrowsScreen = ({navigation}) => {
                 `http://localhost:3000/measure-throws/${id}`,
                 {headers},
               );
-              getThrows();
+              await getThrows();
             } catch (error) {
               console.log(error);
             }

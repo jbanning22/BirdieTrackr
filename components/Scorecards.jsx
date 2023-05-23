@@ -100,7 +100,7 @@ const Scorecards = ({navigation}) => {
                 `http://localhost:3000/scorecard/${id}`,
                 {headers},
               );
-              getScorecards();
+              await getScorecards();
             } catch (error) {
               console.log(error);
             }
@@ -132,7 +132,7 @@ const Scorecards = ({navigation}) => {
       //     setScorecardData(['You have not recorded any rounds yet.']);
       //   } else {
       //   console.log(scoreC.data);
-      setScorecardData(scoreC.data);
+      await setScorecardData(scoreC.data);
       //   }
     } catch (error) {
       console.log('get Scorecard error is: ', error);
