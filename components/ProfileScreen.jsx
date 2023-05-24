@@ -57,7 +57,8 @@ const ProfileScreen = ({navigation}) => {
       setUserDetails(getMeRes.data);
     } catch (error) {
       //   console.log(error);
-      console.log('error getting user details');
+      //   console.log('error getting user details');
+      throw new Error('Error getting user details');
     }
   };
   const deleteUser = async () => {

@@ -33,8 +33,7 @@ const FullScorecard = ({route, navigation}) => {
       setScorecardData(scoreC.data);
       setHolesData(scoreC.data.holes);
     } catch (error) {
-      //   console.log(error);
-      console.log('error getting scorecard');
+      throw new Error('Error getting scorecard');
     }
   };
 
