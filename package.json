@@ -12,9 +12,10 @@
     "postinstall": "react-native setup-ios-permissions && pod-install"
   },
   "lint-staged": {
-    "{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
       "prettier --write",
-      "eslint --fix"
+      "git add"
     ]
   },
   "reactNativePermissionsIOS": [
