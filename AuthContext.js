@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, {createContext, useState} from 'react';
+=======
+import {createContext} from "react";
+>>>>>>> Stashed changes
 
 export const AuthContext = createContext();
 
