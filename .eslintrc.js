@@ -1,8 +1,4 @@
 module.exports = {
-<<<<<<< Updated upstream
-  root: true,
-  extends: '@react-native-community',
-=======
 	root: true,
 	env: {
 		node: true,
@@ -12,7 +8,7 @@ module.exports = {
 		"jest/globals": true,
 	},
 	extends: [
-		"plugin:react/recommended",
+		"plugin:react/recommended", 
 		"prettier",
 		"eslint:recommended",
 		"plugin:jest/recommended",
@@ -49,5 +45,4 @@ module.exports = {
 			version: "detect",
 		},
 	},
->>>>>>> Stashed changes
 };
