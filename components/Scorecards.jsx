@@ -128,15 +128,12 @@ const Scorecards = ({navigation}) => {
       const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
         headers,
       });
-      //   if (scoreC.data === []) {
-      //     setScorecardData(['You have not recorded any rounds yet.']);
-      //   } else {
-      //   console.log(scoreC.data);
       setScorecardData(scoreC.data);
       //   }
     } catch (error) {
       //   console.log('get Scorecard error is: ', error);
-      console.log('get Scorecard error');
+      //   console.log('get Scorecard error');
+      throw new Error('Error getting scorecards');
     }
   };
 

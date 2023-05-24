@@ -2,6 +2,8 @@ import React from 'react';
 import {render, screen} from '@testing-library/react-native';
 import ProfileScreen from './ProfileScreen';
 import {AuthContext} from '../AuthContext';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 jest.mock('@fortawesome/react-native-fontawesome', () => ({
   FontAwesomeIcon: () => null,
@@ -16,14 +18,34 @@ jest.mock('react-native-permissions', () => ({
 jest.mock('react-native-image-picker', () => ({
   launchImageLibrary: jest.fn(),
 }));
+jest.mock('axios');
+jest.mock('@react-native-async-storage/async-storage');
 
 describe('Profile Screen', () => {
+  beforeEach(() => {
+    AsyncStorage.getItem.mockResolvedValue('dummy_token');
+    axios.get.mockResolvedValue({
+      data: {
+        id: 1,
+        firstName: 'Jack',
+        lastName: 'Banning',
+        userName: 'JBanning',
+        city: null,
+        state: null,
+        email: 'jtest@email.com',
+      },
+    });
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should match the snapshot', async () => {
     const authContextValue = {
       signedIn: true,
       setSignedIn: jest.fn(),
     };
-    const {toJSON} = await render(
+    const {toJSON} = render(
       <AuthContext.Provider value={authContextValue}>
         <ProfileScreen />
       </AuthContext.Provider>,
@@ -35,7 +57,7 @@ describe('Profile Screen', () => {
       signedIn: true,
       setSignedIn: jest.fn(),
     };
-    await render(
+    render(
       <AuthContext.Provider value={authContextValue}>
         <ProfileScreen />
       </AuthContext.Provider>,
@@ -47,7 +69,7 @@ describe('Profile Screen', () => {
       signedIn: true,
       setSignedIn: jest.fn(),
     };
-    await render(
+    render(
       <AuthContext.Provider value={authContextValue}>
         <ProfileScreen />
       </AuthContext.Provider>,
@@ -59,7 +81,7 @@ describe('Profile Screen', () => {
       signedIn: true,
       setSignedIn: jest.fn(),
     };
-    await render(
+    render(
       <AuthContext.Provider value={authContextValue}>
         <ProfileScreen />
       </AuthContext.Provider>,
