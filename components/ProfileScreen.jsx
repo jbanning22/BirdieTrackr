@@ -56,8 +56,6 @@ const ProfileScreen = ({navigation}) => {
       });
       setUserDetails(getMeRes.data);
     } catch (error) {
-      //   console.log(error);
-      //   console.log('error getting user details');
       throw new Error('Error getting user details');
     }
   };
@@ -84,7 +82,7 @@ const ProfileScreen = ({navigation}) => {
               );
               await setSignedIn(false);
             } catch (error) {
-              console.log(error);
+              throw new Error('Error deleting user');
             }
           },
         },
@@ -138,12 +136,12 @@ const ProfileScreen = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
-        await setImageData(value);
-        await setImageBool(true);
+        setImageData(value);
+        setImageBool(true);
         return value;
       }
     } catch (error) {
-      console.log(error);
+      throw new Error('Error getting profile pic');
     }
   };
 

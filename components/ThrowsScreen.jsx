@@ -29,8 +29,7 @@ const ThrowsScreen = ({navigation}) => {
       );
       setThrowData(measuredThrows.data);
     } catch (error) {
-      //   console.log(error);
-      console.log('error getting throw details');
+      throw new Error('Error getting user throws');
     }
   };
 
@@ -54,7 +53,7 @@ const ThrowsScreen = ({navigation}) => {
               );
               getThrows();
             } catch (error) {
-              console.log(error);
+              throw new Error('Error deleting throw');
             }
           },
         },
@@ -87,9 +86,7 @@ const ThrowsScreen = ({navigation}) => {
   useEffect(() => {
     getThrows();
   }, []);
-  //   useEffect(() => {
-  //     getThrows();
-  //   }, []);
+
   //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>

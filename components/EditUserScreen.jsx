@@ -41,10 +41,9 @@ const EditUserScreen = ({navigation}) => {
           headers: headers,
         },
       );
-      //   console.log('edit user returned data is: ', editMeRes.data);
       await navigation.navigate('ProfileLanding');
     } catch (error) {
-      console.log(error);
+      throw new Error('Error editing user');
     }
   };
 

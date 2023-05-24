@@ -51,13 +51,10 @@ const CreateThrowScreen = ({navigation, route}) => {
         },
         {headers},
       );
-      console.log(measuredThrow.data);
-      setThrowData(measuredThrow.data);
-      // setThrowId(parseInt(measuredThrow.data.id, 10));
+      navigation.navigate('ThrowsScreen');
     } catch (error) {
-      console.log(error);
+      throw new Error('Error creating throw');
     }
-    navigation.navigate('ThrowsScreen');
   };
 
   return (
