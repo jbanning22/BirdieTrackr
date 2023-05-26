@@ -28,7 +28,7 @@ const EditUserScreen = ({navigation}) => {
     };
     try {
       const editMeRes = await axios.patch(
-        'http://192.168.1.154:3000/users',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users',
         {
           userName: userName,
           fistName: firstName,

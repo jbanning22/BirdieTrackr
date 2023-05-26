@@ -42,7 +42,7 @@ const CreateThrowScreen = ({navigation, route}) => {
     };
     try {
       const measuredThrow = await axios.post(
-        'http://localhost:3000/measure-throws',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
         {
           disc: discName,
           distance: dist.toString(),
