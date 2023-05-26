@@ -37,7 +37,7 @@ const SignUpScreen = ({navigation}) => {
     } else {
       try {
         const signUpRes = await axios.post(
-          'http://192.168.1.154:3000/auth/signup',
+          'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/signup',
           formData,
         );
         //   console.log('sign up res', signUpRes.data.access_token);

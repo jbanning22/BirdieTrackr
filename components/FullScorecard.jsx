@@ -25,7 +25,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const scoreC = await axios.get(
-        `http://192.168.1.154:3000/scorecard/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
         {
           headers,
         },
@@ -45,7 +45,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleP = await axios.patch(
-        `http://192.168.1.154:3000/hole/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
         {strokes: strokes + 1},
         {headers},
       );
@@ -64,7 +64,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleM = await axios.patch(
-        `http://192.168.1.154:3000/hole/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
         {strokes: strokes - 1},
         {headers},
       );
@@ -83,7 +83,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHolePar = await axios.patch(
-        `http://192.168.1.154:3000/hole/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
         {par: par + 1},
         {headers},
       );
@@ -101,7 +101,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const updatedHoleParM = await axios.patch(
-        `http://192.168.1.154:3000/hole/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
         {par: par - 1},
         {headers},
       );
@@ -120,7 +120,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const finishCard = await axios.patch(
-        `http://192.168.1.154:3000/scorecard/${scorecardId}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${scorecardId}`,
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );

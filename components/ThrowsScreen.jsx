@@ -24,7 +24,7 @@ const ThrowsScreen = ({navigation}) => {
     };
     try {
       const measuredThrows = await axios.get(
-        'http://localhost:3000/measure-throws',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
         {headers},
       );
       setThrowData(measuredThrows.data);
@@ -48,7 +48,7 @@ const ThrowsScreen = ({navigation}) => {
           onPress: async () => {
             try {
               const deleteThrow = await axios.delete(
-                `http://localhost:3000/measure-throws/${id}`,
+                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws/${id}`,
                 {headers},
               );
               getThrows();

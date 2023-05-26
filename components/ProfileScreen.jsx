@@ -32,7 +32,7 @@ const ProfileScreen = ({navigation}) => {
   const signOut = async () => {
     try {
       const signOutRes = await axios.post(
-        'http://192.168.1.154:3000/auth/signout',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com.154:3000/auth/signout',
         {},
       );
       if (signOutRes.status === 201) {
@@ -41,7 +41,7 @@ const ProfileScreen = ({navigation}) => {
         await setSignedIn(false);
       }
     } catch (error) {
-      console.log('error signing out', error);
+      throw new Error('Error signing out');
     }
   };
 
@@ -51,14 +51,18 @@ const ProfileScreen = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const getMeRes = await axios.get('http://192.168.1.154:3000/users/me', {
-        headers,
-      });
+      const getMeRes = await axios.get(
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/me',
+        {
+          headers,
+        },
+      );
       setUserDetails(getMeRes.data);
     } catch (error) {
-      throw new Error('Error getting user details');
+      console.error('Error getting user details: ', error);
     }
   };
+
   const deleteUser = async () => {
     const token = await AsyncStorage.getItem('token');
     const headers = {
@@ -74,8 +78,8 @@ const ProfileScreen = ({navigation}) => {
           text: 'Delete',
           onPress: async () => {
             try {
-              const getMeRes = await axios.delete(
-                `http://192.168.1.154:3000/users/${id}`,
+              await axios.delete(
+                `http://ec2-54-87-189-240.compute-1.amazonaws.com68.1.154:3000/users/${id}`,
                 {
                   headers,
                 },
@@ -97,7 +101,7 @@ const ProfileScreen = ({navigation}) => {
   //       Authorization: `Bearer ${token}`,
   //     };
   //     try {
-  //       const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
+  //       const scoreC = await axios.get(`http:/ec2-54-87-189-240.compute-1.amazonaws.com4:3000/scorecard`, {
   //         headers,
   //       });
   //       if (scoreC.data === []) {
@@ -121,7 +125,7 @@ const ProfileScreen = ({navigation}) => {
   //     };
   //     try {
   //       const measuredThrows = await axios.get(
-  //         'http://localhost:3000/measure-throws',
+  //         'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
   //         {headers},
   //       );
   //       //   console.log('measured Throws console.log is: ', measuredThrows.data);
@@ -188,7 +192,7 @@ const ProfileScreen = ({navigation}) => {
     }
   };
   useEffect(() => {
-    console.log('Profile screen useEffect called');
+    // console.log('Profile screen useEffect called');
     getMe();
     // getScorecards();
     // getThrows();
