@@ -138,7 +138,7 @@ const App = () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
       const refresh = await axios.post(
-        'http://192.168.1.154:3000/auth/refresh',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/refresh',
         null,
         {
           headers: {

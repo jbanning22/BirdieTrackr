@@ -20,7 +20,7 @@ const Scorecards = ({navigation}) => {
     };
     try {
       const scorecard = await axios.get(
-        `http://192.168.1.154:3000/scorecard/${id}`,
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
         {
           headers,
         },
@@ -87,9 +87,10 @@ const Scorecards = ({navigation}) => {
           text: 'Delete',
           onPress: async () => {
             try {
-              await axios.delete(`http://localhost:3000/scorecard/${id}`, {
-                headers,
-              });
+              const deleteScorecard = await axios.delete(
+                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
+                {headers},
+              );
               getScorecards();
             } catch (error) {
               console.log(error);
@@ -107,9 +108,12 @@ const Scorecards = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
-        headers,
-      });
+      const scoreC = await axios.get(
+        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard`,
+        {
+          headers,
+        },
+      );
       setScorecardData(scoreC.data);
     } catch (error) {
       throw new Error('Error getting scorecards');

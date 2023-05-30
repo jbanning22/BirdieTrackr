@@ -38,8 +38,8 @@ const CreateThrowScreen = ({navigation, route}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      await axios.post(
-        'http://localhost:3000/measure-throws',
+      const measuredThrow = await axios.post(
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
         {
           disc: discName,
           distance: dist.toString(),
