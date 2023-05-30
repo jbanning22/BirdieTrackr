@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  SectionList,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
@@ -24,8 +15,6 @@ import {Alert} from 'react-native';
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState({});
-  //   const [scorecardData, setScorecardData] = useState([]);
-  //   const [throwData, setThrowData] = useState([]);
   const [imageBool, setImageBool] = useState(false);
   const [imageData, setImageData] = useState([]);
 
@@ -59,6 +48,7 @@ const ProfileScreen = ({navigation}) => {
       throw new Error('Error getting user details');
     }
   };
+
   const deleteUser = async () => {
     const token = await AsyncStorage.getItem('token');
     const headers = {
@@ -91,47 +81,6 @@ const ProfileScreen = ({navigation}) => {
     );
   };
 
-  //   const getScorecards = async () => {
-  //     const token = await AsyncStorage.getItem('token');
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //     };
-  //     try {
-  //       const scoreC = await axios.get(`http://192.168.1.154:3000/scorecard`, {
-  //         headers,
-  //       });
-  //       if (scoreC.data === []) {
-  //         act(() => {
-  //           setScorecardData(['You have not recorded any rounds yet.']);
-  //         });
-  //       } else {
-  //         act(() => {
-  //           setScorecardData(scoreC.data);
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.log('get Scorecard error is: ', error);
-  //     }
-  //   };
-
-  //   const getThrows = async () => {
-  //     const token = await AsyncStorage.getItem('token');
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //     };
-  //     try {
-  //       const measuredThrows = await axios.get(
-  //         'http://localhost:3000/measure-throws',
-  //         {headers},
-  //       );
-  //       //   console.log('measured Throws console.log is: ', measuredThrows.data);
-  //       act(() => {
-  //         setThrowData(measuredThrows.data);
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
   const getProfilePic = async key => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
@@ -169,7 +118,6 @@ const ProfileScreen = ({navigation}) => {
   const requestCameraRollPermission = async () => {
     if (Platform.OS === 'ios') {
       const results = await request(PERMISSIONS.IOS.PHOTO_LIBRARY);
-      //   console.log('request camera roll permisson result: ', results);
       return results;
     } else {
       const result = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
@@ -180,7 +128,6 @@ const ProfileScreen = ({navigation}) => {
   const checkCameraRollPermission = async () => {
     if (Platform.OS === 'ios') {
       const result = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
-      //   console.log('check camera roll permisson result: ', result);
       return result;
     } else {
       const result = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
@@ -190,8 +137,6 @@ const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     console.log('Profile screen useEffect called');
     getMe();
-    // getScorecards();
-    // getThrows();
   }, []);
 
   useEffect(() => {
@@ -231,26 +176,6 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      {/* <View style={{flexDirection: 'row', alignContent: 'center'}}> */}
-      {/* <View
-          style={{
-            borderRightWidth: 1,
-            borderColor: 'black',
-            padding: 5,
-            borderLeftWidth: 1,
-          }}>
-          <Text style={styles.roundsText}>Rounds</Text>
-          <Text style={{alignSelf: 'center', fontSize: 16}}>
-            {scorecardData.length}
-          </Text>
-        </View> */}
-      {/* <View style={{borderRightWidth: 1, borderColor: 'black', padding: 5}}>
-          <Text style={styles.roundsText}>Throws</Text>
-          <Text style={{alignSelf: 'center', fontSize: 16}}>
-            {throwData.length}
-          </Text>
-        </View> */}
-      {/* </View> */}
       <View style={{alignSelf: 'center'}}>
         <Text style={{padding: 2, fontSize: 18, fontWeight: '400'}}>
           Located in: {userDetails.city}, {userDetails.state}
@@ -290,8 +215,6 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
     flexDirection: 'column',
   },
   box2: {
@@ -352,7 +275,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     padding: 5,
-    // marginLeft: 50,
     marginTop: 20,
   },
   editButton: {
@@ -363,7 +285,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     padding: 5,
-    // marginLeft: 150,
     marginTop: 20,
   },
   buttonText: {
@@ -402,7 +323,6 @@ const styles = StyleSheet.create({
   },
   renderItemStyle: {
     flexDirection: 'column',
-    // margin: 10,
   },
   renderCourseName: {
     alignSelf: 'center',

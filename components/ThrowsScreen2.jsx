@@ -5,9 +5,8 @@ import {
   Dimensions,
   SafeAreaView,
   TouchableOpacity,
-  Button,
 } from 'react-native';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker} from 'react-native-maps';
 import StartThrow from './StartThrow';
@@ -23,11 +22,8 @@ const ThrowsScreen2 = ({navigation}) => {
   const [endingLocation, setEndLocation] = useState(null);
   const [endingDist, setEndingDist] = useState(null);
   const [presentLocation, setPresentLocation] = useState(null);
-  //   const [longitude, setLongitude] = useContext(LocationContext);
-  //   const [latitude, setLatitude] = useContext(LocationContext);
 
   useEffect(() => {
-    // console.log('height is: ', windowHeight, 'width is: ', windowWidth);
     if (presentLocation === null) {
       getPresentLocation();
     }
@@ -74,7 +70,7 @@ const ThrowsScreen2 = ({navigation}) => {
       dist = (dist * 180) / Math.PI;
       dist = dist * 60 * 1.1515;
       dist = Math.round(dist * 5280);
-      await setEndingDist(dist);
+      setEndingDist(dist);
       navigation.navigate('CreateThrow', {dist});
     }
   }
@@ -168,7 +164,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    //alignSelf: 'center',
     alignItems: 'center',
   },
   distanceText: {

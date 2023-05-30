@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import Geolocation from 'react-native-geolocation-service';
 
 const EndThrow = props => {

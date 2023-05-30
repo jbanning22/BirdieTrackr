@@ -27,7 +27,7 @@ module.exports = {
   rules: {
     indent: [
       'error',
-      'tab',
+      // 'tab',
       {
         SwitchCase: 1,
         ignoredNodes: ['ConditionalExpression'],

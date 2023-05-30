@@ -14,12 +14,9 @@ import axios from 'axios';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
-  //   const [value, setValue] = useState(42);
-  //   const [distance, setDistance] = useState('');
   const [discName, setdiscName] = useState('');
   const [discColor, setDiscColor] = useState('');
   const [throwType, setThrowType] = useState('');
-  const [throwData, setThrowData] = useState('');
 
   let message = '';
   if (dist < 50) {
@@ -41,7 +38,7 @@ const CreateThrowScreen = ({navigation, route}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const measuredThrow = await axios.post(
+      await axios.post(
         'http://localhost:3000/measure-throws',
         {
           disc: discName,
@@ -125,7 +122,6 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     backgroundColor: 'white',
-    // marginTop: 10,
   },
   emailInput: {
     height: 50,

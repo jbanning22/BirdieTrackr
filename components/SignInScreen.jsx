@@ -1,8 +1,6 @@
 import {
   StyleSheet,
   Text,
-  View,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Button,
@@ -21,8 +19,6 @@ const SignInScreen = ({navigation}) => {
     password: '',
   });
   const [validationErrors, setValidationErrors] = useState({});
-  //   const [email, setEmail] = useState('');
-  //   const [password, setPassword] = useState('');
 
   const signIn = async () => {
     const errorsExist = Object.values(validationErrors).some(
@@ -64,7 +60,6 @@ const SignInScreen = ({navigation}) => {
   };
 
   return (
-    // <SafeAreaView>
     <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.homeText}>Welcome Back!</Text>
       <KeyboardAvoidingView>
@@ -77,8 +72,6 @@ const SignInScreen = ({navigation}) => {
           }
           value={formData.email}
           onChangeText={text => setFormData({...formData, email: text})}
-          //   value={email}
-          //   onChangeText={setEmail}
           onBlur={validateEmail}
           autoCorrect={false}
           autoCapitalize={'none'}
@@ -89,8 +82,6 @@ const SignInScreen = ({navigation}) => {
           style={styles.loginTextInput1}
           value={formData.password}
           onChangeText={text => setFormData({...formData, password: text})}
-          //   value={password}
-          //   onChangeText={setPassword}
           autoCapitalize={'none'}
           secureTextEntry={true}
           autoCorrect={false}
@@ -101,7 +92,6 @@ const SignInScreen = ({navigation}) => {
       </TouchableOpacity>
       <Button title="Back" onPress={() => navigation.navigate('Landing')} />
     </ScrollView>
-    // {/* </SafeAreaView> */}
   );
 };
 

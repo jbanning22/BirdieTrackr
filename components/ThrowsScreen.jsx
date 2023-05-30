@@ -47,10 +47,9 @@ const ThrowsScreen = ({navigation}) => {
           text: 'Delete',
           onPress: async () => {
             try {
-              const deleteThrow = await axios.delete(
-                `http://localhost:3000/measure-throws/${id}`,
-                {headers},
-              );
+              await axios.delete(`http://localhost:3000/measure-throws/${id}`, {
+                headers,
+              });
               getThrows();
             } catch (error) {
               throw new Error('Error deleting throw');

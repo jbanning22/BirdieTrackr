@@ -1,16 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {Dimensions} from 'react-native';
 
 const FullScorecard = ({route, navigation}) => {
   const {id} = route.params;
@@ -51,7 +43,6 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      //   console.log(error);
       console.log('error updating stroke + 1');
     }
   };
@@ -70,7 +61,6 @@ const FullScorecard = ({route, navigation}) => {
       );
       getScorecard();
     } catch (error) {
-      //   console.log(error);
       console.log('error updating stroke - 1');
     }
   };
@@ -82,14 +72,13 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHolePar = await axios.patch(
+      await axios.patch(
         `http://192.168.1.154:3000/hole/${id}`,
         {par: par + 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
-      //   console.log(error);
       console.log('error updating stroke + 1');
     }
   };
@@ -100,14 +89,13 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHoleParM = await axios.patch(
+      await axios.patch(
         `http://192.168.1.154:3000/hole/${id}`,
         {par: par - 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
-      //   console.log(error);
       console.log('error updating par - 1');
     }
   };
@@ -119,14 +107,13 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const finishCard = await axios.patch(
+      await axios.patch(
         `http://192.168.1.154:3000/scorecard/${scorecardId}`,
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );
       await navigation.navigate('Scorecard');
     } catch (error) {
-      //   console.log(error);
       console.log('error completing scorecard');
     }
   };
@@ -253,8 +240,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#52BEDB',
     justifyContent: 'center',
     padding: 5,
-    // marginLeft: 150,
-    // marginTop: 20,
   },
   scorecardButtonText: {
     color: 'white',
@@ -270,7 +255,6 @@ const styles = StyleSheet.create({
   flatlistContainer: {
     flex: 0,
     width: '100%',
-    // marginTop: 40,
   },
   renderParentText: {
     alignSelf: 'center',
@@ -291,8 +275,6 @@ const styles = StyleSheet.create({
     width: 395,
     alignContent: 'center',
     justifyContent: 'center',
-    // borderRightWidth: 2,
-    // borderColor: 'black',
     padding: 10,
     marginTop: 20,
   },

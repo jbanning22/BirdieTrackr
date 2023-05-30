@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Alert} from 'react-native';
 import axios from 'axios';
@@ -19,10 +11,9 @@ import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 
 const Scorecards = ({navigation}) => {
-  //   const [token, setToken] = useState(null);
   const [scorecardData, setScorecardData] = useState([]);
 
-  const handleScorecardPressed = async (id, courseLength) => {
+  const handleScorecardPressed = async id => {
     const token = await AsyncStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -96,10 +87,9 @@ const Scorecards = ({navigation}) => {
           text: 'Delete',
           onPress: async () => {
             try {
-              const deleteScorecard = await axios.delete(
-                `http://localhost:3000/scorecard/${id}`,
-                {headers},
-              );
+              await axios.delete(`http://localhost:3000/scorecard/${id}`, {
+                headers,
+              });
               getScorecards();
             } catch (error) {
               console.log(error);
@@ -110,14 +100,6 @@ const Scorecards = ({navigation}) => {
       {cancelable: false},
     );
   };
-  //   const fetchLoggedInStatus = async () => {
-  //     try {
-  //       const Atoken = await AsyncStorage.getItem('token');
-  //       setToken(Atoken);
-  //     } catch (error) {
-  //       console.error('Error fetching logged-in status:', error);
-  //     }
-  //   };
 
   const getScorecards = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -129,10 +111,7 @@ const Scorecards = ({navigation}) => {
         headers,
       });
       setScorecardData(scoreC.data);
-      //   }
     } catch (error) {
-      //   console.log('get Scorecard error is: ', error);
-      //   console.log('get Scorecard error');
       throw new Error('Error getting scorecards');
     }
   };
@@ -152,7 +131,6 @@ const Scorecards = ({navigation}) => {
           renderItem={renderItem}
           data={scorecardData}
           showsVerticalScrollIndicator={false}
-          //   contentContainerStyle={styles.flatlistStyle}
         />
       )}
 
@@ -197,7 +175,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#52BEDB',
     marginTop: 10,
     borderRadius: 8,
-    // marginBottom: 20,
   },
   buttonText: {
     color: 'white',
@@ -212,7 +189,6 @@ const styles = StyleSheet.create({
   },
   renderItemStyle: {
     flexDirection: 'column',
-    // margin: 10,
   },
   renderCourseName: {
     alignSelf: 'center',

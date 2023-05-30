@@ -1,7 +1,6 @@
 import {
   StyleSheet,
   Text,
-  View,
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
@@ -10,7 +9,6 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, CommonActions} from '@react-navigation/native';
 import axios from 'axios';
 
 const EditUserScreen = ({navigation}) => {
@@ -27,7 +25,7 @@ const EditUserScreen = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const editMeRes = await axios.patch(
+      await axios.patch(
         'http://192.168.1.154:3000/users',
         {
           userName: userName,
@@ -134,7 +132,6 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     backgroundColor: 'white',
-    // marginTop: 10,
   },
   emailInput: {
     height: 50,

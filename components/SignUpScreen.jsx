@@ -1,8 +1,6 @@
 import {
   StyleSheet,
   Text,
-  View,
-  SafeAreaView,
   TextInput,
   Button,
   TouchableOpacity,
@@ -40,8 +38,6 @@ const SignUpScreen = ({navigation}) => {
           'http://192.168.1.154:3000/auth/signup',
           formData,
         );
-        //   console.log('sign up res', signUpRes.data.access_token);
-        //   console.log('sign up res', signUpRes.data.refresh_token);
         if (signUpRes.status === 201) {
           const access_token = await signUpRes.data.access_token;
           const refresh_token = await signUpRes.data.refresh_token;
@@ -64,7 +60,6 @@ const SignUpScreen = ({navigation}) => {
     });
   };
   return (
-    // <SafeAreaView style={styles.box1}>
     <ScrollView contentContainerStyle={styles.box1}>
       <Text style={styles.singUpText}>Join the IDISC Community!</Text>
       <KeyboardAvoidingView>
@@ -138,7 +133,6 @@ const SignUpScreen = ({navigation}) => {
       </TouchableOpacity>
       <Button title="Back" onPress={() => navigation.navigate('Landing')} />
     </ScrollView>
-    // {/* </SafeAreaView> */}
   );
 };
 
@@ -170,7 +164,6 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     backgroundColor: 'white',
-    // marginTop: 10,
   },
   emailInput: {
     height: 50,
