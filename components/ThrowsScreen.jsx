@@ -13,25 +13,30 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
+import {useQueryClient} from '@tanstack/react-query';
+import {useGetThrowDetails} from './hooks/getThrowDataQuery';
 
 const ThrowsScreen = ({navigation}) => {
-  const [throwData, setThrowData] = useState([]);
+  // const [throwData, setThrowData] = useState([]);
+  const {data: throwData, isLoading, isError, error} = useGetThrowDetails();
 
-  const getThrows = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const measuredThrows = await axios.get(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
-        {headers},
-      );
-      setThrowData(measuredThrows.data);
-    } catch (error) {
-      throw new Error('Error getting user throws');
-    }
-  };
+  const queryClient = useQueryClient();
+
+  // const getThrows = async () => {
+  //   const token = await AsyncStorage.getItem('token');
+  //   const headers = {
+  //     Authorization: `Bearer ${token}`,
+  //   };
+  //   try {
+  //     const measuredThrows = await axios.get(
+  //       'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
+  //       {headers},
+  //     );
+  //     // setThrowData(measuredThrows.data);
+  //   } catch (error) {
+  //     throw new Error('Error getting user throws');
+  //   }
+  // };
 
   const deleteThrow = async id => {
     const token = await AsyncStorage.getItem('token');
@@ -47,13 +52,13 @@ const ThrowsScreen = ({navigation}) => {
           text: 'Delete',
           onPress: async () => {
             try {
-              const deleteThrow = await axios.delete(
+              await axios.delete(
                 `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws/${id}`,
                 {headers},
               );
-              getThrows();
+              queryClient.invalidateQueries('throwData');
             } catch (error) {
-              throw new Error('Error deleting throw');
+              throw error;
             }
           },
         },
@@ -83,22 +88,22 @@ const ThrowsScreen = ({navigation}) => {
       </View>
     );
   };
-  useEffect(() => {
-    getThrows();
-  }, []);
+  // useEffect(() => {
+  //   getThrows();
+  // }, []);
 
   //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.titleText}>Throws</Text>
-      {throwData.length === 0 ? (
-        <Text>You have not recorded any throws yet.</Text>
-      ) : (
+      {throwData && throwData.length ? (
         <FlatList
           renderItem={renderItem}
           data={throwData}
           showsVerticalScrollIndicator={false}
         />
+      ) : (
+        <Text>You have not recorded any throws yet.</Text>
       )}
       <TouchableOpacity
         style={styles.measureThrowButton}

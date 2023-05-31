@@ -15,7 +15,7 @@ import ThrowsStack from './components/ThrowsStack';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
-
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 const AuthStack = createNativeStackNavigator();
 
 const AuthStackScreen = () => (
@@ -134,6 +134,15 @@ const AppStackScreen = () => (
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
+  const authContextValue = {
+    signedIn,
+    setSignedIn,
+  };
+  useEffect(() => {
+    refreshAccess();
+  });
+  const queryClient = new QueryClient();
+
   const refreshAccess = async () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
@@ -162,53 +171,28 @@ const App = () => {
     }
   };
 
-  //   const decodeToken = async () => {
-  //     try {
-  //       const currentDate = new Date();
-  //       const refresh_token = await AsyncStorage.getItem('ReToken');
-  //       const decodedToken = jwtDecode(refresh_token);
-  //       const expirationDate = new Date(decodedToken.exp * 1000);
-  //       //   const access_token = await AsyncStorage.getItem('token');
-  //       //   const access_token_decoded = jwtDecode(access_token);
-  //       //   const accessExpirationDate = new Date(access_token_decoded.exp * 1000);
-  //       if (expirationDate < currentDate) {
-  //         setSignedIn(true);
-  //         await refreshAccess();
-  //         // navigation.navigate('App', {screen: 'Scorecards'});
-  //       }
-  //     } catch (error) {
-  //       console.log('decode token error is: ', error);
-  //     }
-  //   };
-
-  const authContextValue = {
-    signedIn,
-    setSignedIn,
-  };
-  useEffect(() => {
-    refreshAccess();
-  });
-
   const RootStack = createNativeStackNavigator();
   return (
     <AuthContext.Provider value={authContextValue}>
-      <NavigationContainer>
-        <RootStack.Navigator>
-          {signedIn === false ? (
-            <RootStack.Screen
-              name="Auth"
-              component={AuthStackScreen}
-              options={{headerShown: false}}
-            />
-          ) : (
-            <RootStack.Screen
-              name="App"
-              component={AppStackScreen}
-              options={{headerShown: false}}
-            />
-          )}
-        </RootStack.Navigator>
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <RootStack.Navigator>
+            {signedIn === false ? (
+              <RootStack.Screen
+                name="Auth"
+                component={AuthStackScreen}
+                options={{headerShown: false}}
+              />
+            ) : (
+              <RootStack.Screen
+                name="App"
+                component={AppStackScreen}
+                options={{headerShown: false}}
+              />
+            )}
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
     </AuthContext.Provider>
   );
 };

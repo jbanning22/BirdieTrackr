@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
@@ -11,12 +18,14 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
+import {useGetUserDetails} from './hooks/getUserDataQuery';
 
 const ProfileScreen = ({navigation}) => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
-  const [userDetails, setUserDetails] = useState({});
+  // const [userDetails, setUserDetails] = useState({});
   const [imageBool, setImageBool] = useState(false);
   const [imageData, setImageData] = useState([]);
+  const {data: userDetails, isLoading, isError, error} = useGetUserDetails();
 
   const signOut = async () => {
     try {
@@ -34,23 +43,23 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
-  const getMe = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const getMeRes = await axios.get(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/me',
-        {
-          headers,
-        },
-      );
-      setUserDetails(getMeRes.data);
-    } catch (error) {
-      console.error('Error getting user details: ', error);
-    }
-  };
+  // const getMe = async () => {
+  //   const token = await AsyncStorage.getItem('token');
+  //   const headers = {
+  //     Authorization: `Bearer ${token}`,
+  //   };
+  //   try {
+  //     const getMeRes = await axios.get(
+  //       'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/me',
+  //       {
+  //         headers,
+  //       },
+  //     );
+  //     setUserDetails(getMeRes.data);
+  //   } catch (error) {
+  //     console.error('Error getting user details: ', error);
+  //   }
+  // };
 
   const deleteUser = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -137,14 +146,13 @@ const ProfileScreen = ({navigation}) => {
       return result;
     }
   };
-  useEffect(() => {
-    // console.log('Profile screen useEffect called');
-    getMe();
-  }, []);
+  // useEffect(() => {
+  //   getMe();
+  // }, []);
 
   useEffect(() => {
     getProfilePic('profileImageData');
-  }, []);
+  }, [imageData]);
 
   return (
     <SafeAreaView style={styles.box1}>
@@ -153,7 +161,7 @@ const ProfileScreen = ({navigation}) => {
           marginBottom: 20,
         }}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.homeText}>{userDetails.userName}</Text>
+          <Text style={styles.homeText}>{userDetails?.userName}</Text>
         </View>
         <View style={styles.box3}>
           <TouchableOpacity
@@ -174,14 +182,14 @@ const ProfileScreen = ({navigation}) => {
           </TouchableOpacity>
           <View style={styles.box2}>
             <Text style={styles.dataFieldText}>
-              {userDetails.firstName} {userDetails.lastName}
+              {userDetails?.firstName} {userDetails?.lastName}
             </Text>
           </View>
         </View>
       </View>
       <View style={{alignSelf: 'center'}}>
         <Text style={{padding: 2, fontSize: 18, fontWeight: '400'}}>
-          Located in: {userDetails.city}, {userDetails.state}
+          Located in: {userDetails?.city}, {userDetails?.state}
         </Text>
       </View>
       <View

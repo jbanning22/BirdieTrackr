@@ -9,9 +9,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
+import {QueryClient, useQueryClient} from '@tanstack/react-query';
+import {useGetScorecards} from './hooks/getScorecardsQuery';
 
 const Scorecards = ({navigation}) => {
-  const [scorecardData, setScorecardData] = useState([]);
+  // const [scorecardData, setScorecardData] = useState([]);
+  const {data: scorecardData, isLoading, isError, error} = useGetScorecards();
+  const queryClient = useQueryClient();
 
   const handleScorecardPressed = async id => {
     const token = await AsyncStorage.getItem('token');
@@ -91,7 +95,7 @@ const Scorecards = ({navigation}) => {
                 `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
                 {headers},
               );
-              getScorecards();
+              queryClient.invalidateQueries('scorecardData');
             } catch (error) {
               console.log(error);
             }
@@ -102,33 +106,33 @@ const Scorecards = ({navigation}) => {
     );
   };
 
-  const getScorecards = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const scoreC = await axios.get(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard`,
-        {
-          headers,
-        },
-      );
-      setScorecardData(scoreC.data);
-    } catch (error) {
-      throw new Error('Error getting scorecards');
-    }
-  };
+  // const getScorecards = async () => {
+  //   const token = await AsyncStorage.getItem('token');
+  //   const headers = {
+  //     Authorization: `Bearer ${token}`,
+  //   };
+  //   try {
+  //     const scoreC = await axios.get(
+  //       `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard`,
+  //       {
+  //         headers,
+  //       },
+  //     );
+  //     setScorecardData(scoreC.data);
+  //   } catch (error) {
+  //     throw new Error('Error getting scorecards');
+  //   }
+  // };
 
-  useEffect(() => {
-    console.log('Scorecards screen useEffect called');
-    getScorecards();
-  }, []);
+  // useEffect(() => {
+  //   console.log('Scorecards screen useEffect called');
+  //   getScorecards();
+  // }, []);
 
   return (
     <SafeAreaView style={styles.box1}>
       <Text style={styles.homeText}>Scorecards</Text>
-      {scorecardData.length === 0 ? (
+      {scorecardData && scorecardData.length === 0 ? (
         <Text>You have not recorded any rounds yet.</Text>
       ) : (
         <FlatList
