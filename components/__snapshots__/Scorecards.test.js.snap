@@ -34,6 +34,164 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
       Scorecards
     </Text>
     <RCTScrollView
+      data={
+        [
+          {
+            "courseLength": 18,
+            "courseName": "Test",
+            "createdAt": "2023-05-31T19:14:39.335Z",
+            "holes": [
+              {
+                "holeNumber": 1,
+                "id": 37,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 2,
+                "id": 38,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 3,
+                "id": 39,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 4,
+                "id": 40,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 5,
+                "id": 41,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 6,
+                "id": 42,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 7,
+                "id": 43,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 8,
+                "id": 44,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 9,
+                "id": 45,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 10,
+                "id": 46,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 11,
+                "id": 47,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 12,
+                "id": 48,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 13,
+                "id": 49,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 14,
+                "id": 50,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 15,
+                "id": 51,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 16,
+                "id": 52,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 17,
+                "id": 53,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+              {
+                "holeNumber": 18,
+                "id": 54,
+                "par": 3,
+                "playerId": 1,
+                "scorecardId": 3,
+                "strokes": 0,
+              },
+            ],
+            "id": 3,
+            "isCompleted": false,
+            "playerId": 1,
+          },
+        ]
+      }
       getItem={[Function]}
       getItemCount={[Function]}
       keyExtractor={[Function]}
@@ -51,7 +209,142 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
       stickyHeaderIndices={[]}
       viewabilityConfigCallbackPairs={[]}
     >
-      <View />
+      <View>
+        <View
+          onFocusCapture={[Function]}
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              {
+                "alignContent": "center",
+                "backgroundColor": "white",
+                "borderRadius": 8,
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 10,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignContent": "center",
+                  "alignSelf": "center",
+                  "marginLeft": 15,
+                  "width": 250,
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "alignSelf": "center",
+                      "fontSize": 20,
+                      "fontWeight": "600",
+                    }
+                  }
+                >
+                  Test
+                </Text>
+                <Text
+                  style={
+                    {
+                      "alignSelf": "center",
+                      "fontSize": 18,
+                      "fontWeight": "400",
+                    }
+                  }
+                >
+                  18
+                   Holes
+                </Text>
+                <Text
+                  style={
+                    {
+                      "alignSelf": "center",
+                      "fontSize": 14,
+                      "fontWeight": "300",
+                      "marginBottom": 5,
+                    }
+                  }
+                >
+                  May 31st, 2023
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            />
+          </View>
+        </View>
+      </View>
     </RCTScrollView>
     <View
       accessibilityState={

@@ -8,14 +8,16 @@ import {
 import Scorecards from './Scorecards';
 import axios from 'axios';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {useGetThrowDetails} from './hooks/getThrowDataQuery';
+import {useGetScorecards} from './hooks/getScorecardsQuery';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 jest.mock('@fortawesome/react-native-fontawesome', () => ({
   FontAwesomeIcon: () => null,
 }));
 jest.mock('@react-native-async-storage/async-storage');
-jest.mock('./hooks/getThrowDataQuery');
+jest.mock('./hooks/getScorecardsQuery', () => ({
+  useGetScorecards: jest.fn(),
+}));
 jest.mock('axios');
 
 describe('Scorecards Landing', () => {
@@ -179,7 +181,7 @@ describe('Scorecards Landing', () => {
   beforeEach(() => {
     queryClient = new QueryClient();
     AsyncStorage.getItem.mockResolvedValue('dummy_token');
-    useGetThrowDetails.mockReturnValue({
+    useGetScorecards.mockReturnValue({
       data: mockedData,
       isLoading: false,
       isError: false,
@@ -189,7 +191,6 @@ describe('Scorecards Landing', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    queryClient.resetQueries();
   });
 
   it('should match the snapshot', () => {
@@ -244,7 +245,6 @@ describe('Scorecards Landing', () => {
         <Scorecards />
       </QueryClientProvider>,
     );
-
     await waitFor(() => {
       expect(screen.findByText('Test')).toBeTruthy();
     });

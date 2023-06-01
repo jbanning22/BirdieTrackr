@@ -12,7 +12,7 @@ const getThrows = async () => {
   };
   try {
     const response = await axios.get(getThrowsUrl, {headers});
-    return response.data;
+    return response ? response.data : null;
   } catch (error) {
     throw error;
   }

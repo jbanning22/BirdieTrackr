@@ -13,7 +13,7 @@ const getScorecards = async () => {
     const response = await axios.get(getScorecardsUrl, {
       headers,
     });
-    return response.data;
+    return response ? response.data : null;
   } catch (error) {
     throw error;
   }

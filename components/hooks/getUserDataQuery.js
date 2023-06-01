@@ -12,7 +12,7 @@ const getUser = async () => {
   };
   try {
     const response = await axios.get(getUserUrl, {headers});
-    return response.data;
+    return response ? response.data : null;
   } catch (error) {
     throw error;
   }
