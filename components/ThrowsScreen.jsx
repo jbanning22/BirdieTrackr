@@ -22,22 +22,6 @@ const ThrowsScreen = ({navigation}) => {
 
   const queryClient = useQueryClient();
 
-  // const getThrows = async () => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   const headers = {
-  //     Authorization: `Bearer ${token}`,
-  //   };
-  //   try {
-  //     const measuredThrows = await axios.get(
-  //       'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
-  //       {headers},
-  //     );
-  //     // setThrowData(measuredThrows.data);
-  //   } catch (error) {
-  //     throw new Error('Error getting user throws');
-  //   }
-  // };
-
   const deleteThrow = async id => {
     const token = await AsyncStorage.getItem('token');
     const headers = {

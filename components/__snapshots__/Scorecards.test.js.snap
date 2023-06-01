@@ -1,78 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Scorecards Landing should match the snapshot 1`] = `
-<RNCSafeAreaView
-  edges={
-    [
-      "bottom",
-      "left",
-      "right",
-      "top",
-    ]
-  }
-  style={
-    {
-      "alignItems": "center",
-      "backgroundColor": "#DB6F52",
-      "flex": 1,
-      "justifyContent": "center",
+[
+  <RNCSafeAreaView
+    edges={
+      [
+        "bottom",
+        "left",
+        "right",
+        "top",
+      ]
     }
-  }
->
-  <Text
-    style={
-      {
-        "color": "white",
-        "fontFamily": "Helvetica",
-        "fontSize": 40,
-        "fontWeight": "400",
-        "marginBottom": 15,
-      }
-    }
-  >
-    Scorecards
-  </Text>
-  <Text>
-    You have not recorded any rounds yet.
-  </Text>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       {
         "alignItems": "center",
-        "backgroundColor": "#52BEDB",
-        "borderRadius": 8,
-        "height": 50,
+        "backgroundColor": "#DB6F52",
+        "flex": 1,
         "justifyContent": "center",
-        "marginTop": 10,
-        "opacity": 1,
-        "width": 200,
       }
     }
   >
@@ -80,13 +24,89 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
       style={
         {
           "color": "white",
-          "fontSize": 16,
-          "fontWeight": "500",
+          "fontFamily": "Helvetica",
+          "fontSize": 40,
+          "fontWeight": "400",
+          "marginBottom": 15,
         }
       }
     >
-      Create Scorecard
+      Scorecards
     </Text>
-  </View>
-</RNCSafeAreaView>
+    <RCTScrollView
+      getItem={[Function]}
+      getItemCount={[Function]}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      showsVerticalScrollIndicator={false}
+      stickyHeaderIndices={[]}
+      viewabilityConfigCallbackPairs={[]}
+    >
+      <View />
+    </RCTScrollView>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#52BEDB",
+          "borderRadius": 8,
+          "height": 50,
+          "justifyContent": "center",
+          "marginTop": 10,
+          "opacity": 1,
+          "width": 200,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "500",
+          }
+        }
+      >
+        Create Scorecard
+      </Text>
+    </View>
+  </RNCSafeAreaView>,
+  ",",
+]
 `;

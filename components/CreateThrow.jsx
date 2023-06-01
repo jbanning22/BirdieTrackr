@@ -56,7 +56,7 @@ const CreateThrowScreen = ({navigation, route}) => {
     },
     {
       onError: error => {
-        console.error('Error creating throw: ', error);
+        throw error;
       },
       onSuccess: () => {
         queryClient.invalidateQueries('throwData');

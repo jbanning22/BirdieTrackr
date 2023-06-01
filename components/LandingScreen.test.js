@@ -3,7 +3,7 @@ import {render, screen, fireEvent} from '@testing-library/react-native';
 import LandingScreen from './LandingScreen';
 
 describe('Landing Screen', () => {
-  it('should match the snapshot', () => {
+  it('should match the snapshot', async () => {
     const {toJSON} = render(<LandingScreen />);
     expect(toJSON()).toMatchSnapshot();
   });

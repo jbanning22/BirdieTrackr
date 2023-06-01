@@ -87,7 +87,7 @@ const EditUserScreen = ({navigation}) => {
         <TextInput
           placeholder="State"
           style={styles.emailInput}
-          value={formData.userState}
+          value={formData.state}
           onChangeText={text => setFormData({...formData, state: text})}
           clearButtonMode={'always'}
         />
