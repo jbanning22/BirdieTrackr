@@ -6,7 +6,6 @@ import {
   waitFor,
 } from '@testing-library/react-native';
 import Scorecards from './Scorecards';
-import axios from 'axios';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {useGetScorecards} from './hooks/getScorecardsQuery';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,6 +21,7 @@ jest.mock('axios');
 
 describe('Scorecards Landing', () => {
   let queryClient;
+
   const mockedData = [
     {
       id: 3,
@@ -180,6 +180,7 @@ describe('Scorecards Landing', () => {
   ];
   beforeEach(() => {
     queryClient = new QueryClient();
+    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
     AsyncStorage.getItem.mockResolvedValue('dummy_token');
     useGetScorecards.mockReturnValue({
       data: mockedData,
@@ -190,6 +191,7 @@ describe('Scorecards Landing', () => {
   });
 
   afterEach(() => {
+    queryClient.clear();
     jest.clearAllMocks();
   });
 

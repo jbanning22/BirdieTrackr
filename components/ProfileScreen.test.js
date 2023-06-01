@@ -2,7 +2,6 @@ import React from 'react';
 import {render, screen} from '@testing-library/react-native';
 import ProfileScreen from './ProfileScreen';
 import {AuthContext} from '../AuthContext';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
 

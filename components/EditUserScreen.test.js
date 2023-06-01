@@ -66,21 +66,6 @@ describe('Edit User Screen', () => {
       expect(passwordInput.props.value).toBe('password123');
     });
   });
-  // it('should call editUser function on button press', async () => {
-  //   const navigation = {
-  //     navigate: jest.fn(),
-  //   };
-  //   // const mutationFunction = useMutation.mock.results[0].value[0];
-  //   // jest.spyOn(mutationFunction, 'mockImplementation');
-
-  //   const {getByText} = render(<EditUserScreen navigation={navigation} />);
-  //   fireEvent.press(getByText('Edit'));
-
-  //   // await waitFor(() => expect(mutationFunction).toHaveBeenCalled());
-
-  //   expect(navigation.navigate).toHaveBeenCalledWith('ProfileLanding');
-  // });
-
   it('should navigate back to profile landing on press', async () => {
     const navigation = {
       navigate: jest.fn(),

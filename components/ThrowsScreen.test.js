@@ -1,7 +1,6 @@
 import React from 'react';
-import {render, fireEvent, act} from '@testing-library/react-native';
+import {render, fireEvent} from '@testing-library/react-native';
 import ThrowsScreen from './ThrowsScreen.jsx';
-import axios from 'axios';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {useGetThrowDetails} from './hooks/getThrowDataQuery.js';
 
@@ -17,6 +16,7 @@ describe('Throws Screen', () => {
   let queryClient;
   beforeEach(() => {
     queryClient = new QueryClient();
+    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
     const mockThrowData = [
       {
         id: 5,
@@ -36,8 +36,8 @@ describe('Throws Screen', () => {
     });
   });
   afterEach(() => {
+    queryClient.clear();
     jest.clearAllMocks();
-    queryClient.resetQueries();
   });
   it('should match the snapshot', () => {
     const {toJSON} = render(

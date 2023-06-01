@@ -10,12 +10,9 @@ const getUser = async () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  try {
-    const response = await axios.get(getUserUrl, {headers});
-    return response ? response.data : null;
-  } catch (error) {
-    throw error;
-  }
+
+  const response = await axios.get(getUserUrl, {headers});
+  return response ? response.data : null;
 };
 
 export const useGetUserDetails = () => {

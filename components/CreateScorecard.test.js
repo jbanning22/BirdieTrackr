@@ -10,6 +10,7 @@ describe('Create Scorecard Screen', () => {
   let queryClient;
   beforeEach(() => {
     queryClient = new QueryClient();
+    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
     axios.post.mockResolvedValue({
       data: {
         id: 1,
@@ -17,8 +18,8 @@ describe('Create Scorecard Screen', () => {
     });
   });
   afterEach(() => {
+    queryClient.clear();
     jest.clearAllMocks();
-    queryClient.resetQueries();
   });
   it('should match the snapshot', async () => {
     const {toJSON} = render(

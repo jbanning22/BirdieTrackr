@@ -17,9 +17,11 @@ describe('Create Throw Screen', () => {
 
   beforeEach(() => {
     queryClient = new QueryClient();
+    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
     AsyncStorage.getItem.mockResolvedValue('dummy_token');
   });
   afterEach(() => {
+    queryClient.clear();
     jest.clearAllMocks();
   });
 

@@ -10,12 +10,8 @@ const getThrows = async () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  try {
-    const response = await axios.get(getThrowsUrl, {headers});
-    return response ? response.data : null;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios.get(getThrowsUrl, {headers});
+  return response ? response.data : null;
 };
 
 export const useGetThrowDetails = () => {
