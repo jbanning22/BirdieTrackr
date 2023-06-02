@@ -11,12 +11,15 @@ import {
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
   const [discName, setdiscName] = useState('');
   const [discColor, setDiscColor] = useState('');
   const [throwType, setThrowType] = useState('');
+
+  const queryClient = useQueryClient();
 
   let message = '';
   if (dist < 50) {
@@ -32,12 +35,13 @@ const CreateThrowScreen = ({navigation, route}) => {
   } else if (dist >= 400) {
     message = 'That was launched! Is your arm ok?';
   }
-  const createThrow = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
+
+  const createThrowMutation = useMutation(
+    async ({discName, dist, throwType, discColor}) => {
+      const token = await AsyncStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
       const measuredThrow = await axios.post(
         'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
         {
@@ -48,10 +52,21 @@ const CreateThrowScreen = ({navigation, route}) => {
         },
         {headers},
       );
-      navigation.navigate('ThrowsScreen');
-    } catch (error) {
-      throw new Error('Error creating throw');
-    }
+      return measuredThrow.data;
+    },
+    {
+      onError: error => {
+        throw error;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries('throwData');
+      },
+    },
+  );
+
+  const createThrow = () => {
+    createThrowMutation.mutate({discName, dist, throwType, discColor});
+    navigation.navigate('ThrowsScreen');
   };
 
   return (

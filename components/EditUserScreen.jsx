@@ -10,40 +10,47 @@ import {
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 const EditUserScreen = ({navigation}) => {
-  const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [userState, setUserState] = useState('');
-  const [city, setCity] = useState('');
+  const [formData, setFormData] = useState({
+    password: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
+    city: '',
+    state: '',
+  });
 
-  const editUser = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
+  const queryClient = useQueryClient();
+
+  const editUser = useMutation(
+    async formData => {
+      const token = await AsyncStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       const editMeRes = await axios.patch(
         'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users',
-        {
-          userName: userName,
-          fistName: firstName,
-          lastName: lastName,
-          city: city,
-          state: userState,
-          password: password,
-        },
+        formData,
         {
           headers: headers,
         },
       );
       await navigation.navigate('ProfileLanding');
-    } catch (error) {
-      throw new Error('Error editing user');
-    }
-  };
+
+      return editMeRes.data;
+    },
+    {
+      onError: error => {
+        console.error('Error editing user: ', error);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries('userData');
+      },
+    },
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.box1}>
@@ -52,48 +59,51 @@ const EditUserScreen = ({navigation}) => {
         <TextInput
           placeholder="Username"
           style={styles.emailInput}
-          value={userName}
-          onChangeText={setUserName}
+          value={formData.userName}
+          onChangeText={text => setFormData({...formData, userName: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="First Name"
           style={styles.emailInput}
-          value={firstName}
-          onChangeText={setFirstName}
+          value={formData.firstName}
+          onChangeText={text => setFormData({...formData, firstName: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="Last Name"
           style={styles.emailInput}
-          value={lastName}
-          onChangeText={setLastName}
+          value={formData.lastName}
+          onChangeText={text => setFormData({...formData, lastName: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="City"
           style={styles.emailInput}
-          value={city}
-          onChangeText={setCity}
+          value={formData.city}
+          onChangeText={text => setFormData({...formData, city: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="State"
           style={styles.emailInput}
-          value={userState}
-          onChangeText={setUserState}
+          value={formData.state}
+          onChangeText={text => setFormData({...formData, state: text})}
           clearButtonMode={'always'}
         />
         <TextInput
           placeholder="Password"
           style={styles.loginTextInput}
-          value={password}
-          onChangeText={setPassword}
+          value={formData.password}
+          onChangeText={text => setFormData({...formData, password: text})}
           clearButtonMode={'always'}
           secureTextEntry={true}
+          autoCorrect={false}
         />
       </KeyboardAvoidingView>
-      <TouchableOpacity style={styles.signUpButton} onPress={editUser}>
+      <TouchableOpacity
+        style={styles.signUpButton}
+        onPress={() => editUser.mutate(formData)}>
         <Text style={styles.textButton}>Edit</Text>
       </TouchableOpacity>
       <Button

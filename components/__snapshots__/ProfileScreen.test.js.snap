@@ -40,7 +40,9 @@ exports[`Profile Screen should match the snapshot 1`] = `
             "padding": 20,
           }
         }
-      />
+      >
+        JBanning
+      </Text>
     </View>
     <View
       style={
@@ -112,7 +114,9 @@ exports[`Profile Screen should match the snapshot 1`] = `
             }
           }
         >
+          Jack
            
+          Banning
         </Text>
       </View>
     </View>

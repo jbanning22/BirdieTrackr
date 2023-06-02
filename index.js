@@ -8,4 +8,3 @@ import {name as appName} from './app.json';
 
 AppRegistry.registerComponent(appName, () => App);
 // global.HermesInternal = {maxNumProperties: 250000};
-// testing this again

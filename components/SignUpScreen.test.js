@@ -4,7 +4,7 @@ import SignUpScreen from './SignUpScreen';
 import {AuthContext} from '../AuthContext';
 
 describe('Sign Up Screen', () => {
-  it('should match the snapshot', () => {
+  it('should match the snapshot', async () => {
     const authContextValue = {
       signedIn: false,
       setSignedIn: jest.fn(),

@@ -25,9 +25,152 @@ exports[`Throws Screen should match the snapshot 1`] = `
   >
     Throws
   </Text>
-  <Text>
-    You have not recorded any throws yet.
-  </Text>
+  <RCTScrollView
+    data={
+      [
+        {
+          "color": "Test",
+          "createdAt": "2023-05-31T19:15:14.085Z",
+          "disc": "Test",
+          "distance": "281",
+          "id": 5,
+          "throwtype": "Test",
+          "userId": 1,
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignContent": "center",
+              "backgroundColor": "#52BEDB",
+              "borderRadius": 8,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "marginBottom": 10,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "marginLeft": 15,
+                "width": 250,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "alignSelf": "center",
+                  "color": "white",
+                  "fontSize": 26,
+                  "fontWeight": "600",
+                }
+              }
+            >
+              281
+               ft
+            </Text>
+            <Text
+              style={
+                {
+                  "alignSelf": "center",
+                  "color": "white",
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                }
+              }
+            >
+              Test
+            </Text>
+            <Text
+              style={
+                {
+                  "alignSelf": "center",
+                  "color": "white",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                }
+              }
+            >
+              Test
+            </Text>
+            <Text
+              style={
+                {
+                  "alignSelf": "center",
+                  "color": "white",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              May 31st, 2023
+            </Text>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
   <View
     accessibilityState={
       {

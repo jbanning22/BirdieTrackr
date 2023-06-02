@@ -11,13 +11,15 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useQueryClient} from '@tanstack/react-query';
 
 const CreateScorecard = ({navigation}) => {
   const [courseLength, setCourseLength] = useState(0);
   const [courseName, setCourseName] = useState('');
   const [active9Button, setActive9Button] = useState(false);
   const [active18Button, setActive18Button] = useState(false);
-  const [scorecardData, setScorecardData] = useState({});
+  // const [scorecardData, setScorecardData] = useState({});
+  const queryClient = useQueryClient();
 
   function setLength9() {
     setCourseLength(9);
@@ -45,7 +47,7 @@ const CreateScorecard = ({navigation}) => {
       await navigation.navigate('FullScorecard', {
         id: scorecard.data.id,
       });
-      return setScorecardData(scorecard.data);
+      queryClient.invalidateQueries('scorecardData');
     } catch (error) {
       console.log(error);
     }
