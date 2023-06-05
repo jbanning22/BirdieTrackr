@@ -26,7 +26,7 @@ describe('Sign In Screen', () => {
         <SignInScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Welcome Back!')).toBeTruthy();
+    expect(screen.getByText('Sign In to DG Scorecard')).toBeTruthy();
   });
   it('should display log in button', async () => {
     const authContextValue = {

@@ -1,19 +1,26 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
+import myImage from '../assests/images/DiscGolfSunset.jpeg';
 
 const LandingScreen = ({navigation}) => {
   return (
     <View style={styles.box1}>
-      <Text style={styles.homeText}>Welcome to IDISC!</Text>
+      <Image
+        source={myImage}
+        style={{width: 300, height: 300, borderRadius: 150}}
+      />
+      <Text style={styles.homeText}>
+        Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>!
+      </Text>
+      <Text>Now you can enjoy disc golf with us!</Text>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate('SignInPage')}>
-        <Text style={styles.textButton}>Sign In</Text>
+        <Text style={styles.textButton}>Sign In with Email</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.signUpButton}
-        onPress={() => navigation.navigate('SignUpPage')}>
-        <Text style={styles.textButton2}>Sign Up</Text>
+      <Text style={styles.questionStyle}>Don&apos;t have an account?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('SignUpPage')}>
+        <Text style={styles.signUpSize}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -26,36 +33,40 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    background: '#7D7D7D',
   },
   loginButton: {
-    width: 200,
-    height: 50,
+    width: 327,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
+    borderRadius: 12,
     marginBottom: 40,
-    marginTop: 20,
-  },
-  signUpButton: {
-    width: 200,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#DB6F52',
-    marginTop: 10,
+    marginTop: 60,
   },
   homeText: {
-    fontSize: 32,
-    fontWeight: '500',
+    fontSize: 28,
+    fontWeight: '400',
+    marginBottom: 10,
+    marginTop: 40,
     fontFamily: 'Helvetica',
-    marginBottom: 80,
   },
   textButton: {
     fontSize: 18,
     color: 'white',
+    fontWeight: '500',
   },
   textButton2: {
     fontSize: 18,
     color: 'white',
+  },
+  signUpSize: {
+    color: '#45B369',
+    marginLeft: 5,
+    fontSize: 18,
+  },
+  questionStyle: {
+    fontSize: 18,
   },
 });

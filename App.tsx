@@ -25,9 +25,7 @@ const AuthStackScreen = () => (
       component={LandingScreen}
       options={{
         title: 'Get Started',
-        headerStyle: {
-          backgroundColor: '#DB6F52',
-        },
+        headerShown: false,
         headerTintColor: 'black',
       }}
     />
@@ -35,11 +33,9 @@ const AuthStackScreen = () => (
       name="SignInPage"
       component={SignInScreen}
       options={{
-        title: 'Login',
-        headerStyle: {
-          backgroundColor: '#DB6F52',
-        },
-        headerTintColor: 'white',
+        headerTransparent: true,
+        headerTitle: '',
+        headerBackTitleVisible: false,
       }}
     />
     <AuthStack.Screen

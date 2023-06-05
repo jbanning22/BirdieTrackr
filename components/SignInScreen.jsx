@@ -25,6 +25,7 @@ const SignInScreen = ({navigation}) => {
       error => error !== '',
     );
     if (errorsExist) {
+      // eslint-disable-next-line no-console
       console.log('Please fix the form errors before signing up.');
       return;
     } else {
@@ -47,7 +48,7 @@ const SignInScreen = ({navigation}) => {
           return signInRes.data;
         }
       } catch (error) {
-        console.log('error signing in', error);
+        throw new Error('Error signing in');
       }
     }
   };
@@ -61,7 +62,7 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.box1}>
-      <Text style={styles.homeText}>Welcome Back!</Text>
+      <Text style={styles.homeText}>Sign In to DG Scorecard</Text>
       <KeyboardAvoidingView>
         <TextInput
           placeholder="Email"
@@ -104,8 +105,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   homeText: {
-    fontSize: 40,
-    fontWeight: '500',
+    fontSize: 28,
+    fontWeight: '400',
     fontFamily: 'Helvetica',
     marginBottom: 80,
   },
