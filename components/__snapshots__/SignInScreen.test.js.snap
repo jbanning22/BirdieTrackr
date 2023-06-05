@@ -15,13 +15,13 @@ exports[`Sign In Screen should match the snapshot 1`] = `
       style={
         {
           "fontFamily": "Helvetica",
-          "fontSize": 40,
-          "fontWeight": "500",
+          "fontSize": 28,
+          "fontWeight": "400",
           "marginBottom": 80,
         }
       }
     >
-      Welcome Back!
+      Sign In to DG Scorecard
     </Text>
     <View
       onLayout={[Function]}
