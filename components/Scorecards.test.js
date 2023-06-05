@@ -180,7 +180,11 @@ describe('Scorecards Landing', () => {
   ];
   beforeEach(() => {
     queryClient = new QueryClient();
-    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
+    queryClient.setDefaultOptions({
+      queries: {cacheTime: 0},
+      retry: false,
+      refetchOnWindowFocus: false,
+    });
     AsyncStorage.getItem.mockResolvedValue('dummy_token');
     useGetScorecards.mockReturnValue({
       data: mockedData,

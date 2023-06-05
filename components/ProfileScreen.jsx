@@ -30,7 +30,7 @@ const ProfileScreen = ({navigation}) => {
   const signOut = async () => {
     try {
       const signOutRes = await axios.post(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com.154:3000/auth/signout',
+        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/signout',
         {},
       );
       if (signOutRes.status === 201) {
@@ -77,7 +77,7 @@ const ProfileScreen = ({navigation}) => {
           onPress: async () => {
             try {
               await axios.delete(
-                `http://ec2-54-87-189-240.compute-1.amazonaws.com68.1.154:3000/users/${id}`,
+                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/${id}`,
                 {
                   headers,
                 },
