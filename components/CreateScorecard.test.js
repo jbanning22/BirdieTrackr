@@ -10,7 +10,11 @@ describe('Create Scorecard Screen', () => {
   let queryClient;
   beforeEach(() => {
     queryClient = new QueryClient();
-    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
+    queryClient.setDefaultOptions({
+      queries: {cacheTime: 0},
+      retry: false,
+      refetchOnWindowFocus: false,
+    });
     axios.post.mockResolvedValue({
       data: {
         id: 1,

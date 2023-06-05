@@ -16,7 +16,11 @@ describe('Throws Screen', () => {
   let queryClient;
   beforeEach(() => {
     queryClient = new QueryClient();
-    queryClient.setDefaultOptions({queries: {cacheTime: 0}});
+    queryClient.setDefaultOptions({
+      queries: {cacheTime: 0},
+      retry: false,
+      refetchOnWindowFocus: false,
+    });
     const mockThrowData = [
       {
         id: 5,
