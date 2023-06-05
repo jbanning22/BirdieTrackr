@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import myImage from '../assests/images/DiscGolfSunset.jpeg';
+import myImage from '../assets/images/DiscGolfSunset.jpeg';
 
 const LandingScreen = ({navigation}) => {
   return (
@@ -12,7 +12,9 @@ const LandingScreen = ({navigation}) => {
       <Text style={styles.homeText}>
         Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>!
       </Text>
-      <Text>Now you can enjoy disc golf with us!</Text>
+      <Text style={{fontFamily: 'Satoshi-Medium', fontSize: 16}}>
+        Now you can enjoy disc golf with us!
+      </Text>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate('SignInPage')}>
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
     width: 327,
     height: 56,
     justifyContent: 'center',
+    fontFamily: 'Satoshi-Medium',
     alignItems: 'center',
     backgroundColor: '#2D6061',
     borderRadius: 12,
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginBottom: 10,
     marginTop: 40,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Satoshi-Medium',
   },
   textButton: {
     fontSize: 18,
@@ -62,11 +65,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   signUpSize: {
+    fontFamily: 'Satoshi-Medium',
     color: '#45B369',
     marginLeft: 5,
     fontSize: 18,
   },
   questionStyle: {
+    fontFamily: 'Satoshi-Medium',
     fontSize: 18,
   },
 });
