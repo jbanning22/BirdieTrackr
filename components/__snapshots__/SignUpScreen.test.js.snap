@@ -303,8 +303,9 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
     <Text
       style={
         {
+          "alignSelf": "center",
           "color": "red",
-          "marginTop": 10,
+          "margin": 10,
         }
       }
     />

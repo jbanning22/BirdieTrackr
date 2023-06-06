@@ -104,10 +104,7 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.inputStyle}>
-            <FontAwesomeIcon
-              icon={faUser}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faUser} style={styles.iconStyle} />
             <TextInput
               placeholder="First Name"
               style={{flex: 1}}
@@ -117,10 +114,7 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.inputStyle}>
-            <FontAwesomeIcon
-              icon={faUser}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faUser} style={styles.iconStyle} />
             <TextInput
               placeholder="Last Name"
               style={{flex: 1}}
@@ -133,10 +127,7 @@ const SignUpScreen = ({navigation}) => {
             style={
               validationErrors.email ? styles.inputStyle2 : styles.inputStyle
             }>
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faEnvelope} style={styles.iconStyle} />
             <TextInput
               placeholder="Email"
               style={{flex: 1}}
@@ -148,10 +139,7 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.inputStyle}>
-            <FontAwesomeIcon
-              icon={faCity}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faCity} style={styles.iconStyle} />
             <TextInput
               placeholder="City"
               style={{flex: 1}}
@@ -160,10 +148,7 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.inputStyle}>
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faEnvelope} style={styles.iconStyle} />
             <TextInput
               placeholder="State"
               style={{flex: 1}}
@@ -172,10 +157,7 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.inputStyle}>
-            <FontAwesomeIcon
-              icon={faLock}
-              style={{color: 'grey', alignSelf: 'center', margin: 10}}
-            />
+            <FontAwesomeIcon icon={faLock} style={styles.iconStyle} />
             <TextInput
               placeholder="Password"
               style={{flex: 1}}
@@ -188,17 +170,13 @@ const SignUpScreen = ({navigation}) => {
               <FontAwesomeIcon
                 icon={secureEntry ? faEyeSlash : faEye}
                 size={18}
-                style={{
-                  color: 'grey',
-                  marginTop: 16,
-                  marginRight: 10,
-                }}
+                style={styles.iconStyle2}
               />
             </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
-      <Text style={{color: 'red', marginTop: 10}}>
+      <Text style={{color: 'red', margin: 10, alignSelf: 'center'}}>
         {validationErrors.email}
       </Text>
       <TouchableOpacity style={styles.signUpButton} onPress={signUp}>
@@ -229,6 +207,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Satoshi-Medium',
     marginTop: 5,
     alignSelf: 'center',
+  },
+  iconStyle: {
+    color: 'grey',
+    alignSelf: 'center',
+    margin: 10,
+  },
+  iconStyle2: {
+    color: 'grey',
+    margin: 10,
+    marginTop: 16,
   },
   backIcon: {
     flex: 1,
@@ -267,7 +255,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
-
   inputView: {
     width: 327,
     height: 56,
@@ -287,6 +274,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#F9908D',
     width: 327,
+    margin: 10,
     height: 50,
   },
   legalNames: {
