@@ -10,9 +10,9 @@ const LandingScreen = ({navigation}) => {
         style={{width: 300, height: 300, borderRadius: 150}}
       />
       <Text style={styles.homeText}>
-        Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>!
+        Welcome to <Text style={styles.appTitle}>DG Scorecard</Text>!
       </Text>
-      <Text style={{fontFamily: 'Satoshi-Medium', fontSize: 16}}>
+      <Text style={styles.messageText}>
         Now you can enjoy disc golf with us!
       </Text>
       <TouchableOpacity
@@ -50,19 +50,23 @@ const styles = StyleSheet.create({
   },
   homeText: {
     fontSize: 28,
-    fontWeight: '400',
+    fontWeight: '600',
     marginBottom: 10,
     marginTop: 40,
     fontFamily: 'Satoshi-Medium',
+  },
+  appTitle: {
+    color: '#45B369',
+    fontFamily: 'Satoshi-Medium',
+  },
+  messageText: {
+    fontFamily: 'Satoshi-Medium',
+    fontSize: 16,
   },
   textButton: {
     fontSize: 18,
     color: 'white',
     fontWeight: '500',
-  },
-  textButton2: {
-    fontSize: 18,
-    color: 'white',
   },
   signUpSize: {
     fontFamily: 'Satoshi-Medium',

@@ -30,7 +30,7 @@ exports[`Landing Screen should match the snapshot 1`] = `
       {
         "fontFamily": "Satoshi-Medium",
         "fontSize": 28,
-        "fontWeight": "400",
+        "fontWeight": "600",
         "marginBottom": 10,
         "marginTop": 40,
       }
@@ -41,6 +41,7 @@ exports[`Landing Screen should match the snapshot 1`] = `
       style={
         {
           "color": "#45B369",
+          "fontFamily": "Satoshi-Medium",
         }
       }
     >
