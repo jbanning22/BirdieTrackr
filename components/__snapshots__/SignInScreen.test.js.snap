@@ -5,68 +5,240 @@ exports[`Sign In Screen should match the snapshot 1`] = `
   contentContainerStyle={
     {
       "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
     }
   }
 >
   <View>
+    <View
+      style={
+        {
+          "alignSelf": "flex-start",
+          "flex": 1,
+          "marginBottom": 140,
+          "marginLeft": 20,
+          "marginTop": 60,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      />
+    </View>
     <Text
       style={
         {
-          "fontFamily": "Helvetica",
+          "fontFamily": "Satoshi-Medium",
           "fontSize": 28,
-          "fontWeight": "400",
+          "fontWeight": "600",
           "marginBottom": 80,
         }
       }
     >
-      Sign In to DG Scorecard
+      Sign In to 
+      <Text
+        style={
+          {
+            "color": "#45B369",
+          }
+        }
+      >
+        DG Scorecard
+      </Text>
     </Text>
     <View
       onLayout={[Function]}
     >
-      <TextInput
-        autoCapitalize="none"
-        autoCorrect={false}
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        placeholder="Email"
+      <View
         style={
           {
             "backgroundColor": "white",
-            "height": 50,
-            "marginTop": 10,
-            "padding": 10,
-            "width": 200,
+            "borderRadius": 15,
+            "flexDirection": "row",
+            "height": 56,
+            "width": 327,
           }
         }
-        value=""
-      />
+      >
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Email"
+          style={
+            {
+              "alignSelf": "center",
+              "flex": 1,
+              "fontFamily": "Satoshi-Medium",
+              "height": 60,
+              "marginBottom": 8,
+              "marginLeft": 10,
+              "marginTop": 10,
+              "padding": 10,
+              "width": 327,
+            }
+          }
+          value=""
+        />
+      </View>
       <Text
         style={
           {
             "color": "red",
+            "padding": 5,
           }
         }
       />
-      <TextInput
-        autoCapitalize="none"
-        autoCorrect={false}
-        onChangeText={[Function]}
-        placeholder="Password"
-        secureTextEntry={true}
+      <View
         style={
           {
             "backgroundColor": "white",
-            "height": 50,
-            "marginTop": 10,
-            "padding": 10,
-            "width": 200,
+            "borderRadius": 15,
+            "flexDirection": "row",
+            "height": 56,
+            "width": 327,
           }
         }
-        value=""
-      />
+      >
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            {
+              "alignSelf": "center",
+              "flex": 1,
+              "fontFamily": "Satoshi-Medium",
+              "height": 60,
+              "marginBottom": 8,
+              "marginLeft": 10,
+              "marginTop": 10,
+              "padding": 10,
+              "width": 327,
+            }
+          }
+          value=""
+        />
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "margin": 15,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "fontFamily": "Satoshi-Medium",
+            }
+          }
+        >
+          Forgot Password?
+        </Text>
+      </View>
     </View>
     <View
       accessibilityState={
@@ -99,13 +271,14 @@ exports[`Sign In Screen should match the snapshot 1`] = `
       style={
         {
           "alignItems": "center",
-          "backgroundColor": "#52BEDB",
-          "height": 50,
+          "backgroundColor": "#2D6061",
+          "borderRadius": 12,
+          "fontFamily": "Satoshi-Medium",
+          "height": 60,
           "justifyContent": "center",
           "marginBottom": 40,
-          "marginTop": 20,
           "opacity": 1,
-          "width": 200,
+          "width": 327,
         }
       }
     >
@@ -113,70 +286,55 @@ exports[`Sign In Screen should match the snapshot 1`] = `
         style={
           {
             "color": "white",
+            "fontFamily": "Satoshi-Medium",
             "fontSize": 18,
+            "fontWeight": "500",
           }
         }
       >
-        Log in
+        Sign in
       </Text>
     </View>
-    <View
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "opacity": 1,
-        }
-      }
-    >
-      <View
+    <View>
+      <Text
+        numberOfLines={2}
         style={
-          [
-            {},
-          ]
+          {
+            "color": "#6B7280",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 14,
+            "marginTop": 150,
+            "paddingBottom": 5,
+            "textAlign": "center",
+          }
         }
       >
+        By signing in, you agree to the
+         
         <Text
           style={
-            [
-              {
-                "color": "#007AFF",
-                "fontSize": 18,
-                "margin": 8,
-                "textAlign": "center",
-              },
-            ]
+            {
+              "color": "black",
+              "fontWeight": "400",
+            }
           }
         >
-          Back
+          DG Scorecard Terms & Conditions
         </Text>
-      </View>
+         
+        and 
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontWeight": "400",
+            }
+          }
+        >
+          Privacy Policy
+        </Text>
+        .
+      </Text>
     </View>
   </View>
 </RCTScrollView>

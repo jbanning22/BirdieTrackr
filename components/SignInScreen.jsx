@@ -3,7 +3,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Button,
+  View,
   ScrollView,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -11,9 +11,21 @@ import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../AuthContext';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faArrowLeft,
+  faLock,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  // faEnvelope,
+  faEyeSlash,
+  faEye,
+} from '@fortawesome/free-regular-svg-icons';
 
 const SignInScreen = ({navigation}) => {
-  const {signedIn, setSignedIn} = useContext(AuthContext);
+  const {setSignedIn} = useContext(AuthContext);
+  const [secureEntry, setSecureEntry] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -62,36 +74,91 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.box1}>
-      <Text style={styles.homeText}>Sign In to DG Scorecard</Text>
+      <View
+        style={{
+          flex: 1,
+          alignSelf: 'flex-start',
+          marginLeft: 20,
+          marginTop: 60,
+          marginBottom: 140,
+        }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
+          <FontAwesomeIcon icon={faArrowLeft} size={20} />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.homeText}>
+        Sign In to <Text style={{color: '#45B369'}}>DG Scorecard</Text>
+      </Text>
       <KeyboardAvoidingView>
-        <TextInput
-          placeholder="Email"
-          style={
-            validationErrors.email
-              ? styles.loginTextInput2
-              : styles.loginTextInput1
-          }
-          value={formData.email}
-          onChangeText={text => setFormData({...formData, email: text})}
-          onBlur={validateEmail}
-          autoCorrect={false}
-          autoCapitalize={'none'}
-        />
-        <Text style={{color: 'red'}}>{validationErrors.email}</Text>
-        <TextInput
-          placeholder="Password"
-          style={styles.loginTextInput1}
-          value={formData.password}
-          onChangeText={text => setFormData({...formData, password: text})}
-          autoCapitalize={'none'}
-          secureTextEntry={true}
-          autoCorrect={false}
-        />
+        <View style={styles.inputView}>
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            style={{color: 'grey', marginLeft: 15, alignSelf: 'center'}}
+          />
+          <TextInput
+            placeholder="Email"
+            style={
+              validationErrors.email
+                ? styles.loginTextInput2
+                : styles.loginTextInput1
+            }
+            value={formData.email}
+            onChangeText={text => setFormData({...formData, email: text})}
+            onBlur={validateEmail}
+            autoCorrect={false}
+            autoCapitalize={'none'}
+          />
+        </View>
+        <Text style={{color: 'red', padding: 5}}>{validationErrors.email}</Text>
+        <View style={styles.passView}>
+          <FontAwesomeIcon
+            icon={faLock}
+            style={{
+              color: 'grey',
+              marginLeft: 15,
+              alignSelf: 'center',
+            }}
+          />
+          <TextInput
+            placeholder="Password"
+            style={styles.loginTextInput1}
+            value={formData.password}
+            onChangeText={text => setFormData({...formData, password: text})}
+            autoCapitalize={'none'}
+            secureTextEntry={secureEntry}
+            autoCorrect={false}
+          />
+          <TouchableOpacity onPress={() => setSecureEntry(!secureEntry)}>
+            <FontAwesomeIcon
+              icon={secureEntry ? faEyeSlash : faEye}
+              size={18}
+              style={{
+                color: 'grey',
+                marginTop: 20,
+                marginRight: 10,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
+      <View
+        style={{
+          margin: 15,
+        }}>
+        <TouchableOpacity activeOpacity={1}>
+          <Text style={{fontFamily: 'Satoshi-Medium'}}>Forgot Password?</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.loginButton} onPress={signIn}>
-        <Text style={styles.textButton}>Log in</Text>
+        <Text style={styles.textButton}>Sign in</Text>
       </TouchableOpacity>
-      <Button title="Back" onPress={() => navigation.navigate('Landing')} />
+      <View>
+        <Text style={styles.legalText} numberOfLines={2}>
+          By signing in, you agree to the{' '}
+          <Text style={styles.legalNames}>DG Scorecard Terms & Conditions</Text>{' '}
+          and <Text style={styles.legalNames}>Privacy Policy</Text>.
+        </Text>
+      </View>
     </ScrollView>
   );
 };
@@ -100,41 +167,77 @@ export default SignInScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   homeText: {
     fontSize: 28,
-    fontWeight: '400',
-    fontFamily: 'Helvetica',
+    fontWeight: '600',
+    fontFamily: 'Satoshi-Medium',
     marginBottom: 80,
   },
   loginButton: {
-    width: 200,
-    height: 50,
+    width: 327,
+    height: 60,
     justifyContent: 'center',
+    fontFamily: 'Satoshi-Medium',
     alignItems: 'center',
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
+    borderRadius: 12,
     marginBottom: 40,
-    marginTop: 20,
+    // marginTop: 60,
   },
   loginTextInput2: {
-    height: 50,
-    width: 200,
+    flex: 1,
+    width: 327,
+    height: 60,
     padding: 10,
-    backgroundColor: '#F9908D',
+    marginBottom: 8,
     marginTop: 10,
+    fontFamily: 'Satoshi-Medium',
+    alignSelf: 'center',
+    marginLeft: 10,
   },
   loginTextInput1: {
-    height: 50,
-    width: 200,
+    flex: 1,
+    width: 327,
+    height: 60,
     padding: 10,
-    backgroundColor: 'white',
     marginTop: 10,
+    marginBottom: 8,
+    fontFamily: 'Satoshi-Medium',
+    alignSelf: 'center',
+    marginLeft: 10,
+  },
+  inputView: {
+    width: 327,
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  passView: {
+    width: 327,
+    height: 56,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 15,
   },
   textButton: {
     fontSize: 18,
+    fontWeight: '500',
+    fontFamily: 'Satoshi-Medium',
     color: 'white',
+  },
+  legalNames: {
+    fontWeight: '400',
+    color: 'black',
+  },
+  legalText: {
+    fontSize: 14,
+    fontFamily: 'Satoshi-Medium',
+    color: '#6B7280',
+    paddingBottom: 5,
+    marginTop: 150,
+    textAlign: 'center',
   },
 });

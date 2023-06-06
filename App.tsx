@@ -26,27 +26,22 @@ const AuthStackScreen = () => (
       options={{
         title: 'Get Started',
         headerShown: false,
-        headerTintColor: 'black',
       }}
     />
     <AuthStack.Screen
       name="SignInPage"
       component={SignInScreen}
       options={{
-        headerTransparent: true,
-        headerTitle: '',
-        headerBackTitleVisible: false,
+        headerShown: false,
       }}
     />
     <AuthStack.Screen
       name="SignUpPage"
       component={SignUpScreen}
       options={{
-        title: 'SignUp',
-        headerStyle: {
-          backgroundColor: '#DB6F52',
-        },
-        headerTintColor: 'black',
+        headerTransparent: true,
+        headerTitle: '',
+        headerBackTitleVisible: false,
       }}
     />
   </AuthStack.Navigator>

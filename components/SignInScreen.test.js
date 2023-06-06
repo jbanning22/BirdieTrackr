@@ -3,6 +3,10 @@ import {render, screen, fireEvent} from '@testing-library/react-native';
 import SignInScreen from './SignInScreen';
 import {AuthContext} from '../AuthContext';
 
+jest.mock('@fortawesome/react-native-fontawesome', () => ({
+  FontAwesomeIcon: () => null,
+}));
+
 describe('Sign In Screen', () => {
   it('should match the snapshot', () => {
     const authContextValue = {
@@ -38,22 +42,34 @@ describe('Sign In Screen', () => {
         <SignInScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Log in')).toBeTruthy();
+    expect(screen.getByText('Sign in')).toBeTruthy();
   });
-  it('should navigate back to app landing', async () => {
+  it('should display forgot password', async () => {
     const authContextValue = {
       signedIn: false,
       setSignedIn: jest.fn(),
     };
-    const navigation = {
-      navigate: jest.fn(),
+    render(
+      <AuthContext.Provider value={authContextValue}>
+        <SignInScreen />
+      </AuthContext.Provider>,
+    );
+    expect(screen.getByText('Forgot Password?')).toBeTruthy();
+  });
+  it('should display legal text', async () => {
+    const authContextValue = {
+      signedIn: false,
+      setSignedIn: jest.fn(),
     };
     const {getByText} = render(
       <AuthContext.Provider value={authContextValue}>
-        <SignInScreen navigation={navigation} />
+        <SignInScreen />
       </AuthContext.Provider>,
     );
-    fireEvent.press(getByText('Back'));
-    expect(navigation.navigate).toHaveBeenCalledWith('Landing');
+    const text1 = getByText('Privacy Policy');
+    const text2 = getByText('DG Scorecard Terms & Conditions');
+
+    expect(text1).toBeDefined();
+    expect(text2).toBeDefined();
   });
 });
