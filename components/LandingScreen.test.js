@@ -9,7 +9,7 @@ describe('Landing Screen', () => {
   });
   it('should render welcome message', async () => {
     render(<LandingScreen />);
-    expect(screen.getByText('Welcome to DG Scorecard!')).toBeTruthy();
+    expect(screen.getByText('Welcome to DG Scorecard')).toBeTruthy();
   });
   it('should navigate to sign in screen', async () => {
     const navigation = {
