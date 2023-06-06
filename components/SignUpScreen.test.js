@@ -1,7 +1,11 @@
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react-native';
+import {render, screen} from '@testing-library/react-native';
 import SignUpScreen from './SignUpScreen';
 import {AuthContext} from '../AuthContext';
+
+jest.mock('@fortawesome/react-native-fontawesome', () => ({
+  FontAwesomeIcon: () => null,
+}));
 
 describe('Sign Up Screen', () => {
   it('should match the snapshot', async () => {
@@ -26,7 +30,7 @@ describe('Sign Up Screen', () => {
         <SignUpScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Join the IDISC Community!')).toBeTruthy();
+    expect(screen.getByText('Welcome to DG Scorecard')).toBeTruthy();
   });
   it('should display sign up button', async () => {
     const authContextValue = {
@@ -40,20 +44,34 @@ describe('Sign Up Screen', () => {
     );
     expect(screen.getByText('Sign Up')).toBeTruthy();
   });
-  it('should navigate back to app landing', async () => {
+  it('should sign up message', async () => {
     const authContextValue = {
       signedIn: false,
       setSignedIn: jest.fn(),
     };
-    const navigation = {
-      navigate: jest.fn(),
+    render(
+      <AuthContext.Provider value={authContextValue}>
+        <SignUpScreen />
+      </AuthContext.Provider>,
+    );
+    expect(
+      screen.getByText('Create a commitment-free profile to explore products.'),
+    ).toBeTruthy();
+  });
+  it('should display legal text', async () => {
+    const authContextValue = {
+      signedIn: false,
+      setSignedIn: jest.fn(),
     };
     const {getByText} = render(
       <AuthContext.Provider value={authContextValue}>
-        <SignUpScreen navigation={navigation} />
+        <SignUpScreen />
       </AuthContext.Provider>,
     );
-    fireEvent.press(getByText('Back'));
-    expect(navigation.navigate).toHaveBeenCalledWith('Landing');
+    const text1 = getByText('Privacy Policy');
+    const text2 = getByText('DG Scorecard Terms & Conditions');
+
+    expect(text1).toBeDefined();
+    expect(text2).toBeDefined();
   });
 });

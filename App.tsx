@@ -39,9 +39,7 @@ const AuthStackScreen = () => (
       name="SignUpPage"
       component={SignUpScreen}
       options={{
-        headerTransparent: true,
-        headerTitle: '',
-        headerBackTitleVisible: false,
+        headerShown: false,
       }}
     />
   </AuthStack.Navigator>

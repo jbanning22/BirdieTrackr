@@ -2,141 +2,303 @@
 
 exports[`Sign Up Screen should match the snapshot 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
+  contentContainerStyle={{}}
 >
   <View>
-    <Text
+    <View
       style={
         {
-          "fontFamily": "Helvetica",
-          "fontSize": 28,
-          "fontWeight": "500",
-          "marginBottom": 80,
+          "alignSelf": "flex-start",
+          "flex": 1,
+          "marginLeft": 20,
+          "marginTop": 50,
         }
       }
     >
-      Join the IDISC Community!
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        {
+          "alignSelf": "center",
+          "fontFamily": "Satoshi-Medium",
+          "fontSize": 30,
+          "fontWeight": "600",
+          "marginTop": 5,
+        }
+      }
+    >
+      Welcome to 
+      <Text
+        style={
+          {
+            "color": "#45B369",
+          }
+        }
+      >
+        DG Scorecard
+      </Text>
+    </Text>
+    <Text
+      style={
+        {
+          "alignSelf": "center",
+          "color": "grey",
+          "fontFamily": "Satoshi-Medium",
+          "fontSize": 17,
+          "margin": 5,
+          "textAlign": "center",
+        }
+      }
+    >
+      Create a commitment-free profile to explore products.
     </Text>
     <View
       onLayout={[Function]}
     >
-      <TextInput
-        autoCorrect={false}
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="Username"
+      <View
         style={
           {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+            "alignItems": "center",
           }
         }
-        value=""
-      />
-      <TextInput
-        autoCorrect={false}
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="First Name"
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+      >
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-        value=""
-      />
-      <TextInput
-        autoCorrect={false}
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="Last Name"
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+        >
+          <TextInput
+            autoCorrect={false}
+            onChangeText={[Function]}
+            placeholder="Username"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-        value=""
-      />
-      <TextInput
-        autoCapitalize="none"
-        autoCorrect={false}
-        clearButtonMode="always"
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        placeholder="Email"
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+        >
+          <TextInput
+            autoCorrect={false}
+            onChangeText={[Function]}
+            placeholder="First Name"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-        value=""
-      />
-      <TextInput
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="City"
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+        >
+          <TextInput
+            autoCorrect={false}
+            onChangeText={[Function]}
+            placeholder="Last Name"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-        value=""
-      />
-      <TextInput
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="State"
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "marginBottom": 15,
-            "padding": 10,
-            "width": 200,
+        >
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Email"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-      />
-      <TextInput
-        autoCorrect={false}
-        clearButtonMode="always"
-        onChangeText={[Function]}
-        placeholder="Password"
-        secureTextEntry={true}
-        style={
-          {
-            "backgroundColor": "white",
-            "height": 50,
-            "padding": 10,
-            "width": 200,
+        >
+          <TextInput
+            onChangeText={[Function]}
+            placeholder="City"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
           }
-        }
-        value=""
-      />
+        >
+          <TextInput
+            onChangeText={[Function]}
+            placeholder="State"
+            style={
+              {
+                "flex": 1,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            {
+              "backgroundColor": "white",
+              "borderRadius": 20,
+              "flexDirection": "row",
+              "height": 50,
+              "margin": 10,
+              "width": 327,
+            }
+          }
+        >
+          <TextInput
+            autoCorrect={false}
+            onChangeText={[Function]}
+            placeholder="Password"
+            secureTextEntry={true}
+            style={
+              {
+                "flex": 1,
+              }
+            }
+            value=""
+          />
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          />
+        </View>
+      </View>
     </View>
     <Text
       style={
@@ -166,60 +328,6 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
       }
       accessible={true}
       collapsable={false}
-      focusable={false}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#DB6F52",
-          "height": 50,
-          "justifyContent": "center",
-          "marginBottom": 15,
-          "marginTop": 35,
-          "opacity": 1,
-          "width": 200,
-        }
-      }
-    >
-      <Text
-        onPress={[Function]}
-        style={
-          {
-            "color": "white",
-            "fontSize": 18,
-          }
-        }
-      >
-        Sign Up
-      </Text>
-    </View>
-    <View
-      accessibilityRole="button"
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
       focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
@@ -230,32 +338,72 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#2D6061",
+          "borderRadius": 12,
+          "fontFamily": "Satoshi-Medium",
+          "height": 60,
+          "justifyContent": "center",
+          "marginBottom": 10,
           "opacity": 1,
+          "width": 327,
         }
       }
     >
-      <View
+      <Text
         style={
-          [
-            {},
-          ]
+          {
+            "color": "white",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 18,
+            "fontWeight": "500",
+          }
         }
       >
+        Sign Up
+      </Text>
+    </View>
+    <View>
+      <Text
+        numberOfLines={2}
+        style={
+          {
+            "color": "#6B7280",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 14,
+            "marginTop": 40,
+            "paddingBottom": 5,
+            "textAlign": "center",
+          }
+        }
+      >
+        By signing up, you agree to the
+         
         <Text
           style={
-            [
-              {
-                "color": "#007AFF",
-                "fontSize": 18,
-                "margin": 8,
-                "textAlign": "center",
-              },
-            ]
+            {
+              "color": "black",
+              "fontWeight": "400",
+            }
           }
         >
-          Back
+          DG Scorecard Terms & Conditions
         </Text>
-      </View>
+         
+        and 
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontWeight": "400",
+            }
+          }
+        >
+          Privacy Policy
+        </Text>
+        .
+      </Text>
     </View>
   </View>
 </RCTScrollView>

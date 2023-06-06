@@ -47,7 +47,6 @@ exports[`Landing Screen should match the snapshot 1`] = `
     >
       DG Scorecard
     </Text>
-    !
   </Text>
   <Text
     style={
