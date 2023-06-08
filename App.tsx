@@ -65,18 +65,16 @@ const AppStackScreen = () => (
       component={ScorecardStack}
       options={{
         title: 'Scorecards',
-        tabBarLabelStyle: {color: '#DB6F52'},
+        tabBarLabelStyle: {color: '#2D6061'},
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faRectangleList}
-            color={focused ? '#DB6F52' : 'black'}
+            color={focused ? '#45B369' : 'black'}
             size={20}
           />
         ),
-        headerStyle: {backgroundColor: '#DB6F52'},
         headerShown: false,
-        headerTintColor: 'white',
       }}
     />
     <Tab.Screen
@@ -84,12 +82,12 @@ const AppStackScreen = () => (
       component={ThrowsStack}
       options={{
         title: 'Throws',
-        tabBarLabelStyle: {color: '#DB6F52'},
+        tabBarLabelStyle: {color: '#2D6061'},
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faRuler}
-            color={focused ? '#DB6F52' : 'black'}
+            color={focused ? '#45B369' : 'black'}
             size={20}
           />
         ),
@@ -102,17 +100,17 @@ const AppStackScreen = () => (
       component={ProfileStack}
       options={{
         title: 'Profile',
-        tabBarLabelStyle: {color: '#DB6F52'},
+        tabBarLabelStyle: {color: '#2D6061'},
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faUser}
-            color={focused ? '#DB6F52' : 'black'}
+            color={focused ? '#45B369' : 'black'}
             size={20}
           />
         ),
         headerStyle: {
-          backgroundColor: '#DB6F52',
+          backgroundColor: '#2D6061',
         },
         // headerShown: false,
         headerTintColor: 'white',
