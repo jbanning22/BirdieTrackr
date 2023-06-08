@@ -20,7 +20,7 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {useQueryClient} from '@tanstack/react-query';
 import {useGetScorecards} from './hooks/getScorecardsQuery';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
-import myImage from '../assets/images/DiscGolfBasket2.png';
+import myImage from '../assets/images/40DGbasket.png';
 import {Dimensions} from 'react-native';
 
 const Scorecards = ({navigation}) => {
@@ -63,33 +63,37 @@ const Scorecards = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
+
     const icon = item.isCompleted ? (
       <FontAwesomeIcon
         icon={faCheck}
-        color={'green'}
+        color={'white'}
         size={12}
-        style={{margin: 5}}
+        style={{margin: 8}}
       />
     ) : (
       <FontAwesomeIcon
         icon={faExclamation}
-        color={'yellow'}
+        color={'white'}
         size={12}
-        style={{margin: 5}}
+        style={{margin: 8}}
       />
     );
+
     return (
-      <View style={styles.flatListItemParent}>
-        <View style={styles.flatlistTextItemsStyle}>
+      <View style={styles.flatListItemContainer}>
+        <View
+          style={styles.flatlistTextItemStyle} // container for text content on left
+        >
           <TouchableOpacity
-            onPress={() => handleScorecardPressed(item.id, item.courseLength)}
-            style={{}}>
+            onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
             <Text style={styles.renderCourseName}>{item.courseName}</Text>
             <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
             <Text style={styles.renderText}>{date}</Text>
           </TouchableOpacity>
         </View>
-        <View
+
+        <View // icon continaer on right
           style={{flexDirection: 'column', justifyContent: 'space-between'}}>
           {icon}
           <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
@@ -97,7 +101,7 @@ const Scorecards = ({navigation}) => {
               icon={faTrashCan}
               color={'white'}
               size={12}
-              style={{margin: 5}}
+              style={{margin: 8}}
             />
           </TouchableOpacity>
         </View>
@@ -111,7 +115,7 @@ const Scorecards = ({navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     Alert.alert(
-      'Delete Throw',
+      'Delete Scorecard',
       'Are you sure you want to delete this scorecard?',
       [
         {text: 'Cancel', style: 'cancel'},
@@ -138,7 +142,7 @@ const Scorecards = ({navigation}) => {
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
-        <View style={{padding: 10}}>
+        <View style={{padding: 10, alignItems: 'flex-start'}}>
           <Text
             style={{
               fontFamily: 'Satoshi-Medium',
@@ -207,14 +211,14 @@ const styles = StyleSheet.create({
   imageBackground: {
     // flex: 1,
     resizeMode: 'cover',
-    // opacity: 0.5,
   },
   box1: {
     flex: 1,
     // alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
-  flatListItemParent: {
+  flatListItemContainer: {
     flexDirection: 'row',
     backgroundColor: '#2D6061',
     borderRadius: 10,
@@ -242,10 +246,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  flatlistTextItemsStyle: {
+  flatlistTextItemStyle: {
     width: 280,
-    height: 60,
-    margin: 10,
+    height: 80,
+    margin: 15,
     alignItems: 'flex-start',
   },
   renderItemStyle: {
@@ -253,24 +257,25 @@ const styles = StyleSheet.create({
   },
   renderCourseName: {
     fontFamily: 'Satoshi-Medium',
-    alignSelf: 'center',
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: '700',
     color: 'white',
+    textAlign: 'left',
+    marginBottom: 5,
   },
   renderHoleText: {
     fontFamily: 'Satoshi-Medium',
-    alignSelf: 'center',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '500',
     color: 'white',
+    textAlign: 'left',
+    marginBottom: 2,
   },
   renderText: {
     fontFamily: 'Satoshi-Medium',
-    alignSelf: 'center',
-    fontSize: 14,
-    fontWeight: '400',
-    marginBottom: 5,
+    fontSize: 12,
+    fontWeight: '500',
     color: 'white',
+    // margin: 2,
   },
 });

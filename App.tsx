@@ -70,7 +70,7 @@ const AppStackScreen = () => (
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faRectangleList}
-            color={focused ? '#45B369' : 'black'}
+            color={focused ? '#2D6061' : 'black'}
             size={20}
           />
         ),
@@ -87,7 +87,7 @@ const AppStackScreen = () => (
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faRuler}
-            color={focused ? '#45B369' : 'black'}
+            color={focused ? '#2D6061' : 'black'}
             size={20}
           />
         ),
@@ -105,7 +105,7 @@ const AppStackScreen = () => (
         tabBarIcon: ({focused}) => (
           <FontAwesomeIcon
             icon={faUser}
-            color={focused ? '#45B369' : 'black'}
+            color={focused ? '#2D6061' : 'black'}
             size={20}
           />
         ),

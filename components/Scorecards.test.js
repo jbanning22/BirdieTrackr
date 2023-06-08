@@ -180,6 +180,8 @@ describe('Scorecards Landing', () => {
   ];
   beforeEach(() => {
     queryClient = new QueryClient();
+    jest.useFakeTimers();
+
     queryClient.setDefaultOptions({
       queries: {cacheTime: 0},
       retry: false,
@@ -196,6 +198,7 @@ describe('Scorecards Landing', () => {
 
   afterEach(() => {
     queryClient.clear();
+    queryClient.removeQueries();
     jest.clearAllMocks();
   });
 
@@ -208,14 +211,14 @@ describe('Scorecards Landing', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('should display screen title', async () => {
+  it('should display welcome back message', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Scorecards />,
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(screen.getByText('Scorecards')).toBeTruthy();
+      expect(screen.getByText('Welcome back to DG Scorecard!')).toBeTruthy();
     });
   });
 
@@ -244,15 +247,43 @@ describe('Scorecards Landing', () => {
       expect(navigation.navigate).toHaveBeenCalledWith('CreateScorecard');
     });
   });
-
-  it('should display scorecards when data is fetched', async () => {
+  it('should display correct course name', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Scorecards />
       </QueryClientProvider>,
     );
+
     await waitFor(() => {
-      expect(screen.findByText('Test')).toBeTruthy();
+      const courseName = screen.getByText(mockedData[0].courseName);
+
+      expect(courseName).toBeTruthy();
+    });
+  });
+  it('should display correct course length', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Scorecards />
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      const courseLength = screen.getByText(
+        `${mockedData[0].courseLength} Holes`,
+      );
+
+      expect(courseLength).toBeTruthy();
+    });
+  });
+  it('should render the correct number of scorecards', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Scorecards />
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Holes/i)).toHaveLength(mockedData.length);
     });
   });
 });
