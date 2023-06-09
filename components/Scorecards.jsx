@@ -20,7 +20,7 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {useQueryClient} from '@tanstack/react-query';
 import {useGetScorecards} from './hooks/getScorecardsQuery';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
-import myImage from '../assets/images/40DGbasket.png';
+import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 
 const Scorecards = ({navigation}) => {
@@ -142,7 +142,12 @@ const Scorecards = ({navigation}) => {
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
-        <View style={{padding: 10, alignItems: 'flex-start'}}>
+        <View
+          style={{
+            padding: 10,
+            alignItems: 'flex-start',
+            backgroundColor: 'white',
+          }}>
           <Text
             style={{
               fontFamily: 'Satoshi-Medium',

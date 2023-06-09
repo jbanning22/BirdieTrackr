@@ -5,6 +5,9 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import axios from 'axios';
 
 jest.mock('axios');
+jest.mock('@fortawesome/react-native-fontawesome', () => ({
+  FontAwesomeIcon: () => null,
+}));
 
 describe('Create Scorecard Screen', () => {
   let queryClient;
@@ -33,13 +36,21 @@ describe('Create Scorecard Screen', () => {
     );
     expect(toJSON()).toMatchSnapshot();
   });
+  it('should render question title', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <CreateScorecard />
+      </QueryClientProvider>,
+    );
+    expect(screen.getByText('Where are you playing?')).toBeTruthy();
+  });
   it('should render question on course name', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <CreateScorecard />
       </QueryClientProvider>,
     );
-    expect(screen.getByText('Name of the course?')).toBeTruthy();
+    expect(screen.getByText('Name of the Course')).toBeTruthy();
   });
   it('should be able to input course name', async () => {
     render(

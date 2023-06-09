@@ -2,9 +2,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
   KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
@@ -12,13 +12,15 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useQueryClient} from '@tanstack/react-query';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import myImage from '../assets/images/BasketBackground2.png';
 
 const CreateScorecard = ({navigation}) => {
   const [courseLength, setCourseLength] = useState(0);
   const [courseName, setCourseName] = useState('');
   const [active9Button, setActive9Button] = useState(false);
   const [active18Button, setActive18Button] = useState(false);
-  // const [scorecardData, setScorecardData] = useState({});
   const queryClient = useQueryClient();
 
   function setLength9() {
@@ -37,7 +39,6 @@ const CreateScorecard = ({navigation}) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    console.log(token);
     try {
       const scorecard = await axios.post(
         'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard',
@@ -49,49 +50,71 @@ const CreateScorecard = ({navigation}) => {
       });
       queryClient.invalidateQueries('scorecardData');
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   };
 
   return (
     <SafeAreaView style={styles.box1}>
-      <Text style={styles.questionText}>Name of the course?</Text>
-      <KeyboardAvoidingView>
-        <TextInput
-          placeholder="Course Name"
-          style={styles.loginTextInput}
-          value={courseName}
-          onChangeText={setCourseName}
-        />
-      </KeyboardAvoidingView>
-      <Text style={styles.questionText}>How Many Holes?</Text>
-      <View style={{flexDirection: 'row'}}>
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Scorecard')}>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size={20}
+              style={{marginLeft: 10}}
+            />
+          </TouchableOpacity>
+          <Text style={styles.titleText}>Where are you playing?</Text>
+        </View>
+        <View
+          style={{
+            margin: 20,
+            backgroundColor: '#F9FAFB',
+            borderRadius: 15,
+          }}>
+          <Text style={styles.questionText}>Name of the Course</Text>
+          <KeyboardAvoidingView>
+            <TextInput
+              placeholder="Course Name"
+              style={styles.loginTextInput}
+              value={courseName}
+              onChangeText={setCourseName}
+            />
+          </KeyboardAvoidingView>
+          <Text style={styles.questionText}>How Many Holes?</Text>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={
+                active9Button ? styles.lengthButton2 : styles.lengthButton1
+              }
+              activeOpacity={0.3}
+              onPress={setLength9}>
+              <Text style={styles.buttonText}>9</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={
+                active18Button ? styles.lengthButton2 : styles.lengthButton1
+              }
+              activeOpacity={0.3}
+              onPress={setLength18}>
+              <Text style={styles.buttonText}>18</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <TouchableOpacity
-          style={active9Button ? styles.lengthButton2 : styles.lengthButton1}
-          activeOpacity={0.3}
-          onPress={setLength9}>
-          <Text style={styles.buttonText}>9</Text>
+          style={styles.createScorecardButton}
+          onPress={createScorecard}>
+          <Text style={styles.createScorecardText}>Create Scorecard</Text>
         </TouchableOpacity>
-        <Text style={styles.orText}>Or</Text>
-        <TouchableOpacity
-          style={active18Button ? styles.lengthButton2 : styles.lengthButton1}
-          activeOpacity={0.3}
-          onPress={setLength18}>
-          <Text style={styles.buttonText}>18</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.createScorecardButton}
-        onPress={createScorecard}>
-        <Text style={styles.createScorecardText}>Create Scorecard</Text>
-      </TouchableOpacity>
-      <View style={styles.box2}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate('Scorecard')}>
-          <Text style={styles.backButtonText}>Go Back</Text>
-        </TouchableOpacity>
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -102,62 +125,71 @@ const styles = StyleSheet.create({
   box1: {
     flex: 1,
     alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'white',
   },
-  box2: {
-    justifyContent: 'center',
-    alignContent: 'center',
+  imageBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'space-between',
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: '400',
+    fontFamily: 'Satoshi-Medium',
+    // textAlign: 'center',
+    flex: 1,
+    margin: 6,
+    marginLeft: 45,
   },
   questionText: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#909090',
     fontWeight: '400',
-    fontFamily: 'Helvetica',
-    marginBottom: 20,
+    fontFamily: 'Satoshi-Medium',
+    marginBottom: 10,
     marginTop: 20,
+    alignSelf: 'center',
   },
   loginTextInput: {
     height: 50,
-    width: 200,
+    width: 300,
     padding: 10,
     backgroundColor: 'white',
+    alignSelf: 'center',
+    textAlign: 'center',
     marginTop: 10,
-  },
-  createScorecardButton: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    height: 60,
-    width: 200,
-    backgroundColor: '#52BEDB',
-    padding: 10,
-    marginTop: 80,
     borderRadius: 10,
   },
-  createScorecardText: {
-    fontSize: 20,
-    fontWeight: '600',
+  createScorecardButton: {
+    width: 327,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
+    backgroundColor: '#2D6061',
+    borderRadius: 14,
+  },
+  createScorecardText: {
+    fontFamily: 'Satoshi-Medium',
     color: 'white',
+    fontSize: 16,
+    fontWeight: '500',
   },
   lengthButton1: {
-    width: 50,
-    height: 50,
+    width: 104,
+    height: 32,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#DB6F52',
+    backgroundColor: '#9CA3AF',
     margin: 35,
-    marginBottom: 15,
-    borderRadius: 25,
+    borderRadius: 8,
   },
   lengthButton2: {
-    width: 50,
-    height: 50,
+    width: 104,
+    height: 32,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
     margin: 35,
-    marginBottom: 15,
-    borderRadius: 25,
+    borderRadius: 8,
   },
   backButton: {
     width: 80,
@@ -171,18 +203,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
     fontSize: 22,
-  },
-  backButtonText: {
-    color: 'black',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  orText: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    color: 'black',
-    fontWeight: '400',
-    fontSize: 25,
-    marginTop: 18,
   },
 });
