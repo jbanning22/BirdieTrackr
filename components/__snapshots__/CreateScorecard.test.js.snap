@@ -12,64 +12,281 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
   }
   style={
     {
-      "alignContent": "center",
       "alignItems": "center",
+      "backgroundColor": "white",
       "flex": 1,
-      "justifyContent": "center",
     }
   }
 >
-  <Text
+  <View
+    accessibilityIgnoresInvertColors={true}
     style={
       {
-        "fontFamily": "Helvetica",
-        "fontSize": 20,
-        "fontWeight": "400",
-        "marginBottom": 20,
-        "marginTop": 20,
+        "flex": 1,
+        "justifyContent": "space-between",
+        "resizeMode": "cover",
       }
     }
   >
-    Name of the course?
-  </Text>
-  <View
-    onLayout={[Function]}
-  >
-    <TextInput
-      onChangeText={[Function]}
-      placeholder="Course Name"
-      style={
+    <Image
+      source={
         {
-          "backgroundColor": "white",
-          "height": 50,
-          "marginTop": 10,
-          "padding": 10,
-          "width": 200,
+          "testUri": "../../../assets/images/BasketBackground2.png",
         }
       }
-      value=""
+      style={
+        [
+          {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          {
+            "height": undefined,
+            "width": undefined,
+          },
+          undefined,
+        ]
+      }
     />
-  </View>
-  <Text
-    style={
-      {
-        "fontFamily": "Helvetica",
-        "fontSize": 20,
-        "fontWeight": "400",
-        "marginBottom": 20,
-        "marginTop": 20,
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "white",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
       }
-    }
-  >
-    How Many Holes?
-  </Text>
-  <View
-    style={
-      {
-        "flexDirection": "row",
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      />
+      <Text
+        style={
+          {
+            "flex": 1,
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 24,
+            "fontWeight": "400",
+            "margin": 6,
+            "marginLeft": 45,
+          }
+        }
+      >
+        Where are you playing?
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "backgroundColor": "#F9FAFB",
+          "borderRadius": 15,
+          "margin": 20,
+        }
       }
-    }
-  >
+    >
+      <Text
+        style={
+          {
+            "alignSelf": "center",
+            "color": "#909090",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginBottom": 10,
+            "marginTop": 20,
+          }
+        }
+      >
+        Name of the Course
+      </Text>
+      <View
+        onLayout={[Function]}
+      >
+        <TextInput
+          onChangeText={[Function]}
+          placeholder="Course Name"
+          style={
+            {
+              "alignSelf": "center",
+              "backgroundColor": "white",
+              "borderRadius": 10,
+              "height": 50,
+              "marginTop": 10,
+              "padding": 10,
+              "textAlign": "center",
+              "width": 300,
+            }
+          }
+          value=""
+        />
+      </View>
+      <Text
+        style={
+          {
+            "alignSelf": "center",
+            "color": "#909090",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginBottom": 10,
+            "marginTop": 20,
+          }
+        }
+      >
+        How Many Holes?
+      </Text>
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "backgroundColor": "#9CA3AF",
+              "borderRadius": 8,
+              "height": 32,
+              "justifyContent": "center",
+              "margin": 35,
+              "opacity": 1,
+              "width": 104,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "color": "white",
+                "fontSize": 22,
+                "fontWeight": "400",
+              }
+            }
+          >
+            9
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "backgroundColor": "#9CA3AF",
+              "borderRadius": 8,
+              "height": 32,
+              "justifyContent": "center",
+              "margin": 35,
+              "opacity": 1,
+              "width": 104,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "color": "white",
+                "fontSize": 22,
+                "fontWeight": "400",
+              }
+            }
+          >
+            18
+          </Text>
+        </View>
+      </View>
+    </View>
     <View
       accessibilityState={
         {
@@ -98,216 +315,30 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#DB6F52",
-          "borderRadius": 25,
-          "height": 50,
-          "justifyContent": "center",
-          "margin": 35,
-          "marginBottom": 15,
-          "opacity": 1,
-          "width": 50,
-        }
-      }
-    >
-      <Text
-        style={
-          {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "color": "white",
-            "fontSize": 22,
-            "fontWeight": "400",
-          }
-        }
-      >
-        9
-      </Text>
-    </View>
-    <Text
       style={
         {
           "alignItems": "center",
           "alignSelf": "center",
-          "color": "black",
-          "fontSize": 25,
-          "fontWeight": "400",
-          "marginTop": 18,
-        }
-      }
-    >
-      Or
-    </Text>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#DB6F52",
-          "borderRadius": 25,
-          "height": 50,
+          "backgroundColor": "#2D6061",
+          "borderRadius": 14,
+          "height": 56,
           "justifyContent": "center",
-          "margin": 35,
-          "marginBottom": 15,
           "opacity": 1,
-          "width": 50,
+          "width": 327,
         }
       }
     >
       <Text
         style={
           {
-            "alignItems": "center",
-            "alignSelf": "center",
             "color": "white",
-            "fontSize": 22,
-            "fontWeight": "400",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 16,
+            "fontWeight": "500",
           }
         }
       >
-        18
-      </Text>
-    </View>
-  </View>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "alignContent": "center",
-        "backgroundColor": "#52BEDB",
-        "borderRadius": 10,
-        "height": 60,
-        "justifyContent": "center",
-        "marginTop": 80,
-        "opacity": 1,
-        "padding": 10,
-        "width": 200,
-      }
-    }
-  >
-    <Text
-      style={
-        {
-          "alignSelf": "center",
-          "color": "white",
-          "fontSize": 20,
-          "fontWeight": "600",
-        }
-      }
-    >
-      Create Scorecard
-    </Text>
-  </View>
-  <View
-    style={
-      {
-        "alignContent": "center",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "height": 40,
-          "marginTop": 50,
-          "opacity": 1,
-          "padding": 5,
-          "width": 80,
-        }
-      }
-    >
-      <Text
-        style={
-          {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "color": "black",
-          }
-        }
-      >
-        Go Back
+        Create Scorecard
       </Text>
     </View>
   </View>
