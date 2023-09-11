@@ -5,6 +5,7 @@ import {
   Dimensions,
   SafeAreaView,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
@@ -13,6 +14,10 @@ import StartThrow from './StartThrow';
 import EndThrow from './EndThrow';
 import ResetButton from './ResetButton';
 import {Platform} from 'react-native';
+// import LargeButton from './button/LargeButton';
+import myImage from '../assets/images/BasketBackground2.png';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -49,8 +54,8 @@ const ThrowsScreen2 = ({navigation}) => {
 
   async function distance(lat2, lon2) {
     setEndLocation({lat2, lon2});
-    console.log('startingLocation in distance method is', startingLocation);
-    console.log('endingLocation in distance method is', endingLocation);
+    // console.log('startingLocation in distance method is', startingLocation);
+    // console.log('endingLocation in distance method is', endingLocation);
     const lat1 = startingLocation.latitude;
     const lon1 = startingLocation.longitude;
     if (lat1 === lat2 && lon1 === lon2) {
@@ -88,65 +93,71 @@ const ThrowsScreen2 = ({navigation}) => {
   }
   return (
     <SafeAreaView style={styles.box1}>
-      <View>
-        <Text style={styles.distanceText}>Measure Your Throw!</Text>
-        {endingDist !== null ? (
-          <Text style={styles.distanceText}>{`${endingDist}ft`}</Text>
-        ) : (
-          <Text style={styles.distanceText2}></Text>
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <View style={styles.backArrowParent}>
+          <TouchableOpacity onPress={() => navigation.navigate('ThrowsScreen')}>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size={20}
+              style={{marginLeft: 10}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{backgroundColor: 'white'}}>
+          <Text style={styles.distanceText}>Measure Your Throw!</Text>
+          {endingDist !== null ? (
+            <Text style={styles.distanceText}>{`${endingDist}ft`}</Text>
+          ) : (
+            <Text style={styles.distanceText2}></Text>
+          )}
+        </View>
+
+        {presentLocation !== null && (
+          <MapView
+            mapType="satellite"
+            showsUserLocation={true}
+            style={styles.mapSizing}
+            initialRegion={{
+              latitude: presentLocation.latitude,
+              longitude: presentLocation.longitude,
+              latitudeDelta: 0.002,
+              longitudeDelta: 0.002,
+            }}>
+            {startingLocation !== null && (
+              <Marker
+                coordinate={{
+                  latitude: startingLocation.latitude,
+                  longitude: startingLocation.longitude,
+                }}
+              />
+            )}
+            {endingLocation !== null && (
+              <Marker
+                coordinate={{
+                  latitude: endingLocation.latitude,
+                  longitude: endingLocation.longitude,
+                }}
+              />
+            )}
+          </MapView>
         )}
-      </View>
 
-      {presentLocation !== null && (
-        <MapView
-          mapType="satellite"
-          showsUserLocation={true}
-          style={styles.mapSizing}
-          initialRegion={{
-            latitude: presentLocation.latitude,
-            longitude: presentLocation.longitude,
-            latitudeDelta: 0.002,
-            longitudeDelta: 0.002,
-          }}>
-          {startingLocation !== null && (
-            <Marker
-              coordinate={{
-                latitude: startingLocation.latitude,
-                longitude: startingLocation.longitude,
-              }}
-            />
-          )}
-          {endingLocation !== null && (
-            <Marker
-              coordinate={{
-                latitude: endingLocation.latitude,
-                longitude: endingLocation.longitude,
-              }}
-            />
-          )}
-        </MapView>
-      )}
+        <View style={styles.buttonContainer}>
+          <StartThrow setStart={setStartLocation} />
+          <ResetButton resetValues={reset} />
+          <EndThrow
+            calcDistance={distance}
+            setEnd={setEndLocation}
+            startingLocation={startingLocation}
+          />
+        </View>
 
-      <View style={styles.buttonContainer}>
-        <StartThrow setStart={setStartLocation} />
-        <ResetButton resetValues={reset} />
-        <EndThrow
-          calcDistance={distance}
-          setEnd={setEndLocation}
-          startingLocation={startingLocation}
-        />
-      </View>
-
-      <View style={styles.lastView}>
-        <TouchableOpacity
-          style={{alignSelf: 'center'}}
-          onPress={() => navigation.navigate('ThrowScreen')}>
-          <Text>Back</Text>
-        </TouchableOpacity>
-        <Text style={styles.textStyle1}>
-          All distances are accurate within 20ft.
-        </Text>
-      </View>
+        <View style={styles.lastView}>
+          <Text style={styles.textStyle1}>
+            All distances are accurate within 20ft.
+          </Text>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DB6F52',
+    backgroundColor: 'white',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -170,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     alignSelf: 'center',
     fontWeight: '500',
-    color: 'white',
+    color: 'black',
     marginTop: 5,
   },
   buttonStyle: {
@@ -223,5 +234,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
     fontSize: 22,
+  },
+  imageBackground: {
+    // flex: 1,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  backArrowParent: {
+    flexDirection: 'row',
   },
 });

@@ -3,113 +3,153 @@
 exports[`Full Scorecard Screen should match the snapshot 1`] = `
 <RNCSafeAreaView
   edges={
-    [
-      "bottom",
-      "left",
-      "right",
-      "top",
-    ]
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
   }
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#DDDDDD",
+      "backgroundColor": "white",
       "flex": 1,
-      "justifyContent": "flex-start",
     }
   }
 >
-  <Text
-    style={
-      {
-        "color": "#DB6F52",
-        "fontFamily": "Helvetica",
-        "fontSize": 44,
-        "fontWeight": "400",
-        "textAlign": "center",
-      }
-    }
-  >
-     Scorecard
-  </Text>
   <View
+    accessibilityIgnoresInvertColors={true}
     style={
       {
-        "flex": 0,
-        "width": "100%",
+        "flex": 1,
+        "justifyContent": "space-evenly",
+        "resizeMode": "cover",
       }
     }
   >
-    <RCTScrollView
-      data={[]}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={true}
-      keyExtractor={[Function]}
-      onContentSizeChange={[Function]}
-      onEndReached={[Function]}
-      onLayout={[Function]}
-      onMomentumScrollBegin={[Function]}
-      onMomentumScrollEnd={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onScrollEndDrag={[Function]}
-      pagingEnabled={true}
-      removeClippedSubviews={false}
-      renderItem={[Function]}
-      scrollEventThrottle={50}
-      showsHorizontalScrollIndicator={false}
-      snapToAlignment="center"
-      stickyHeaderIndices={[]}
-      viewabilityConfigCallbackPairs={[]}
-    >
-      <View />
-    </RCTScrollView>
-  </View>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
+    <Image
+      source={
+        {
+          "testUri": "../../../assets/images/BasketBackground2.png",
+        }
       }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
+      style={
+        [
+          {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          {
+            "height": undefined,
+            "width": undefined,
+          },
+          undefined,
+        ]
       }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
+    />
+    <View
       style={
         {
-          "alignSelf": "center",
-          "marginTop": 50,
+          "backgroundColor": "white",
+          "flexDirection": "row",
+          "justifyContent": "space-evenly",
+          "padding": 4,
         }
       }
     >
-      Back
-    </Text>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "flex": 1,
+            "opacity": 1,
+          }
+        }
+        testID="back-arrow1"
+      />
+      <Text
+        style={
+          {
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 28,
+            "fontWeight": "600",
+            "margin": 10,
+            "textAlign": "center",
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        {
+          "flex": 0,
+          "width": "100%",
+        }
+      }
+    >
+      <RCTScrollView
+        data={[]}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={true}
+        keyExtractor={[Function]}
+        onContentSizeChange={[Function]}
+        onEndReached={[Function]}
+        onLayout={[Function]}
+        onMomentumScrollBegin={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        pagingEnabled={true}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        showsHorizontalScrollIndicator={false}
+        snapToAlignment="center"
+        stickyHeaderIndices={[]}
+        viewabilityConfigCallbackPairs={[]}
+      >
+        <View />
+      </RCTScrollView>
+    </View>
   </View>
 </RNCSafeAreaView>
 `;

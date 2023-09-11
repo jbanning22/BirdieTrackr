@@ -12,6 +12,10 @@ jest.mock('@tanstack/react-query', () => ({
   useQueryClient: jest.fn(),
   useMutation: jest.fn(),
 }));
+jest.mock('@fortawesome/react-native-fontawesome', () => ({
+  FontAwesomeIcon: () => null,
+}));
+jest.mock('@react-navigation/native-stack');
 
 describe('Edit User Screen', () => {
   beforeEach(() => {
@@ -27,28 +31,27 @@ describe('Edit User Screen', () => {
     const {toJSON} = render(<EditUserScreen />);
     expect(toJSON()).toMatchSnapshot();
   });
-  it('should render screen title', async () => {
+  it('should display avatar icon', async () => {
     render(<EditUserScreen />);
-    await waitFor(() => {
-      expect(screen.getByText('Edit Profile')).toBeTruthy();
-    });
+    expect(screen.queryAllByTestId('avatar-icon')).toBeTruthy();
   });
-  it('should render the edit button', async () => {
+
+  it('should render the save button', async () => {
     render(<EditUserScreen />);
     await waitFor(() => {
-      expect(screen.getByText('Edit')).toBeTruthy();
+      expect(screen.getByText('Save')).toBeTruthy();
     });
   });
 
   it('should update inputs correctly', async () => {
-    const {getByPlaceholderText} = render(<EditUserScreen />);
+    const {getByTestId} = render(<EditUserScreen />);
 
-    const usernameInput = getByPlaceholderText('Username');
-    const firstNameInput = getByPlaceholderText('First Name');
-    const lastNameInput = getByPlaceholderText('Last Name');
-    const cityInput = getByPlaceholderText('City');
-    const stateInput = getByPlaceholderText('State');
-    const passwordInput = getByPlaceholderText('Password');
+    const usernameInput = getByTestId('username');
+    const firstNameInput = getByTestId('first-name');
+    const lastNameInput = getByTestId('last-name');
+    const cityInput = getByTestId('city');
+    const stateInput = getByTestId('state');
+    const passwordInput = getByTestId('password');
 
     fireEvent.changeText(usernameInput, 'JohnDoe');
     fireEvent.changeText(firstNameInput, 'John');
@@ -64,16 +67,6 @@ describe('Edit User Screen', () => {
       expect(cityInput.props.value).toBe('New York');
       expect(stateInput.props.value).toBe('NY');
       expect(passwordInput.props.value).toBe('password123');
-    });
-  });
-  it('should navigate back to profile landing on press', async () => {
-    const navigation = {
-      navigate: jest.fn(),
-    };
-    const {getByText} = render(<EditUserScreen navigation={navigation} />);
-    fireEvent.press(getByText('Back'));
-    await waitFor(() => {
-      expect(navigation.navigate).toHaveBeenCalledWith('ProfileLanding');
     });
   });
 });

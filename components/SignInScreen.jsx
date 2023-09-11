@@ -43,7 +43,7 @@ const SignInScreen = ({navigation}) => {
     } else {
       try {
         const signInRes = await axios.post(
-          'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/signin',
+          'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/signin',
           {
             email: formData.email,
             password: formData.password,

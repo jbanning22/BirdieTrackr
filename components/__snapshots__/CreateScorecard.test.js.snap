@@ -3,12 +3,12 @@
 exports[`Create Scorecard Screen should match the snapshot 1`] = `
 <RNCSafeAreaView
   edges={
-    [
-      "bottom",
-      "left",
-      "right",
-      "top",
-    ]
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
   }
   style={
     {
@@ -115,7 +115,16 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
         {
           "backgroundColor": "#F9FAFB",
           "borderRadius": 15,
+          "elevation": 5,
           "margin": 20,
+          "marginTop": 2,
+          "shadowColor": "#000",
+          "shadowOffset": {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.25,
+          "shadowRadius": 3.84,
         }
       }
     >
@@ -333,7 +342,7 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
           {
             "color": "white",
             "fontFamily": "Satoshi-Medium",
-            "fontSize": 16,
+            "fontSize": 18,
             "fontWeight": "500",
           }
         }

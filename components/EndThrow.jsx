@@ -9,7 +9,7 @@ const EndThrow = props => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        console.log('getEndingLocation ', latitude, longitude);
+        // console.log('getEndingLocation ', latitude, longitude);
         if (latitude !== undefined && longitude !== undefined) {
           calcDistance(latitude, longitude);
         }
@@ -37,10 +37,10 @@ export default EndThrow;
 const styles = StyleSheet.create({
   button2: {
     justifyContent: 'center',
-    height: 40,
-    width: 80,
+    height: 50,
+    width: 100,
     borderRadius: 10,
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
     marginLeft: 40,
   },
   buttonText2: {

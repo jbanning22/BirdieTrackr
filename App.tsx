@@ -16,6 +16,9 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {faArrowLeft, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
+import {TouchableOpacity} from 'react-native';
+
 const AuthStack = createNativeStackNavigator();
 
 const AuthStackScreen = () => (
@@ -44,12 +47,12 @@ const AuthStackScreen = () => (
     />
   </AuthStack.Navigator>
 );
-// const Tab = createMaterialBottomTabNavigator();
-// const ScorecardStack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-const AppStackScreen = () => (
-  <Tab.Navigator initialRouteName="Scorecards">
-    {/* <Tab.Screen
+
+const AppStackScreen = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator initialRouteName="Scorecards">
+      {/* <Tab.Screen
       name="Courses"
       component={CourseScreen}
       options={{
@@ -60,64 +63,59 @@ const AppStackScreen = () => (
         headerTintColor: 'white',
       }}
     /> */}
-    <Tab.Screen
-      name="Scorecards"
-      component={ScorecardStack}
-      options={{
-        title: 'Scorecards',
-        tabBarLabelStyle: {color: '#2D6061'},
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({focused}) => (
-          <FontAwesomeIcon
-            icon={faRectangleList}
-            color={focused ? '#2D6061' : 'black'}
-            size={20}
-          />
-        ),
-        headerShown: false,
-      }}
-    />
-    <Tab.Screen
-      name="Throws"
-      component={ThrowsStack}
-      options={{
-        title: 'Throws',
-        tabBarLabelStyle: {color: '#2D6061'},
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({focused}) => (
-          <FontAwesomeIcon
-            icon={faRuler}
-            color={focused ? '#2D6061' : 'black'}
-            size={20}
-          />
-        ),
-        headerShown: false,
-        headerTintColor: 'white',
-      }}
-    />
-    <Tab.Screen
-      name="Profile"
-      component={ProfileStack}
-      options={{
-        title: 'Profile',
-        tabBarLabelStyle: {color: '#2D6061'},
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({focused}) => (
-          <FontAwesomeIcon
-            icon={faUser}
-            color={focused ? '#2D6061' : 'black'}
-            size={20}
-          />
-        ),
-        headerStyle: {
-          backgroundColor: '#2D6061',
-        },
-        // headerShown: false,
-        headerTintColor: 'white',
-      }}
-    />
-  </Tab.Navigator>
-);
+      <Tab.Screen
+        name="Scorecards"
+        component={ScorecardStack}
+        options={{
+          title: 'Scorecards',
+          tabBarLabelStyle: {color: '#2D6061'},
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faRectangleList}
+              color={focused ? '#2D6061' : 'black'}
+              size={20}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Throws"
+        component={ThrowsStack}
+        options={{
+          title: 'Throws',
+          tabBarLabelStyle: {color: '#2D6061'},
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faRuler}
+              color={focused ? '#2D6061' : 'black'}
+              size={20}
+            />
+          ),
+          headerShown: false,
+          headerTintColor: 'white',
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStack}
+        options={{
+          tabBarLabelStyle: {color: '#2D6061'},
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faUser}
+              color={focused ? '#2D6061' : 'black'}
+              size={20}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
 
@@ -134,7 +132,7 @@ const App = () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
       const refresh = await axios.post(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/refresh',
+        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/refresh',
         null,
         {
           headers: {

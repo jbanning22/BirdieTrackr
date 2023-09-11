@@ -17,16 +17,17 @@ export default ResetButton;
 
 const styles = StyleSheet.create({
   resetStyle: {
-    height: 25,
-    width: 50,
-    borderRadius: 5,
-    backgroundColor: '#EBDD37',
+    height: 40,
+    width: 80,
+    borderRadius: 10,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignSelf: 'center',
     paddingLeft: 7,
   },
   resetText: {
-    fontSize: 14,
+    fontSize: 24,
+    alignSelf: 'center',
     color: 'black',
   },
 });

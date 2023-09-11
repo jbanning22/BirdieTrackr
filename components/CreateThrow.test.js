@@ -11,6 +11,9 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 jest.mock('axios');
 jest.mock('@react-native-async-storage/async-storage');
+jest.mock('@fortawesome/react-native-fontawesome', () => ({
+  FontAwesomeIcon: () => null,
+}));
 
 describe('Create Throw Screen', () => {
   let queryClient;
