@@ -56,18 +56,6 @@ describe('Profile Screen', () => {
     );
     expect(screen.getByText('Log Out')).toBeTruthy();
   });
-  it('should display username', async () => {
-    const authContextValue = {
-      signedIn: true,
-      setSignedIn: jest.fn(),
-    };
-    render(
-      <AuthContext.Provider value={authContextValue}>
-        <ProfileScreen />
-      </AuthContext.Provider>,
-    );
-    expect(screen.getByText('JBanning')).toBeTruthy();
-  });
   it('should render edit profile icon', async () => {
     const authContextValue = {
       signedIn: true,

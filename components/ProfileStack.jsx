@@ -16,9 +16,13 @@ const ProfileStack = () => {
         return {
           title: 'Profile',
           headerStyle: {
-            backgroundColor: '#2D6061',
+            // backgroundColor: '#2D6061',
+            backgroundColor: 'white',
           },
           headerTintColor: 'white',
+          headerTitleStyle: {
+            color: 'black',
+          },
           headerRight: () => {
             return route.name !== 'EditProfile' ? (
               <TouchableOpacity
@@ -26,7 +30,7 @@ const ProfileStack = () => {
                 style={{marginRight: 15}}>
                 <FontAwesomeIcon
                   icon={faPencilAlt}
-                  color="white"
+                  color="#2D6061"
                   size={20}
                   testID={'pencil-icon'}
                 />
@@ -41,7 +45,7 @@ const ProfileStack = () => {
                   style={{marginLeft: 15}}>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
-                    color="white"
+                    color="#2D6061"
                     size={20}
                     testID={'leftArrow-icon'}
                   />

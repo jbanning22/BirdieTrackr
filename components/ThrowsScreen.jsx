@@ -136,8 +136,10 @@ const styles = StyleSheet.create({
     fontSize: 36,
     alignSelf: 'center',
     fontWeight: '500',
-    color: 'white',
-    marginBottom: 20,
+    color: 'black',
+    // marginBottom: 20,
+    fontFamily: 'Satoshi-Medium',
+    backgroundColor: 'white',
   },
   flatListParent: {
     flexDirection: 'row',

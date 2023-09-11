@@ -6,8 +6,9 @@ import {
   ScrollView,
   ImageBackground,
   View,
+  Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
@@ -27,8 +28,8 @@ const EditUserScreen = ({navigation}) => {
   });
 
   const queryClient = useQueryClient();
-  // const [imageBool, setImageBool] = useState(false);
-  // const [imageData, setImageData] = useState([]);
+  const [imageBool, setImageBool] = useState(false);
+  const [imageData, setImageData] = useState([]);
 
   const editUser = useMutation(
     async formData => {
@@ -58,52 +59,56 @@ const EditUserScreen = ({navigation}) => {
     },
   );
 
-  // const getProfilePic = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('profileImageData');
-  //     if (value !== null) {
-  //       setImageData(value);
-  //       setImageBool(true);
-  //       return value;
-  //     }
-  //   } catch (error) {
-  //     throw new Error('Error getting profile pic');
-  //   }
-  // };
+  const getProfilePic = async () => {
+    try {
+      const value = await AsyncStorage.getItem('profileImageData');
+      if (value !== null) {
+        setImageData(value);
+        setImageBool(true);
+        return value;
+      }
+    } catch (error) {
+      throw new Error('Error getting profile pic');
+    }
+  };
 
-  // useEffect(() => {
-  //   getProfilePic();
-  // }, []);
+  useEffect(() => {
+    getProfilePic();
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
         <View style={styles.avatarView}>
-          <FontAwesomeIcon
-            icon={faUser}
-            color={'black'}
-            size={34}
-            testID="avatar-icon"
-          />
-        </View>
-        <View
-          style={{
-            width: 320,
-            alignItems: 'center',
-            backgroundColor: 'white',
-            borderRadius: 15,
-          }}>
-          {/* {imageBool ? (
+          {imageBool ? (
             <Image
               source={{uri: imageData}}
               style={{
-                height: 100,
-                width: 100,
+                height: 75,
+                width: 75,
                 borderRadius: 50,
               }}
             />
           ) : (
-          )} */}
+            <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
+          )}
+        </View>
+        <View
+          style={{
+            margin: 10,
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: '#F9FAFB',
+            borderRadius: 15,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}>
           <KeyboardAvoidingView style={{width: '100%'}}>
             <View style={{margin: 2}}>
               <Text style={styles.textInputHeader}>User Name</Text>
@@ -197,11 +202,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    borderWidth: 0.25,
-    padding: 5,
+    // borderWidth: 0.25,
+    // padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
   loginTextInput: {
     height: 50,
@@ -221,15 +226,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textButton: {
+    fontFamily: 'Satoshi-Medium',
     fontSize: 18,
     color: 'white',
   },
   textInputHeader: {
-    backgroundColor: 'white',
+    fontFamily: 'Satoshi-Medium',
     fontSize: 12,
-    // color: '#7A7979',
     color: 'black',
     marginBottom: 5,
+    margin: 5,
     paddingLeft: 15,
   },
   imageBackground: {

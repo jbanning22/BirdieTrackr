@@ -49,10 +49,11 @@ exports[`Throws Screen should match the snapshot 1`] = `
       style={
         {
           "alignSelf": "center",
-          "color": "white",
+          "backgroundColor": "white",
+          "color": "black",
+          "fontFamily": "Satoshi-Medium",
           "fontSize": 36,
           "fontWeight": "500",
-          "marginBottom": 20,
         }
       }
     >
@@ -253,6 +254,7 @@ exports[`Throws Screen should match the snapshot 1`] = `
           "borderRadius": 14,
           "height": 56,
           "justifyContent": "center",
+          "marginBottom": 15,
           "opacity": 1,
           "width": 327,
         }

@@ -48,12 +48,9 @@ exports[`Edit User Screen should match the snapshot 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "white",
             "borderRadius": 50,
-            "borderWidth": 0.25,
             "height": 100,
             "justifyContent": "center",
-            "padding": 5,
             "width": 100,
           }
         }
@@ -61,10 +58,19 @@ exports[`Edit User Screen should match the snapshot 1`] = `
       <View
         style={
           {
-            "alignItems": "center",
-            "backgroundColor": "white",
+            "backgroundColor": "#F9FAFB",
             "borderRadius": 15,
-            "width": 320,
+            "elevation": 5,
+            "margin": 10,
+            "marginTop": 2,
+            "padding": 10,
+            "shadowColor": "#000",
+            "shadowOffset": {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.25,
+            "shadowRadius": 3.84,
           }
         }
       >
@@ -86,9 +92,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -123,9 +130,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -160,9 +168,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -197,9 +206,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -234,9 +244,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -271,9 +282,10 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             <Text
               style={
                 {
-                  "backgroundColor": "white",
                   "color": "black",
+                  "fontFamily": "Satoshi-Medium",
                   "fontSize": 12,
+                  "margin": 5,
                   "marginBottom": 5,
                   "paddingLeft": 15,
                 }
@@ -339,6 +351,7 @@ exports[`Edit User Screen should match the snapshot 1`] = `
             "borderRadius": 14,
             "height": 56,
             "justifyContent": "center",
+            "marginBottom": 15,
             "opacity": 1,
             "width": 327,
           }

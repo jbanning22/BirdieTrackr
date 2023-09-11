@@ -239,6 +239,7 @@ exports[`Create Throw Screen should match the snapshot 1`] = `
               "borderRadius": 14,
               "height": 56,
               "justifyContent": "center",
+              "marginBottom": 15,
               "opacity": 1,
               "width": 327,
             }

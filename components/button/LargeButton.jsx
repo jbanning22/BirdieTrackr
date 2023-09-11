@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#2D6061',
     borderRadius: 14,
+    marginBottom: 15,
   },
   buttonText: {
     fontFamily: 'Satoshi-Medium',
