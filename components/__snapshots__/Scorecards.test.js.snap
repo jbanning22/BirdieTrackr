@@ -4,12 +4,12 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
 [
   <RNCSafeAreaView
     edges={
-      [
-        "bottom",
-        "left",
-        "right",
-        "top",
-      ]
+      {
+        "bottom": "additive",
+        "left": "additive",
+        "right": "additive",
+        "top": "additive",
+      }
     }
     style={
       {
@@ -301,46 +301,46 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
                 }
               >
                 <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
                   style={
                     {
-                      "alignItems": "flex-start",
-                      "height": 80,
-                      "margin": 15,
-                      "width": 280,
+                      "opacity": 1,
                     }
                   }
                 >
                   <View
-                    accessibilityState={
-                      {
-                        "busy": undefined,
-                        "checked": undefined,
-                        "disabled": undefined,
-                        "expanded": undefined,
-                        "selected": undefined,
-                      }
-                    }
-                    accessibilityValue={
-                      {
-                        "max": undefined,
-                        "min": undefined,
-                        "now": undefined,
-                        "text": undefined,
-                      }
-                    }
-                    accessible={true}
-                    collapsable={false}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
                     style={
                       {
-                        "opacity": 1,
+                        "alignItems": "flex-start",
+                        "height": 80,
+                        "margin": 15,
+                        "width": 280,
                       }
                     }
                   >
@@ -439,6 +439,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
         style={
           {
             "alignItems": "center",
+            "marginBottom": 20,
           }
         }
       >
@@ -478,6 +479,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
               "borderRadius": 14,
               "height": 56,
               "justifyContent": "center",
+              "marginBottom": 15,
               "opacity": 1,
               "width": 327,
             }
@@ -488,7 +490,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
               {
                 "color": "white",
                 "fontFamily": "Satoshi-Medium",
-                "fontSize": 16,
+                "fontSize": 18,
                 "fontWeight": "500",
               }
             }

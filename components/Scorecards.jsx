@@ -22,6 +22,7 @@ import {useGetScorecards} from './hooks/getScorecardsQuery';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
+import LargeButton from './button/LargeButton';
 
 const Scorecards = ({navigation}) => {
   const {
@@ -47,7 +48,7 @@ const Scorecards = ({navigation}) => {
     };
     try {
       const scorecard = await axios.get(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${id}`,
         {
           headers,
         },
@@ -82,18 +83,16 @@ const Scorecards = ({navigation}) => {
 
     return (
       <View style={styles.flatListItemContainer}>
-        <View
-          style={styles.flatlistTextItemStyle} // container for text content on left
-        >
-          <TouchableOpacity
-            onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
+        <TouchableOpacity
+          onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
+          <View style={styles.flatlistTextItemStyle}>
             <Text style={styles.renderCourseName}>{item.courseName}</Text>
             <Text style={styles.renderHoleText}>{item.courseLength} Holes</Text>
             <Text style={styles.renderText}>{date}</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
 
-        <View // icon continaer on right
+        <View
           style={{flexDirection: 'column', justifyContent: 'space-between'}}>
           {icon}
           <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
@@ -124,7 +123,7 @@ const Scorecards = ({navigation}) => {
           onPress: async () => {
             try {
               await axios.delete(
-                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
+                `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${id}`,
                 {headers},
               );
               queryClient.invalidateQueries('scorecardData');
@@ -185,7 +184,9 @@ const Scorecards = ({navigation}) => {
             width: windowWidth,
           }}>
           {scorecardData && scorecardData.length === 0 ? (
-            <Text>You have not recorded any rounds yet.</Text>
+            <Text style={{fontSize: 18, fontWeight: '500'}}>
+              You have not recorded any rounds yet.
+            </Text>
           ) : (
             <FlatList
               renderItem={renderItem}
@@ -198,12 +199,12 @@ const Scorecards = ({navigation}) => {
         <View
           style={{
             alignItems: 'center',
+            marginBottom: 20,
           }}>
-          <TouchableOpacity
-            style={styles.createScorecardButton}
-            onPress={() => navigation.navigate('CreateScorecard')}>
-            <Text style={styles.buttonText}>Create Scorecard</Text>
-          </TouchableOpacity>
+          <LargeButton
+            buttonText="Create Scorecard"
+            onPress={() => navigation.navigate('CreateScorecard')}
+          />
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -214,7 +215,6 @@ export default Scorecards;
 
 const styles = StyleSheet.create({
   imageBackground: {
-    // flex: 1,
     resizeMode: 'cover',
   },
   box1: {
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: 'Satoshi-Medium',
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
   },
   flatlistTextItemStyle: {

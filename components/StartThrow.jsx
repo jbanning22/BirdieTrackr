@@ -33,10 +33,10 @@ export default StartThrow;
 const styles = StyleSheet.create({
   button1: {
     justifyContent: 'center',
-    height: 40,
-    width: 80,
+    height: 50,
+    width: 100,
     borderRadius: 10,
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
     marginRight: 40,
   },
   buttonText: {

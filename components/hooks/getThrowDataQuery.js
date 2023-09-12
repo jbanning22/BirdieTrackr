@@ -3,7 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const getThrowsUrl =
-  'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws';
+  'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/measure-throws';
 
 const getThrows = async () => {
   const token = await AsyncStorage.getItem('token');

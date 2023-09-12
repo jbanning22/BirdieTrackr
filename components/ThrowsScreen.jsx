@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import moment from 'moment';
@@ -15,10 +16,14 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
 import {useQueryClient} from '@tanstack/react-query';
 import {useGetThrowDetails} from './hooks/getThrowDataQuery';
+import myImage from '../assets/images/BasketBackground2.png';
+import {Dimensions} from 'react-native';
+import LargeButton from './button/LargeButton';
 
 const ThrowsScreen = ({navigation}) => {
   // const [throwData, setThrowData] = useState([]);
   const {data: throwData, isLoading, isError, error} = useGetThrowDetails();
+  const windowWidth = Dimensions.get('window').width;
 
   const queryClient = useQueryClient();
 
@@ -35,9 +40,10 @@ const ThrowsScreen = ({navigation}) => {
         {
           text: 'Delete',
           onPress: async () => {
+            // eslint-disable-next-line no-useless-catch
             try {
               await axios.delete(
-                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws/${id}`,
+                `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/measure-throws/${id}`,
                 {headers},
               );
               queryClient.invalidateQueries('throwData');
@@ -79,21 +85,34 @@ const ThrowsScreen = ({navigation}) => {
   //   const sortedThrows = throwData.sort((a, b) => b.distance - a.distance);
   return (
     <SafeAreaView style={styles.box1}>
-      <Text style={styles.titleText}>Throws</Text>
-      {throwData && throwData.length ? (
-        <FlatList
-          renderItem={renderItem}
-          data={throwData}
-          showsVerticalScrollIndicator={false}
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <Text style={styles.titleText}>Throws</Text>
+        <View
+          style={{
+            padding: 20,
+            alignItems: 'center',
+            alignContent: 'center',
+            justifyContent: 'center',
+            height: 570,
+            width: windowWidth,
+          }}>
+          {throwData && throwData.length ? (
+            <FlatList
+              renderItem={renderItem}
+              data={throwData}
+              showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <Text style={{fontSize: 18, fontWeight: '500'}}>
+              You have not recorded any throws yet.
+            </Text>
+          )}
+        </View>
+        <LargeButton
+          buttonText="Measure a Throw"
+          onPress={() => navigation.navigate('ThrowsScreen2')}
         />
-      ) : (
-        <Text>You have not recorded any throws yet.</Text>
-      )}
-      <TouchableOpacity
-        style={styles.measureThrowButton}
-        onPress={() => navigation.navigate('ThrowsScreen2')}>
-        <Text style={styles.buttonText}>Measure a Throw</Text>
-      </TouchableOpacity>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -101,45 +120,54 @@ const ThrowsScreen = ({navigation}) => {
 export default ThrowsScreen;
 
 const styles = StyleSheet.create({
+  imageBackground: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   box1: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DB6F52',
+    backgroundColor: 'white',
   },
   titleText: {
     fontSize: 36,
     alignSelf: 'center',
     fontWeight: '500',
-    color: 'white',
-    marginBottom: 20,
+    color: 'black',
+    // marginBottom: 20,
+    fontFamily: 'Satoshi-Medium',
+    backgroundColor: 'white',
   },
   flatListParent: {
     flexDirection: 'row',
-    backgroundColor: '#52BEDB',
+    backgroundColor: '#2D6061',
     justifyContent: 'center',
     alignContent: 'center',
     borderRadius: 8,
     marginBottom: 10,
   },
   measureThrowButton: {
-    width: 200,
-    height: 50,
+    width: 327,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#52BEDB',
+    alignSelf: 'center',
+    backgroundColor: '#2D6061',
+    borderRadius: 14,
     marginTop: 10,
-    borderRadius: 8,
     marginBottom: 20,
   },
   buttonText: {
+    fontFamily: 'Satoshi-Medium',
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
   },
   flatlistStyle: {
-    width: 250,
+    width: 280,
     marginLeft: 15,
   },
   renderItemStyle: {

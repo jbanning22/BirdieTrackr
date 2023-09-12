@@ -7,11 +7,16 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import LargeButton from './button/LargeButton';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import myImage from '../assets/images/BasketBackground2.png';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 const CreateThrowScreen = ({navigation, route}) => {
   const {dist} = route.params;
@@ -23,12 +28,14 @@ const CreateThrowScreen = ({navigation, route}) => {
 
   let message = '';
   if (dist < 50) {
-    message = "That's a start!";
+    message = 'Gotta start somewhere!';
   } else if (dist >= 50 && dist < 100) {
     message = 'Nice rip!';
   } else if (dist >= 100 && dist < 200) {
     message = 'Great throw!';
-  } else if (dist >= 200 && dist < 300) {
+  } else if (dist >= 200 && dist < 250) {
+    message = 'Superb throw!';
+  } else if (dist >= 250 && dist < 300) {
     message = 'Wow! That was far!';
   } else if (dist >= 300 && dist < 400) {
     message = 'Amazing Throw!';
@@ -43,7 +50,7 @@ const CreateThrowScreen = ({navigation, route}) => {
         Authorization: `Bearer ${token}`,
       };
       const measuredThrow = await axios.post(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/measure-throws',
+        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/measure-throws',
         {
           disc: discName,
           distance: dist.toString(),
@@ -68,43 +75,66 @@ const CreateThrowScreen = ({navigation, route}) => {
     createThrowMutation.mutate({discName, dist, throwType, discColor});
     navigation.navigate('ThrowsScreen');
   };
-
   return (
     <ScrollView contentContainerStyle={styles.box1}>
-      <Text style={styles.singUpText}>Measure Throw</Text>
-      <KeyboardAvoidingView>
-        <TextInput
-          placeholder="Disc Name"
-          style={styles.emailInput}
-          value={discName}
-          onChangeText={setdiscName}
-          clearButtonMode={'always'}
-        />
-        <TextInput
-          placeholder="Disc Color"
-          style={styles.emailInput}
-          value={discColor}
-          onChangeText={setDiscColor}
-          clearButtonMode={'always'}
-        />
-        <TextInput
-          placeholder="Throw Type"
-          style={styles.emailInput}
-          value={throwType}
-          onChangeText={setThrowType}
-          clearButtonMode={'always'}
-        />
-      </KeyboardAvoidingView>
-      <Text style={styles.distance}>{dist} feet</Text>
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <View style={styles.backArrowParent}>
+          <TouchableOpacity onPress={() => navigation.navigate('ThrowsScreen')}>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size={20}
+              style={{marginLeft: 10}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{alignItems: 'center', marginBottom: 10}}>
+          <Text style={styles.singUpText}>Measure Throw</Text>
+          <View
+            style={{
+              margin: 20,
+              padding: 20,
+              marginTop: 2,
+              backgroundColor: '#F9FAFB',
+              borderRadius: 15,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}>
+            <KeyboardAvoidingView>
+              <TextInput
+                placeholder="Disc Name"
+                style={styles.emailInput}
+                value={discName}
+                onChangeText={setdiscName}
+                clearButtonMode={'always'}
+              />
+              <TextInput
+                placeholder="Disc Color"
+                style={styles.emailInput}
+                value={discColor}
+                onChangeText={setDiscColor}
+                clearButtonMode={'always'}
+              />
+              <TextInput
+                placeholder="Throw Type"
+                style={styles.emailInput}
+                value={throwType}
+                onChangeText={setThrowType}
+                clearButtonMode={'always'}
+              />
+            </KeyboardAvoidingView>
+          </View>
+          <Text style={styles.distance}>{dist} feet</Text>
 
-      <Text style={styles.message}>{message}</Text>
-      <TouchableOpacity style={styles.signUpButton} onPress={createThrow}>
-        <Text style={styles.textButton}>Create Throw</Text>
-      </TouchableOpacity>
-      <Button
-        title="Back"
-        onPress={() => navigation.navigate('ThrowsScreen')}
-      />
+          <Text style={styles.message}>{message}</Text>
+          <LargeButton buttonText="Create Throw" onPress={createThrow} />
+        </View>
+      </ImageBackground>
     </ScrollView>
   );
 };
@@ -123,20 +153,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
     marginBottom: 80,
   },
-  signUpButton: {
-    width: 200,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#52BEDB',
-    marginTop: 35,
+  inputContainer: {
     marginBottom: 15,
   },
-  loginTextInput: {
-    height: 50,
-    width: 200,
-    padding: 10,
-    backgroundColor: 'white',
+  header: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   emailInput: {
     height: 50,
@@ -144,6 +166,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     marginBottom: 15,
+    borderRadius: 10,
   },
   textButton: {
     fontSize: 18,
@@ -156,6 +179,17 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 18,
     marginTop: 30,
-    color: '#DB6F52',
+    marginBottom: 30,
+    color: '#45B369',
+  },
+  backArrowParent: {
+    flexDirection: 'row',
+    marginTop: 35,
+    marginLeft: 15,
+  },
+  imageBackground: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'space-between',
   },
 });

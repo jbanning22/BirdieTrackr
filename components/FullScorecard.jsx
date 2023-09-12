@@ -1,14 +1,32 @@
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useQueryClient} from '@tanstack/react-query';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faArrowLeft,
+  faCirclePlus,
+  faCircleMinus,
+} from '@fortawesome/free-solid-svg-icons';
+import myImage from '../assets/images/BasketBackground2.png';
+import {Dimensions} from 'react-native';
 
 const FullScorecard = ({route, navigation}) => {
   const {id} = route.params;
   const [scorecardData, setScorecardData] = useState({});
   const [holesData, setHolesData] = useState([]);
   const [showEndButton, setShowEndButton] = useState(false);
+  const windowWidth = Dimensions.get('window').width;
+  const queryClient = useQueryClient();
 
   const getScorecard = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -17,7 +35,7 @@ const FullScorecard = ({route, navigation}) => {
     };
     try {
       const scoreC = await axios.get(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${id}`,
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${id}`,
         {
           headers,
         },
@@ -36,13 +54,14 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHoleP = await axios.patch(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
         {strokes: strokes + 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error updating stroke + 1');
     }
   };
@@ -54,13 +73,14 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHoleM = await axios.patch(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
         {strokes: strokes - 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error updating stroke - 1');
     }
   };
@@ -72,13 +92,14 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHolePar = await axios.patch(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
         {par: par + 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error updating stroke + 1');
     }
   };
@@ -89,13 +110,14 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const updatedHoleParM = await axios.patch(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/hole/${id}`,
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
         {par: par - 1},
         {headers},
       );
       getScorecard();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error updating par - 1');
     }
   };
@@ -107,52 +129,97 @@ const FullScorecard = ({route, navigation}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const finishCard = await axios.patch(
-        `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard/${scorecardId}`,
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${scorecardId}`,
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );
+      queryClient.invalidateQueries('scorecardData');
       await navigation.navigate('Scorecard');
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error completing scorecard');
     }
   };
+  const plusIcon = (
+    <FontAwesomeIcon icon={faCirclePlus} color={'#4CAF50'} size={24} />
+  );
+  const minusIcon = (
+    <FontAwesomeIcon icon={faCircleMinus} color={'#F15436'} size={24} />
+  );
+  const ITEM_WIDTH = windowWidth * 0.9;
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.flatlistView}>
+      <View style={[styles.flatlistView, {width: ITEM_WIDTH}]}>
         <Text style={styles.renderParentText}>Hole {item.holeNumber}</Text>
+
         <View style={styles.parStrokeView}>
-          <Text style={styles.renderText}>Par: {item.par}</Text>
-          <View style={{flexDirection: 'column'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.renderText}>Par</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateParPlus(item.id, item.par)}>
-              <Text style={styles.buttonTextPlus}>+</Text>
+              onPress={() => updateParPlus(item.id, item.par)}
+              testID="plus-icon-1">
+              <Text>{plusIcon}</Text>
             </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 24,
+                alignSelf: 'center',
+                marginLeft: 10,
+                marginRight: 10,
+              }}>
+              {item.par}
+            </Text>
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateParMinus(item.id, item.par)}>
-              <Text style={styles.buttonTextMinus}>-</Text>
+              onPress={() => updateParMinus(item.id, item.par)}
+              testID="minus-icon-1">
+              <Text>{minusIcon}</Text>
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={styles.parStrokeView}>
-          <Text style={styles.renderText}>Strokes: {item.strokes}</Text>
-          <View style={{flexDirection: 'column'}}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+            <Text style={styles.renderText}>Strokes</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateStrokesPlus(item.id, item.strokes)}>
-              <Text style={styles.buttonTextPlus}>+</Text>
+              onPress={() => updateStrokesPlus(item.id, item.strokes)}
+              testID="plus-icon-1">
+              <Text>{plusIcon}</Text>
             </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 24,
+                alignSelf: 'center',
+                marginLeft: 10,
+                marginRight: 10,
+              }}>
+              {item.strokes}
+            </Text>
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateStrokesMinus(item.id, item.strokes)}>
-              <Text style={styles.buttonTextMinus}>-</Text>
+              onPress={() => updateStrokesMinus(item.id, item.strokes)}
+              testID="minus-icon-1">
+              <Text>{minusIcon}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -171,30 +238,47 @@ const FullScorecard = ({route, navigation}) => {
   const sortedData = holesData.sort((a, b) => a.holeNumber - b.holeNumber);
   return (
     <SafeAreaView style={styles.box1}>
-      <Text style={styles.homeText}>{scorecardData.courseName} Scorecard</Text>
-      <View style={styles.flatlistContainer}>
-        <FlatList
-          renderItem={renderItem}
-          data={sortedData}
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          pagingEnabled={true}
-          onEndReached={handleEndReached}
-          snapToAlignment={'center'}
-        />
-      </View>
-      {showEndButton && (
-        <TouchableOpacity
-          style={styles.scorecardButton}
-          onPress={finishScorecard}>
-          <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
-        </TouchableOpacity>
-      )}
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => navigation.navigate('Scorecard')}>
-        <Text style={{alignSelf: 'center', marginTop: 50}}>Back</Text>
-      </TouchableOpacity>
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'white',
+            justifyContent: 'space-evenly',
+            padding: 4,
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Scorecard')}
+            style={{flex: 1}}
+            testID="back-arrow1">
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size={20}
+              style={{marginLeft: 15, marginTop: 18}}
+            />
+          </TouchableOpacity>
+          <Text style={styles.homeText}>{scorecardData.courseName}</Text>
+          <View style={{flex: 1}}></View>
+        </View>
+        <View style={styles.flatlistContainer}>
+          <FlatList
+            renderItem={renderItem}
+            data={sortedData}
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            pagingEnabled={true}
+            onEndReached={handleEndReached}
+            snapToAlignment={'center'}
+          />
+        </View>
+        {showEndButton && (
+          <TouchableOpacity
+            style={styles.finishScorecardButton}
+            onPress={finishScorecard}
+            testID="finish-scorecard-button">
+            <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
+          </TouchableOpacity>
+        )}
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -205,52 +289,47 @@ const styles = StyleSheet.create({
   box1: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'white',
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'space-evenly',
   },
   homeText: {
-    fontSize: 44,
-    fontWeight: '400',
-    fontFamily: 'Helvetica',
+    fontSize: 28,
+    fontWeight: '600',
+    fontFamily: 'Satoshi-Medium',
     textAlign: 'center',
-    color: '#DB6F52',
+    margin: 10,
   },
   parButton: {
-    height: 25,
-    width: 25,
+    // height: 30,
+    // width: 30,
   },
-  buttonTextPlus: {
+  finishScorecardButton: {
+    width: 327,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
-    justifyContent: 'center',
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#13E12B',
-  },
-  buttonTextMinus: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#EA5C09',
-  },
-  scorecardButton: {
-    width: 150,
-    height: 40,
-    borderRadius: 25,
-    backgroundColor: '#52BEDB',
-    justifyContent: 'center',
-    padding: 5,
+    backgroundColor: '#2D6061',
+    borderRadius: 14,
   },
   scorecardButtonText: {
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Satoshi-Medium',
     alignSelf: 'center',
-    fontSize: 16,
+    fontSize: 18,
   },
   parStrokeView: {
     flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
+    borderRadius: 15,
+    margin: 10,
   },
   flatlistContainer: {
     flex: 0,
@@ -258,24 +337,34 @@ const styles = StyleSheet.create({
   },
   renderParentText: {
     alignSelf: 'center',
+    fontFamily: 'Satoshi-Medium',
     fontSize: 20,
     fontWeight: '600',
-    fontSize: 22,
-    margin: 25,
+    // eslint-disable-next-line no-dupe-keys
+    fontSize: 20,
   },
   renderText: {
     alignSelf: 'center',
+    fontFamily: 'Satoshi-Medium',
     fontSize: 16,
-    fontWeight: '300',
+    fontWeight: '700',
+    // eslint-disable-next-line no-dupe-keys
     fontSize: 22,
     margin: 15,
   },
   flatlistView: {
-    height: 400,
-    width: 395,
-    alignContent: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    marginTop: 20,
+    height: 300,
+    justifyContent: 'space-evenly',
+    margin: 20,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });

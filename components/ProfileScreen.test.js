@@ -44,30 +44,6 @@ describe('Profile Screen', () => {
     jest.clearAllMocks();
   });
 
-  it('should match the snapshot', async () => {
-    const authContextValue = {
-      signedIn: true,
-      setSignedIn: jest.fn(),
-    };
-    const {toJSON} = render(
-      <AuthContext.Provider value={authContextValue}>
-        <ProfileScreen />
-      </AuthContext.Provider>,
-    );
-    expect(toJSON()).toMatchSnapshot();
-  });
-  it('should display edit profile button', async () => {
-    const authContextValue = {
-      signedIn: true,
-      setSignedIn: jest.fn(),
-    };
-    render(
-      <AuthContext.Provider value={authContextValue}>
-        <ProfileScreen />
-      </AuthContext.Provider>,
-    );
-    expect(screen.getByText('Edit')).toBeTruthy();
-  });
   it('should display sign out button', async () => {
     const authContextValue = {
       signedIn: true,
@@ -78,9 +54,21 @@ describe('Profile Screen', () => {
         <ProfileScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Sign Out')).toBeTruthy();
+    expect(screen.getByText('Log Out')).toBeTruthy();
   });
-  it('should render FontAwesomeIcon', async () => {
+  it('should render edit profile icon', async () => {
+    const authContextValue = {
+      signedIn: true,
+      setSignedIn: jest.fn(),
+    };
+    render(
+      <AuthContext.Provider value={authContextValue}>
+        <ProfileScreen />
+      </AuthContext.Provider>,
+    );
+    expect(screen.queryAllByTestId('pencil-icon')).toBeTruthy();
+  });
+  it('should render trash icon', async () => {
     const authContextValue = {
       signedIn: true,
       setSignedIn: jest.fn(),

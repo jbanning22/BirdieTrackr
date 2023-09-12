@@ -15,6 +15,7 @@ import {useQueryClient} from '@tanstack/react-query';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import myImage from '../assets/images/BasketBackground2.png';
+import LargeButton from './button/LargeButton';
 
 const CreateScorecard = ({navigation}) => {
   const [courseLength, setCourseLength] = useState(0);
@@ -41,7 +42,7 @@ const CreateScorecard = ({navigation}) => {
     };
     try {
       const scorecard = await axios.post(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/scorecard',
+        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard',
         {courseLength: courseLength, courseName: courseName},
         {headers},
       );
@@ -77,8 +78,17 @@ const CreateScorecard = ({navigation}) => {
         <View
           style={{
             margin: 20,
+            marginTop: 2,
             backgroundColor: '#F9FAFB',
             borderRadius: 15,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
           }}>
           <Text style={styles.questionText}>Name of the Course</Text>
           <KeyboardAvoidingView>
@@ -109,11 +119,7 @@ const CreateScorecard = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.createScorecardButton}
-          onPress={createScorecard}>
-          <Text style={styles.createScorecardText}>Create Scorecard</Text>
-        </TouchableOpacity>
+        <LargeButton buttonText="Create Scorecard" onPress={createScorecard} />
       </ImageBackground>
     </SafeAreaView>
   );

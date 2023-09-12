@@ -4,7 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -19,8 +19,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
+import LargeButton from './button/LargeButton';
+import myImage from '../assets/images/BasketBackground2.png';
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = s => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
   // const [userDetails, setUserDetails] = useState({});
   const [imageBool, setImageBool] = useState(false);
@@ -30,7 +32,7 @@ const ProfileScreen = ({navigation}) => {
   const signOut = async () => {
     try {
       const signOutRes = await axios.post(
-        'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/auth/signout',
+        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/signout',
         {},
       );
       if (signOutRes.status === 201) {
@@ -42,24 +44,6 @@ const ProfileScreen = ({navigation}) => {
       throw new Error('Error signing out');
     }
   };
-
-  // const getMe = async () => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   const headers = {
-  //     Authorization: `Bearer ${token}`,
-  //   };
-  //   try {
-  //     const getMeRes = await axios.get(
-  //       'http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/me',
-  //       {
-  //         headers,
-  //       },
-  //     );
-  //     setUserDetails(getMeRes.data);
-  //   } catch (error) {
-  //     console.error('Error getting user details: ', error);
-  //   }
-  // };
 
   const deleteUser = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -77,7 +61,7 @@ const ProfileScreen = ({navigation}) => {
           onPress: async () => {
             try {
               await axios.delete(
-                `http://ec2-54-87-189-240.compute-1.amazonaws.com:3000/users/${id}`,
+                `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/users/${id}`,
                 {
                   headers,
                 },
@@ -156,68 +140,90 @@ const ProfileScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.box1}>
-      <View
-        style={{
-          marginBottom: 20,
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.homeText}>{userDetails?.userName}</Text>
-        </View>
-        <View style={styles.box3}>
-          <TouchableOpacity
-            style={styles.signUpButton}
-            onPress={handleChoosePhoto}>
-            {imageBool ? (
-              <Image
-                source={{uri: imageData}}
-                style={{
-                  height: 100,
-                  width: 100,
-                  borderRadius: 50,
-                }}
-              />
-            ) : (
-              <FontAwesomeIcon icon={faUser} color={'black'} size={34} />
-            )}
-          </TouchableOpacity>
-          <View style={styles.box2}>
-            <Text style={styles.dataFieldText}>
-              {userDetails?.firstName} {userDetails?.lastName}
-            </Text>
+      <ImageBackground source={myImage} style={styles.imageBackground}>
+        <View
+          style={{
+            marginBottom: 20,
+          }}>
+          <View
+            style={{
+              margin: 20,
+              padding: 20,
+              marginTop: 2,
+              backgroundColor: '#F9FAFB',
+              borderRadius: 15,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}>
+            <View style={styles.box3}>
+              <TouchableOpacity
+                style={styles.signUpButton}
+                onPress={handleChoosePhoto}>
+                {imageBool ? (
+                  <Image
+                    source={{uri: imageData}}
+                    style={{
+                      height: 65,
+                      width: 65,
+                      borderRadius: 50,
+                      // backgroundColor: 'white',
+                    }}
+                  />
+                ) : (
+                  <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
+                )}
+              </TouchableOpacity>
+              <View style={styles.box2}>
+                <Text style={styles.dataFieldText}>
+                  {userDetails?.firstName} {userDetails?.lastName}
+                </Text>
+                {/* </View> */}
+                {/* </View> */}
+                {/* <View style={{alignSelf: 'center'}}> */}
+                <Text
+                  style={{
+                    fontFamily: 'Helvetica',
+                    fontSize: 14,
+                    fontWeight: '400',
+                    color: '#6B7280',
+                  }}>
+                  {userDetails?.city}, {userDetails?.state}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              alignItems: 'center',
+              margin: 10,
+            }}>
+            <View style={{margin: 10}}>
+              <LargeButton buttonText="Log Out" onPress={signOut} />
+            </View>
+            <View
+              style={{
+                alignSelf: 'center',
+                marginTop: 100,
+              }}>
+              <TouchableOpacity onPress={deleteUser}>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  color={'red'}
+                  size={14}
+                  style={{margin: 30}}
+                  testID={'trash-icon'}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={{alignSelf: 'center'}}>
-        <Text style={{padding: 2, fontSize: 18, fontWeight: '400'}}>
-          Located in: {userDetails?.city}, {userDetails?.state}
-        </Text>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('EditProfile')}>
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={deleteUser}>
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            color={'red'}
-            size={14}
-            style={{margin: 30}}
-            testID={'trash-icon'}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.signOutButton}>
-          <Text style={styles.buttonText} onPress={signOut}>
-            Sign Out
-          </Text>
-        </TouchableOpacity>
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -226,7 +232,7 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    flexDirection: 'column',
+    backgroundColor: 'white',
   },
   box2: {
     alignItems: 'center',
@@ -251,8 +257,6 @@ const styles = StyleSheet.create({
   },
   box3: {
     flexDirection: 'row',
-    alignContent: 'center',
-    padding: 10,
   },
   roundsText: {
     fontSize: 20,
@@ -269,14 +273,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   signUpButton: {
-    width: 100,
-    height: 100,
+    width: 60,
+    height: 60,
     borderRadius: 50,
     borderWidth: 0.25,
     marginRight: 30,
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   signOutButton: {
     width: 80,
@@ -303,19 +308,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '600',
     color: 'white',
+    fontFamily: 'Satoshi-Medium',
   },
   dataFieldText: {
+    fontFamily: 'Satoshi-Medium',
     fontSize: 20,
     color: 'black',
-    fontWeight: '400',
-    padding: 10,
+    fontWeight: '500',
+    padding: 5,
   },
   homeText: {
     fontSize: 36,
     fontWeight: '400',
-    fontFamily: 'Helvetica',
+    fontFamily: 'Satoshi-Medium',
     marginRight: 180,
-    padding: 20,
   },
   flatListParent: {
     flexDirection: 'row',
@@ -350,5 +356,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
     padding: 1,
+  },
+  imageBackground: {
+    height: '105%',
+    width: '105%',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
 });

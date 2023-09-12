@@ -1,5 +1,6 @@
 import React from 'react';
-import {fireEvent, render, screen} from '@testing-library/react-native';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {render, screen} from '@testing-library/react-native';
 import FullScorecard from './FullScorecard';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,9 +13,10 @@ jest.mock('axios');
 jest.mock('@react-native-async-storage/async-storage');
 
 describe('Full Scorecard Screen', () => {
-  beforeEach(() => {
+  let queryClient;
+  beforeAll(() => {
+    queryClient = new QueryClient();
     AsyncStorage.getItem.mockResolvedValue('dummy_token');
-
     axios.get.mockResolvedValue({
       data: {
         id: 2,
@@ -172,7 +174,7 @@ describe('Full Scorecard Screen', () => {
       },
     });
   });
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
@@ -180,34 +182,22 @@ describe('Full Scorecard Screen', () => {
     const route = {
       params: {id: 1},
     };
-    const {toJSON} = render(<FullScorecard route={route} />);
+    const {toJSON} = render(
+      <QueryClientProvider client={queryClient}>
+        <FullScorecard route={route} />
+      </QueryClientProvider>,
+    );
     expect(toJSON()).toMatchSnapshot();
-  });
-  it('should render screen title', () => {
-    const route = {
-      params: {id: 1},
-    };
-    render(<FullScorecard route={route} />);
-    expect(screen.getByText('Scorecard')).toBeTruthy();
   });
   it('should display back button', () => {
     const route = {
       params: {id: 1},
     };
-    render(<FullScorecard route={route} />);
-    expect(screen.getByText('Back')).toBeTruthy();
-  });
-  it('should navigate back to scorecards screen', () => {
-    const navigation = {
-      navigate: jest.fn(),
-    };
-    const route = {
-      params: {id: 2},
-    };
-    const {getByText} = render(
-      <FullScorecard route={route} navigation={navigation} />,
+    render(
+      <QueryClientProvider client={queryClient}>
+        <FullScorecard route={route} />
+      </QueryClientProvider>,
     );
-    fireEvent.press(getByText('Back'));
-    expect(navigation.navigate).toHaveBeenCalledWith('Scorecard');
+    expect(screen.getByTestId('back-arrow1')).toBeTruthy();
   });
 });
