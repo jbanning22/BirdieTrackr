@@ -13,8 +13,7 @@ import MapView, {Marker} from 'react-native-maps';
 import StartThrow from './StartThrow';
 import EndThrow from './EndThrow';
 import ResetButton from './ResetButton';
-import {Platform} from 'react-native';
-// import LargeButton from './button/LargeButton';
+import {Platform, PermissionsAndroid} from 'react-native';
 import myImage from '../assets/images/BasketBackground2.png';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
@@ -54,8 +53,6 @@ const ThrowsScreen2 = ({navigation}) => {
 
   async function distance(lat2, lon2) {
     setEndLocation({lat2, lon2});
-    // console.log('startingLocation in distance method is', startingLocation);
-    // console.log('endingLocation in distance method is', endingLocation);
     const lat1 = startingLocation.latitude;
     const lon1 = startingLocation.longitude;
     if (lat1 === lat2 && lon1 === lon2) {
@@ -81,9 +78,35 @@ const ThrowsScreen2 = ({navigation}) => {
   }
 
   useEffect(() => {
-    if (Platform.OS === 'ios') {
-      Geolocation.requestAuthorization('always');
-    }
+    const requestLocationPermission = async () => {
+      if (Platform.OS === 'ios') {
+        // Request location permission for iOS here
+        Geolocation.requestAuthorization('always');
+      } else if (Platform.OS === 'android') {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              title: 'Location Permission',
+              message: 'This app requires access to your location.',
+              buttonNeutral: 'Ask Me Later',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK',
+            },
+          );
+
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            getPresentLocation();
+          } else {
+            console.log('Location permission denied');
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    };
+
+    requestLocationPermission();
   }, []);
 
   function reset() {

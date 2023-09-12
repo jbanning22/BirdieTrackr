@@ -64,6 +64,15 @@ const Scorecards = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
+    // console.log('item in flatlist is: ', item);
+    const score = course => {
+      const totalStrokes = course.holes.reduce(
+        (acc, hole) => acc + hole.strokes,
+        0,
+      );
+      const totalPars = course.holes.reduce((acc, hole) => acc + hole.par, 0);
+      return totalStrokes - totalPars;
+    };
 
     const icon = item.isCompleted ? (
       <FontAwesomeIcon
@@ -93,8 +102,13 @@ const Scorecards = ({navigation}) => {
         </TouchableOpacity>
 
         <View
-          style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            marginRight: 5,
+          }}>
           {icon}
+          <Text style={styles.renderScore}>{score(item)}</Text>
           <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
             <FontAwesomeIcon
               icon={faTrashCan}
@@ -192,6 +206,7 @@ const Scorecards = ({navigation}) => {
               renderItem={renderItem}
               data={scorecardData}
               showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.id.toString()}
             />
           )}
         </View>
@@ -276,11 +291,18 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginBottom: 2,
   },
+  renderScore: {
+    fontFamily: 'Satoshi-Medium',
+    fontSize: 24,
+    fontWeight: '500',
+    color: 'white',
+    alignSelf: 'flex-end',
+    margin: 5,
+  },
   renderText: {
     fontFamily: 'Satoshi-Medium',
     fontSize: 12,
     fontWeight: '500',
     color: 'white',
-    // margin: 2,
   },
 });
