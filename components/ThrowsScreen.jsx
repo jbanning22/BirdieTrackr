@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
   box1: {
     flex: 1,
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '500',
     color: 'black',
-    // marginBottom: 20,
     fontFamily: 'Satoshi-Medium',
     backgroundColor: 'white',
   },
@@ -145,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#2D6061',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignContent: 'flex-start',
     borderRadius: 8,
     marginBottom: 10,
   },
@@ -168,35 +166,35 @@ const styles = StyleSheet.create({
   },
   flatlistStyle: {
     width: 280,
-    marginLeft: 15,
+    margin: 10,
   },
   renderItemStyle: {
     flexDirection: 'column',
-    margin: 10,
   },
   renderCourseName: {
     alignSelf: 'center',
     fontSize: 26,
     fontWeight: '600',
     color: 'white',
+    fontFamily: 'Satoshi-Medium',
   },
   renderHoleText: {
-    alignSelf: 'center',
     fontSize: 18,
     fontWeight: '500',
     color: 'white',
+    fontFamily: 'Satoshi-Medium',
   },
   throwTypeText: {
-    alignSelf: 'center',
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: 'white',
+    fontFamily: 'Satoshi-Medium',
   },
   renderText: {
-    alignSelf: 'center',
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '500',
     marginBottom: 5,
     color: 'white',
+    fontFamily: 'Satoshi-Medium',
   },
 });

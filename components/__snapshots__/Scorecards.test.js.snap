@@ -392,9 +392,24 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
                     {
                       "flexDirection": "column",
                       "justifyContent": "space-between",
+                      "marginRight": 5,
                     }
                   }
                 >
+                  <Text
+                    style={
+                      {
+                        "alignSelf": "flex-end",
+                        "color": "white",
+                        "fontFamily": "Satoshi-Medium",
+                        "fontSize": 24,
+                        "fontWeight": "500",
+                        "margin": 5,
+                      }
+                    }
+                  >
+                    -54
+                  </Text>
                   <View
                     accessibilityState={
                       {
@@ -479,7 +494,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
               "borderRadius": 14,
               "height": 56,
               "justifyContent": "center",
-              "marginBottom": 15,
+              "margin": 15,
               "opacity": 1,
               "width": 327,
             }

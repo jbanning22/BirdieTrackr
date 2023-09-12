@@ -59,6 +59,7 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes + 1},
         {headers},
       );
+      queryClient.invalidateQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -78,6 +79,7 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes - 1},
         {headers},
       );
+      queryClient.invalidateQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -97,6 +99,7 @@ const FullScorecard = ({route, navigation}) => {
         {par: par + 1},
         {headers},
       );
+      queryClient.invalidateQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -115,6 +118,7 @@ const FullScorecard = ({route, navigation}) => {
         {par: par - 1},
         {headers},
       );
+      queryClient.invalidateQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
