@@ -1,376 +1,271 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Edit User Screen should match the snapshot 1`] = `
-<RCTScrollView
-  contentContainerStyle={
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
     {
-      "alignContent": "center",
-      "flex": 1,
+      "alignItems": "center",
+      "height": "100%",
+      "justifyContent": "space-evenly",
+      "width": "100%",
     }
   }
 >
-  <View>
-    <View
-      accessibilityIgnoresInvertColors={true}
-      style={
+  <Image
+    source={
+      {
+        "testUri": "../../../assets/images/BasketBackground2.png",
+      }
+    }
+    style={
+      [
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "height": "100%",
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderRadius": 50,
+        "height": 100,
+        "justifyContent": "center",
+        "width": 100,
+      }
+    }
+  />
+  <View
+    onLayout={[Function]}
+    style={
+      [
         {
           "alignItems": "center",
-          "height": "100%",
-          "justifyContent": "space-evenly",
-          "width": "100%",
+          "flex": 1,
+          "justifyContent": "center",
+        },
+        {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
         }
       }
     >
-      <Image
-        source={
-          {
-            "testUri": "../../../assets/images/BasketBackground2.png",
-          }
-        }
-        style={
-          [
-            {
-              "bottom": 0,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            },
-            {
-              "height": "100%",
-              "width": "100%",
-            },
-            undefined,
-          ]
-        }
-      />
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "borderRadius": 50,
-            "height": 100,
-            "justifyContent": "center",
-            "width": 100,
-          }
-        }
-      />
-      <View
-        style={
-          {
-            "backgroundColor": "#F9FAFB",
-            "borderRadius": 15,
-            "elevation": 5,
-            "margin": 10,
-            "marginTop": 2,
-            "padding": 10,
-            "shadowColor": "#000",
-            "shadowOffset": {
-              "height": 2,
-              "width": 0,
-            },
-            "shadowOpacity": 0.25,
-            "shadowRadius": 3.84,
-          }
-        }
-      >
+      <View>
         <View
-          onLayout={[Function]}
           style={
             {
-              "width": "100%",
+              "backgroundColor": "#F9FAFB",
+              "borderRadius": 15,
+              "elevation": 5,
+              "marginTop": 2,
+              "marginVertical": 50,
+              "padding": 10,
+              "shadowColor": "#000",
+              "shadowOffset": {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.25,
+              "shadowRadius": 3.84,
             }
           }
         >
-          <View
+          <Text
             style={
               {
-                "margin": 2,
+                "color": "black",
+                "fontFamily": "Satoshi-Medium",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "paddingLeft": 15,
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              User Name
-            </Text>
-            <TextInput
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="username"
-              value=""
-            />
-          </View>
-          <View
+            User Name
+          </Text>
+          <TextInput
+            clearButtonMode="always"
+            onChangeText={[Function]}
             style={
               {
-                "margin": 2,
+                "alignSelf": "center",
+                "backgroundColor": "#F2F2F2",
+                "borderRadius": 10,
+                "height": 50,
+                "padding": 10,
+                "width": 280,
+              }
+            }
+            testID="username"
+            value=""
+          />
+          <Text
+            style={
+              {
+                "color": "black",
+                "fontFamily": "Satoshi-Medium",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "paddingLeft": 15,
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              First Name
-            </Text>
-            <TextInput
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="first-name"
-              value=""
-            />
-          </View>
-          <View
+            City
+          </Text>
+          <TextInput
+            clearButtonMode="always"
+            onChangeText={[Function]}
             style={
               {
-                "margin": 2,
+                "alignSelf": "center",
+                "backgroundColor": "#F2F2F2",
+                "borderRadius": 10,
+                "height": 50,
+                "padding": 10,
+                "width": 280,
+              }
+            }
+            testID="city"
+            value=""
+          />
+          <Text
+            style={
+              {
+                "color": "black",
+                "fontFamily": "Satoshi-Medium",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "paddingLeft": 15,
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              Last Name
-            </Text>
-            <TextInput
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="last-name"
-              value=""
-            />
-          </View>
-          <View
+            State
+          </Text>
+          <TextInput
+            clearButtonMode="always"
+            onChangeText={[Function]}
             style={
               {
-                "margin": 2,
+                "alignSelf": "center",
+                "backgroundColor": "#F2F2F2",
+                "borderRadius": 10,
+                "height": 50,
+                "padding": 10,
+                "width": 280,
+              }
+            }
+            testID="state"
+            value=""
+          />
+          <Text
+            style={
+              {
+                "color": "black",
+                "fontFamily": "Satoshi-Medium",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "paddingLeft": 15,
               }
             }
           >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              City
-            </Text>
-            <TextInput
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="city"
-              value=""
-            />
-          </View>
-          <View
+            Password
+          </Text>
+          <TextInput
+            autoCorrect={false}
+            clearButtonMode="always"
+            onChangeText={[Function]}
+            secureTextEntry={true}
             style={
               {
-                "margin": 2,
+                "alignSelf": "center",
+                "backgroundColor": "#F2F2F2",
+                "borderRadius": 10,
+                "height": 50,
+                "padding": 10,
+                "width": 280,
               }
             }
-          >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              State
-            </Text>
-            <TextInput
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="state"
-              value=""
-            />
-          </View>
-          <View
-            style={
-              {
-                "margin": 2,
-              }
-            }
-          >
-            <Text
-              style={
-                {
-                  "color": "black",
-                  "fontFamily": "Satoshi-Medium",
-                  "fontSize": 12,
-                  "margin": 5,
-                  "marginBottom": 5,
-                  "paddingLeft": 15,
-                }
-              }
-            >
-              Password
-            </Text>
-            <TextInput
-              autoCorrect={false}
-              clearButtonMode="always"
-              onChangeText={[Function]}
-              secureTextEntry={true}
-              style={
-                {
-                  "alignSelf": "center",
-                  "backgroundColor": "#F2F2F2",
-                  "borderRadius": 10,
-                  "height": 50,
-                  "marginBottom": 10,
-                  "padding": 10,
-                  "width": 280,
-                }
-              }
-              testID="password"
-              value=""
-            />
-          </View>
+            testID="password"
+            value=""
+          />
         </View>
       </View>
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "backgroundColor": "#2D6061",
-            "borderRadius": 14,
-            "height": 56,
-            "justifyContent": "center",
-            "margin": 15,
-            "opacity": 1,
-            "width": 327,
-          }
-        }
-      >
-        <Text
-          style={
-            {
-              "color": "white",
-              "fontFamily": "Satoshi-Medium",
-              "fontSize": 18,
-              "fontWeight": "500",
-            }
-          }
-        >
-          Save
-        </Text>
-      </View>
-    </View>
+    </RCTScrollView>
   </View>
-</RCTScrollView>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#2D6061",
+        "borderRadius": 14,
+        "height": 56,
+        "justifyContent": "center",
+        "margin": 15,
+        "opacity": 0.4,
+        "width": 327,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "white",
+          "fontFamily": "Satoshi-Medium",
+          "fontSize": 18,
+          "fontWeight": "500",
+        }
+      }
+    >
+      Save
+    </Text>
+  </View>
+</View>
 `;

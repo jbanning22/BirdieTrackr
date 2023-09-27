@@ -47,23 +47,17 @@ describe('Edit User Screen', () => {
     const {getByTestId} = render(<EditUserScreen />);
 
     const usernameInput = getByTestId('username');
-    const firstNameInput = getByTestId('first-name');
-    const lastNameInput = getByTestId('last-name');
     const cityInput = getByTestId('city');
     const stateInput = getByTestId('state');
     const passwordInput = getByTestId('password');
 
     fireEvent.changeText(usernameInput, 'JohnDoe');
-    fireEvent.changeText(firstNameInput, 'John');
-    fireEvent.changeText(lastNameInput, 'Doe');
     fireEvent.changeText(cityInput, 'New York');
     fireEvent.changeText(stateInput, 'NY');
     fireEvent.changeText(passwordInput, 'password123');
 
     await waitFor(() => {
       expect(usernameInput.props.value).toBe('JohnDoe');
-      expect(firstNameInput.props.value).toBe('John');
-      expect(lastNameInput.props.value).toBe('Doe');
       expect(cityInput.props.value).toBe('New York');
       expect(stateInput.props.value).toBe('NY');
       expect(passwordInput.props.value).toBe('password123');

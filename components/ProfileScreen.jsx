@@ -21,13 +21,15 @@ import {Alert} from 'react-native';
 import {useGetUserDetails} from './hooks/getUserDataQuery';
 import LargeButton from './button/LargeButton';
 import myImage from '../assets/images/BasketBackground2.png';
+import {Dimensions} from 'react-native';
 
-const ProfileScreen = s => {
+const ProfileScreen = () => {
   const {signedIn, setSignedIn} = useContext(AuthContext);
   // const [userDetails, setUserDetails] = useState({});
   const [imageBool, setImageBool] = useState(false);
   const [imageData, setImageData] = useState([]);
   const {data: userDetails, isLoading, isError, error} = useGetUserDetails();
+  const windowWidth = Dimensions.get('window').width;
 
   const signOut = async () => {
     try {
@@ -139,92 +141,93 @@ const ProfileScreen = s => {
   }, [imageData]);
 
   return (
-    <SafeAreaView style={styles.box1}>
-      <ImageBackground source={myImage} style={styles.imageBackground}>
+    <ImageBackground source={myImage} style={styles.imageBackground}>
+      <View
+        style={{
+          alignContent: 'center',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
         <View
           style={{
-            marginBottom: 20,
+            margin: 20,
+            padding: 20,
+            marginTop: 2,
+            width: windowWidth * 0.8,
+            backgroundColor: '#F9FAFB',
+            borderRadius: 15,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
           }}>
-          <View
-            style={{
-              margin: 20,
-              padding: 20,
-              marginTop: 2,
-              backgroundColor: '#F9FAFB',
-              borderRadius: 15,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-            }}>
-            <View style={styles.box3}>
-              <TouchableOpacity
-                style={styles.signUpButton}
-                onPress={handleChoosePhoto}>
-                {imageBool ? (
-                  <Image
-                    source={{uri: imageData}}
-                    style={{
-                      height: 65,
-                      width: 65,
-                      borderRadius: 50,
-                      // backgroundColor: 'white',
-                    }}
-                  />
-                ) : (
-                  <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
-                )}
-              </TouchableOpacity>
-              <View style={styles.box2}>
-                <Text style={styles.dataFieldText}>
-                  {userDetails?.firstName} {userDetails?.lastName}
-                </Text>
-                {/* </View> */}
-                {/* </View> */}
-                {/* <View style={{alignSelf: 'center'}}> */}
-                <Text
+          <View style={styles.box3}>
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={handleChoosePhoto}>
+              {imageBool ? (
+                <Image
+                  source={{uri: imageData}}
                   style={{
-                    fontFamily: 'Helvetica',
-                    fontSize: 14,
-                    fontWeight: '400',
-                    color: '#6B7280',
-                  }}>
-                  {userDetails?.city}, {userDetails?.state}
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              margin: 10,
-            }}>
-            <View style={{margin: 10}}>
-              <LargeButton buttonText="Log Out" onPress={signOut} />
-            </View>
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: 100,
-              }}>
-              <TouchableOpacity onPress={deleteUser}>
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  color={'red'}
-                  size={14}
-                  style={{margin: 30}}
-                  testID={'trash-icon'}
+                    height: 65,
+                    width: 65,
+                    borderRadius: 50,
+                    // backgroundColor: 'white',
+                  }}
                 />
-              </TouchableOpacity>
+              ) : (
+                <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
+              )}
+            </TouchableOpacity>
+            <View style={styles.box2}>
+              <Text style={styles.dataFieldText}>
+                {userDetails?.firstName} {userDetails?.lastName}
+              </Text>
+              {/* </View> */}
+              {/* </View> */}
+              {/* <View style={{alignSelf: 'center'}}> */}
+              <Text
+                style={{
+                  fontFamily: 'Helvetica',
+                  fontSize: 14,
+                  fontWeight: '400',
+                  color: '#6B7280',
+                }}>
+                {userDetails?.city}, {userDetails?.state}
+              </Text>
             </View>
           </View>
         </View>
-      </ImageBackground>
-    </SafeAreaView>
+        <View
+          style={{
+            alignItems: 'center',
+            margin: 10,
+          }}>
+          <View style={{margin: 10}}>
+            <LargeButton buttonText="Log Out" onPress={signOut} />
+          </View>
+          <View
+            style={{
+              alignSelf: 'center',
+              marginTop: 100,
+            }}>
+            <TouchableOpacity onPress={deleteUser}>
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                color={'red'}
+                size={14}
+                style={{margin: 30}}
+                testID={'trash-icon'}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -233,11 +236,15 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   box1: {
     backgroundColor: 'white',
+    // flex: 1,
   },
   box2: {
     alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   box21: {
     alignItems: 'center',

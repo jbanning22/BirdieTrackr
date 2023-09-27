@@ -5,7 +5,19 @@ const ResetButton = props => {
   const {resetValues} = props;
 
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: '#F9FAFB',
+        borderRadius: 15,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      }}>
       <TouchableOpacity onPress={resetValues} style={styles.resetStyle}>
         <Text style={styles.resetText}>Reset</Text>
       </TouchableOpacity>

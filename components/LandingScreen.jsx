@@ -1,10 +1,44 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Switch,
+} from 'react-native';
+import React, {useState, useContext} from 'react';
 import myImage from '../assets/images/DiscGolfSunset.jpeg';
+import {AuthContext} from '../AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LandingScreen = ({navigation}) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const {setOffline} = useContext(AuthContext);
+
+  const toggleSwitch = async () => {
+    const userData = await AsyncStorage.getItem('userData');
+    if (!userData) {
+      await AsyncStorage.setItem(
+        'userData',
+        JSON.stringify({scorecards: [], throws: []}),
+      );
+    }
+    setIsEnabled(previousState => !previousState);
+    setOffline(!isEnabled);
+  };
+
   return (
     <View style={styles.box1}>
+      <View style={{flexDirection: 'row', alignSelf: 'flex-end', margin: 5}}>
+        <Text style={styles.offlineText}>Offline?</Text>
+        <Switch
+          trackColor={{false: '#2D6061'}}
+          thumbColor={isEnabled ? 'white' : '#2D6061'}
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+          testID="offline-switch"
+        />
+      </View>
       <Image
         source={myImage}
         style={{width: 300, height: 300, borderRadius: 150}}
@@ -18,6 +52,7 @@ const LandingScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate('SignInPage')}>
+        {/* // onPress={() => navigation.navigate('App', {screen: 'Scorecards'})}> */}
         <Text style={styles.textButton}>Sign In with Email</Text>
       </TouchableOpacity>
       <Text style={styles.questionStyle}>Don&apos;t have an account?</Text>
@@ -62,6 +97,13 @@ const styles = StyleSheet.create({
   messageText: {
     fontFamily: 'Satoshi-Medium',
     fontSize: 16,
+    alignSelf: 'center',
+  },
+  offlineText: {
+    fontFamily: 'Satoshi-Medium',
+    fontSize: 16,
+    alignSelf: 'center',
+    marginRight: 5,
   },
   textButton: {
     fontSize: 18,

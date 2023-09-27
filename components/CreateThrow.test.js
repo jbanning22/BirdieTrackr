@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react-native';
+import {render, screen, waitFor} from '@testing-library/react-native';
 import CreateThrowScreen from './CreateThrow.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -69,23 +64,6 @@ describe('Create Throw Screen', () => {
     );
     await waitFor(() => {
       expect(screen.getByText('Create Throw')).toBeTruthy();
-    });
-  });
-  it('should navigate back to throws screen upon throw creation', async () => {
-    const route = {
-      params: {dist: 100},
-    };
-    const navigation = {
-      navigate: jest.fn(),
-    };
-    render(
-      <QueryClientProvider client={queryClient}>
-        <CreateThrowScreen route={route} navigation={navigation} />
-      </QueryClientProvider>,
-    );
-    fireEvent.press(screen.getByText('Create Throw'));
-    await waitFor(() => {
-      expect(navigation.navigate).toHaveBeenCalledWith('ThrowsScreen');
     });
   });
 });

@@ -234,8 +234,6 @@ const styles = StyleSheet.create({
   },
   box1: {
     flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: 'white',
   },
   flatListItemContainer: {
@@ -297,7 +295,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'white',
     alignSelf: 'flex-end',
-    margin: 5,
   },
   renderText: {
     fontFamily: 'Satoshi-Medium',

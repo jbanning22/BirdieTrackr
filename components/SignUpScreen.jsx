@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
   View,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -20,6 +21,7 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
+import LargeButton from './button/LargeButton';
 
 const SignUpScreen = ({navigation}) => {
   const {setSignedIn} = useContext(AuthContext);
@@ -34,6 +36,8 @@ const SignUpScreen = ({navigation}) => {
     city: '',
     state: '',
   });
+  const isDisabled =
+    !formData.email || !formData.password || !formData.userName;
 
   const signUp = async () => {
     const errorsExist = Object.values(validationErrors).some(
@@ -72,20 +76,23 @@ const SignUpScreen = ({navigation}) => {
     });
   };
   return (
-    <ScrollView contentContainerStyle={styles.box1}>
-      <View style={styles.backIcon}>
-        <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
-          <FontAwesomeIcon icon={faArrowLeft} size={20} />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.singUpText}>
-        Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>
-      </Text>
-      <Text style={styles.createAccountText}>
-        Create a commitment-free profile to explore products.
-      </Text>
-      <KeyboardAvoidingView>
-        <View style={{alignItems: 'center'}}>
+    <SafeAreaView style={{flex: 1}}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.backIcon}>
+          <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
+            <FontAwesomeIcon icon={faArrowLeft} size={20} />
+          </TouchableOpacity>
+        </View>
+        <ScrollView contentContainerStyle={styles.box1}>
+          <Text style={styles.singUpText}>
+            Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>
+          </Text>
+          <Text style={styles.createAccountText}>
+            Create a commitment-free profile to explore products.
+          </Text>
+          {/* <View style={{alignItems: 'center'}}> */}
           <View style={styles.inputStyle}>
             <FontAwesomeIcon
               icon={faUser}
@@ -196,14 +203,17 @@ const SignUpScreen = ({navigation}) => {
               />
             </TouchableOpacity>
           </View>
-        </View>
+          {/* </View> */}
+          <Text style={{color: 'red', marginTop: 10}}>
+            {validationErrors.email}
+          </Text>
+        </ScrollView>
       </KeyboardAvoidingView>
-      <Text style={{color: 'red', marginTop: 10}}>
-        {validationErrors.email}
-      </Text>
-      <TouchableOpacity style={styles.signUpButton} onPress={signUp}>
-        <Text style={styles.textButton}>Sign Up</Text>
-      </TouchableOpacity>
+      <LargeButton
+        buttonText="Sign Up"
+        onPress={signUp}
+        disabled={isDisabled}
+      />
       <View>
         <Text style={styles.legalText} numberOfLines={2}>
           By signing up, you agree to the{' '}
@@ -211,7 +221,7 @@ const SignUpScreen = ({navigation}) => {
           and <Text style={styles.legalNames}>Privacy Policy</Text>.
         </Text>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -219,22 +229,22 @@ export default SignUpScreen;
 
 const styles = StyleSheet.create({
   box1: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginTop: 10,
   },
   singUpText: {
     fontSize: 30,
     fontWeight: '600',
     fontFamily: 'Satoshi-Medium',
-    marginTop: 5,
+    // marginTop: 5,
     alignSelf: 'center',
   },
   backIcon: {
-    flex: 1,
     alignSelf: 'flex-start',
-    marginLeft: 20,
-    marginTop: 50,
+    marginLeft: 10,
+    // marginTop: 50,
   },
   createAccountText: {
     alignSelf: 'center',
@@ -253,7 +263,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2D6061',
     borderRadius: 12,
-    marginBottom: 10,
   },
   textButton: {
     fontSize: 18,
@@ -278,7 +287,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 20,
     backgroundColor: 'white',
-    margin: 10,
+    margin: 5,
     width: 327,
     height: 50,
   },
@@ -299,6 +308,6 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     paddingBottom: 5,
     textAlign: 'center',
-    marginTop: 40,
+    // marginTop: 40,å
   },
 });

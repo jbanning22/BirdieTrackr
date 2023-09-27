@@ -301,7 +301,7 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": undefined,
+          "disabled": true,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -333,7 +333,7 @@ exports[`Create Scorecard Screen should match the snapshot 1`] = `
           "height": 56,
           "justifyContent": "center",
           "margin": 15,
-          "opacity": 1,
+          "opacity": 0.4,
           "width": 327,
         }
       }

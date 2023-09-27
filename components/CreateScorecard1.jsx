@@ -2,10 +2,10 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  ImageBackground,
   KeyboardAvoidingView,
+  TextInput,
+  ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
@@ -17,44 +17,35 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import myImage from '../assets/images/BasketBackground2.png';
 import LargeButton from './button/LargeButton';
 
-const CreateScorecard = ({navigation}) => {
-  const [courseLength, setCourseLength] = useState(0);
+const CreateScorecard1 = ({navigation}) => {
+  const [scoreCard, setScoreCard] = useState(null);
   const [courseName, setCourseName] = useState('');
-  const [active9Button, setActive9Button] = useState(false);
-  const [active18Button, setActive18Button] = useState(false);
-  const isDisabled = !courseName || !courseLength;
-  const queryClient = useQueryClient();
+  const isDisabled = !courseName;
 
-  function setLength9() {
-    setCourseLength(9);
-    setActive9Button(true);
-    setActive18Button(false);
-  }
-  function setLength18() {
-    setCourseLength(18);
-    setActive18Button(true);
-    setActive9Button(false);
-  }
+  const initializeScoreCard = holes => {
+    return Array.from({length: holes}, (_, index) => ({
+      hole: index + 1,
+      par: 3,
+      strokes: 3,
+    }));
+  };
 
-  const createScorecard = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const scorecard = await axios.post(
-        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard',
-        {courseLength: courseLength, courseName: courseName},
-        {headers},
-      );
-      await navigation.navigate('FullScorecard', {
-        id: scorecard.data.id,
-      });
-      queryClient.invalidateQueries('scorecardData');
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
+  const init9HoleScoreCard = () => {
+    const newScoreCard = initializeScoreCard(9);
+    setScoreCard(newScoreCard);
+    navigation.navigate('FullScorecard1', {
+      scoreCard: newScoreCard,
+      courseName: courseName,
+    });
+  };
+
+  const init18HoleScoreCard = () => {
+    const newScoreCard = initializeScoreCard(18);
+    setScoreCard(newScoreCard);
+    navigation.navigate('FullScorecard1', {
+      scoreCard: newScoreCard,
+      courseName: courseName,
+    });
   };
 
   return (
@@ -64,21 +55,23 @@ const CreateScorecard = ({navigation}) => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
+            justifyContent: 'space-between',
+            // backgroundColor: 'white',
           }}>
-          <TouchableOpacity onPress={() => navigation.navigate('Scorecard')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Scorecards1')}>
             <FontAwesomeIcon
               icon={faArrowLeft}
               size={20}
-              style={{marginLeft: 10}}
+              style={{marginLeft: 10, backgroundColor: 'white'}}
             />
           </TouchableOpacity>
-          <Text style={styles.titleText}>Where are you playing?</Text>
+          <Text style={styles.titleText}>Choose a Scorecard!</Text>
         </View>
+
         <View
           style={{
             margin: 20,
+            marginBottom: 10,
             marginTop: 2,
             backgroundColor: '#F9FAFB',
             borderRadius: 15,
@@ -91,7 +84,7 @@ const CreateScorecard = ({navigation}) => {
             shadowRadius: 3.84,
             elevation: 5,
           }}>
-          <Text style={styles.questionText}>Name of the Course</Text>
+          <Text style={styles.questionText}>Enter your course name</Text>
           <KeyboardAvoidingView>
             <TextInput
               placeholder="Course Name"
@@ -100,37 +93,26 @@ const CreateScorecard = ({navigation}) => {
               onChangeText={setCourseName}
             />
           </KeyboardAvoidingView>
-          <Text style={styles.questionText}>How Many Holes?</Text>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              style={
-                active9Button ? styles.lengthButton2 : styles.lengthButton1
-              }
-              activeOpacity={0.3}
-              onPress={setLength9}>
-              <Text style={styles.buttonText}>9</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                active18Button ? styles.lengthButton2 : styles.lengthButton1
-              }
-              activeOpacity={0.3}
-              onPress={setLength18}>
-              <Text style={styles.buttonText}>18</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-        <LargeButton
-          buttonText="Create Scorecard"
-          onPress={createScorecard}
-          disabled={isDisabled}
-        />
+
+        <View style={styles.cardStyle}>
+          <LargeButton
+            buttonText="Create 9 Hole Scorecard"
+            onPress={init9HoleScoreCard}
+            disabled={isDisabled}
+          />
+          <LargeButton
+            buttonText="Create 18 Hole Scorecard"
+            onPress={init18HoleScoreCard}
+            disabled={isDisabled}
+          />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
 };
 
-export default CreateScorecard;
+export default CreateScorecard1;
 
 const styles = StyleSheet.create({
   box1: {
@@ -144,18 +126,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleText: {
-    fontSize: 24,
-    fontWeight: '400',
+    fontSize: 26,
+    fontWeight: '600',
     fontFamily: 'Satoshi-Medium',
     // textAlign: 'center',
+    backgroundColor: 'white',
     flex: 1,
     margin: 6,
     marginLeft: 45,
   },
   questionText: {
     fontSize: 18,
-    color: '#909090',
-    fontWeight: '400',
+    color: 'black',
+    fontWeight: '500',
     fontFamily: 'Satoshi-Medium',
     marginBottom: 10,
     marginTop: 20,
@@ -168,7 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: 'center',
     textAlign: 'center',
-    marginTop: 10,
+    margin: 10,
+    marginVertical: 16,
     borderRadius: 10,
   },
   createScorecardButton: {
@@ -214,5 +198,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
     fontSize: 22,
+  },
+  cardStyle: {
+    margin: 20,
+    marginTop: 2,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: 250,
   },
 });
