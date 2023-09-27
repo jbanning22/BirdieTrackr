@@ -15,7 +15,6 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
       {
         "backgroundColor": "white",
         "flex": 1,
-        "justifyContent": "space-between",
       }
     }
   >
@@ -404,7 +403,6 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
                         "fontFamily": "Satoshi-Medium",
                         "fontSize": 24,
                         "fontWeight": "500",
-                        "margin": 5,
                       }
                     }
                   >

@@ -4,6 +4,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
   ImageBackground,
   View,
   Image,
@@ -30,6 +31,7 @@ const EditUserScreen = ({navigation}) => {
   const queryClient = useQueryClient();
   const [imageBool, setImageBool] = useState(false);
   const [imageData, setImageData] = useState([]);
+  const isDisabled = !formData.userName || !formData.password;
 
   const editUser = useMutation(
     async formData => {
@@ -77,117 +79,97 @@ const EditUserScreen = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.box1}>
-      <ImageBackground source={myImage} style={styles.imageBackground}>
-        <View style={styles.avatarView}>
-          {imageBool ? (
-            <Image
-              source={{uri: imageData}}
-              style={{
-                height: 75,
-                width: 75,
-                borderRadius: 50,
-              }}
-            />
-          ) : (
-            <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
-          )}
-        </View>
-        <View
-          style={{
-            margin: 10,
-            padding: 10,
-            marginTop: 2,
-            backgroundColor: '#F9FAFB',
-            borderRadius: 15,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
+    <ImageBackground source={myImage} style={styles.imageBackground}>
+      <View style={styles.avatarView}>
+        {imageBool ? (
+          <Image
+            source={{uri: imageData}}
+            style={{
+              height: 75,
+              width: 75,
+              borderRadius: 50,
+            }}
+          />
+        ) : (
+          <FontAwesomeIcon icon={faUser} color={'black'} size={30} />
+        )}
+      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <KeyboardAvoidingView style={{width: '100%'}}>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>User Name</Text>
-              <TextInput
-                style={styles.emailInput}
-                value={formData.userName}
-                onChangeText={text =>
-                  setFormData({...formData, userName: text})
-                }
-                clearButtonMode={'always'}
-                testID="username"
-              />
-            </View>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>First Name</Text>
-              <TextInput
-                style={styles.emailInput}
-                value={formData.firstName}
-                onChangeText={text =>
-                  setFormData({...formData, firstName: text})
-                }
-                clearButtonMode={'always'}
-                testID="first-name"
-              />
-            </View>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>Last Name</Text>
-              <TextInput
-                style={styles.emailInput}
-                value={formData.lastName}
-                onChangeText={text =>
-                  setFormData({...formData, lastName: text})
-                }
-                clearButtonMode={'always'}
-                testID="last-name"
-              />
-            </View>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>City</Text>
-              <TextInput
-                style={styles.emailInput}
-                value={formData.city}
-                onChangeText={text => setFormData({...formData, city: text})}
-                clearButtonMode={'always'}
-                testID="city"
-              />
-            </View>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>State</Text>
-              <TextInput
-                style={styles.emailInput}
-                value={formData.state}
-                onChangeText={text => setFormData({...formData, state: text})}
-                clearButtonMode={'always'}
-                testID="state"
-              />
-            </View>
-            <View style={{margin: 2}}>
-              <Text style={styles.textInputHeader}>Password</Text>
-              <TextInput
-                style={styles.loginTextInput}
-                value={formData.password}
-                onChangeText={text =>
-                  setFormData({...formData, password: text})
-                }
-                clearButtonMode={'always'}
-                secureTextEntry={true}
-                autoCorrect={false}
-                testID="password"
-              />
-            </View>
-          </KeyboardAvoidingView>
-        </View>
-        <LargeButton
-          buttonText="Save"
-          onPress={() => editUser.mutate(formData)}
-        />
-      </ImageBackground>
-    </ScrollView>
+          <View
+            style={{
+              marginVertical: 50,
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: '#F9FAFB',
+              borderRadius: 15,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}>
+            {/* <View style={{margin: 2}}> */}
+            <Text style={styles.textInputHeader}>User Name</Text>
+            <TextInput
+              style={styles.emailInput}
+              value={formData.userName}
+              onChangeText={text => setFormData({...formData, userName: text})}
+              clearButtonMode={'always'}
+              testID="username"
+            />
+            {/* </View> */}
+            {/* <View style={{margin: 2}}> */}
+            <Text style={styles.textInputHeader}>City</Text>
+            <TextInput
+              style={styles.emailInput}
+              value={formData.city}
+              onChangeText={text => setFormData({...formData, city: text})}
+              clearButtonMode={'always'}
+              testID="city"
+            />
+            {/* </View> */}
+            {/* <View style={{margin: 2}}> */}
+            <Text style={styles.textInputHeader}>State</Text>
+            <TextInput
+              style={styles.emailInput}
+              value={formData.state}
+              onChangeText={text => setFormData({...formData, state: text})}
+              clearButtonMode={'always'}
+              testID="state"
+            />
+            {/* </View> */}
+            {/* <View style={{margin: 2}}> */}
+            <Text style={styles.textInputHeader}>Password</Text>
+            <TextInput
+              style={styles.loginTextInput}
+              value={formData.password}
+              onChangeText={text => setFormData({...formData, password: text})}
+              clearButtonMode={'always'}
+              secureTextEntry={true}
+              autoCorrect={false}
+              testID="password"
+            />
+            {/* </View> */}
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <LargeButton
+        buttonText="Save"
+        onPress={() => editUser.mutate(formData)}
+        disabled={isDisabled}
+      />
+    </ImageBackground>
   );
 };
 
@@ -202,11 +184,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    // borderWidth: 0.25,
-    // padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'white',
   },
   loginTextInput: {
     height: 50,
@@ -215,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
     alignSelf: 'center',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   emailInput: {
     height: 50,
@@ -233,9 +212,10 @@ const styles = StyleSheet.create({
   textInputHeader: {
     fontFamily: 'Satoshi-Medium',
     fontSize: 12,
+    fontWeight: '600',
     color: 'black',
-    marginBottom: 5,
-    margin: 5,
+    // marginBottom: 5,
+    // margin: 5,
     paddingLeft: 15,
   },
   imageBackground: {

@@ -1,17 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sign Up Screen should match the snapshot 1`] = `
-<RCTScrollView
-  contentContainerStyle={{}}
+<RCTSafeAreaView
+  style={
+    {
+      "flex": 1,
+    }
+  }
 >
-  <View>
+  <View
+    onLayout={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        },
+        {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
     <View
       style={
         {
           "alignSelf": "flex-start",
-          "flex": 1,
-          "marginLeft": 20,
-          "marginTop": 50,
+          "marginLeft": 10,
         }
       }
     >
@@ -50,52 +66,51 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
         }
       />
     </View>
-    <Text
-      style={
+    <RCTScrollView
+      contentContainerStyle={
         {
-          "alignSelf": "center",
-          "fontFamily": "Satoshi-Medium",
-          "fontSize": 30,
-          "fontWeight": "600",
-          "marginTop": 5,
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
         }
       }
     >
-      Welcome to 
-      <Text
-        style={
-          {
-            "color": "#45B369",
+      <View>
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "fontFamily": "Satoshi-Medium",
+              "fontSize": 30,
+              "fontWeight": "600",
+            }
           }
-        }
-      >
-        DG Scorecard
-      </Text>
-    </Text>
-    <Text
-      style={
-        {
-          "alignSelf": "center",
-          "color": "grey",
-          "fontFamily": "Satoshi-Medium",
-          "fontSize": 17,
-          "margin": 5,
-          "textAlign": "center",
-        }
-      }
-    >
-      Create a commitment-free profile to explore products.
-    </Text>
-    <View
-      onLayout={[Function]}
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
+        >
+          Welcome to 
+          <Text
+            style={
+              {
+                "color": "#45B369",
+              }
+            }
+          >
+            DG Scorecard
+          </Text>
+        </Text>
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "grey",
+              "fontFamily": "Satoshi-Medium",
+              "fontSize": 17,
+              "margin": 5,
+              "textAlign": "center",
+            }
           }
-        }
-      >
+        >
+          Create a commitment-free profile to explore products.
+        </Text>
         <View
           style={
             {
@@ -103,7 +118,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -127,7 +142,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -151,7 +166,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -175,7 +190,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -201,7 +216,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -224,7 +239,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -246,7 +261,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 10,
+              "margin": 5,
               "width": 327,
             }
           }
@@ -298,113 +313,111 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
             }
           />
         </View>
+        <Text
+          style={
+            {
+              "color": "red",
+              "marginTop": 10,
+            }
+          }
+        />
       </View>
-    </View>
+    </RCTScrollView>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#2D6061",
+        "borderRadius": 14,
+        "height": 56,
+        "justifyContent": "center",
+        "margin": 15,
+        "opacity": 0.4,
+        "width": 327,
+      }
+    }
+  >
     <Text
       style={
         {
-          "color": "red",
-          "marginTop": 10,
-        }
-      }
-    />
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "alignSelf": "center",
-          "backgroundColor": "#2D6061",
-          "borderRadius": 12,
+          "color": "white",
           "fontFamily": "Satoshi-Medium",
-          "height": 60,
-          "justifyContent": "center",
-          "marginBottom": 10,
-          "opacity": 1,
-          "width": 327,
+          "fontSize": 18,
+          "fontWeight": "500",
         }
       }
     >
-      <Text
-        style={
-          {
-            "color": "white",
-            "fontFamily": "Satoshi-Medium",
-            "fontSize": 18,
-            "fontWeight": "500",
-          }
-        }
-      >
-        Sign Up
-      </Text>
-    </View>
-    <View>
-      <Text
-        numberOfLines={2}
-        style={
-          {
-            "color": "#6B7280",
-            "fontFamily": "Satoshi-Medium",
-            "fontSize": 14,
-            "marginTop": 40,
-            "paddingBottom": 5,
-            "textAlign": "center",
-          }
-        }
-      >
-        By signing up, you agree to the
-         
-        <Text
-          style={
-            {
-              "color": "black",
-              "fontWeight": "400",
-            }
-          }
-        >
-          DG Scorecard Terms & Conditions
-        </Text>
-         
-        and 
-        <Text
-          style={
-            {
-              "color": "black",
-              "fontWeight": "400",
-            }
-          }
-        >
-          Privacy Policy
-        </Text>
-        .
-      </Text>
-    </View>
+      Sign Up
+    </Text>
   </View>
-</RCTScrollView>
+  <View>
+    <Text
+      numberOfLines={2}
+      style={
+        {
+          "color": "#6B7280",
+          "fontFamily": "Satoshi-Medium",
+          "fontSize": 14,
+          "paddingBottom": 5,
+          "textAlign": "center",
+        }
+      }
+    >
+      By signing up, you agree to the
+       
+      <Text
+        style={
+          {
+            "color": "black",
+            "fontWeight": "400",
+          }
+        }
+      >
+        DG Scorecard Terms & Conditions
+      </Text>
+       
+      and 
+      <Text
+        style={
+          {
+            "color": "black",
+            "fontWeight": "400",
+          }
+        }
+      >
+        Privacy Policy
+      </Text>
+      .
+    </Text>
+  </View>
+</RCTSafeAreaView>
 `;

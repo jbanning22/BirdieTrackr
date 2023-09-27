@@ -7,6 +7,8 @@ import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScorecardStack from './components/ScorecardStack';
+import OfflineScorecardStack from './components/OfflineScorecardStack';
+import OfflineThrowsStack from './components/OfflineThrowsStack';
 import ProfileStack from './components/ProfileStack';
 import axios from 'axios';
 import {AuthContext} from './AuthContext';
@@ -16,8 +18,6 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {faArrowLeft, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
-import {TouchableOpacity} from 'react-native';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -47,6 +47,49 @@ const AuthStackScreen = () => (
     />
   </AuthStack.Navigator>
 );
+
+const OfflineStackScreen = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator initialRouteName="Scorecards">
+      <Tab.Screen
+        name="Scorecards"
+        component={OfflineScorecardStack}
+        options={{
+          title: 'Scorecards',
+          tabBarLabelStyle: {color: '#2D6061'},
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faRectangleList}
+              color={focused ? '#2D6061' : 'black'}
+              size={20}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Throws"
+        component={OfflineThrowsStack}
+        options={{
+          title: 'Throws',
+          tabBarLabelStyle: {color: '#2D6061'},
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faRuler}
+              color={focused ? '#2D6061' : 'black'}
+              size={20}
+            />
+          ),
+          headerShown: false,
+          headerTintColor: 'white',
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const AppStackScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -118,14 +161,19 @@ const AppStackScreen = () => {
 };
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
+  const [offline, setOffline] = useState(false);
 
   const authContextValue = {
     signedIn,
     setSignedIn,
   };
+  const offlineContextValue = {
+    offline,
+    setOffline,
+  };
   useEffect(() => {
     refreshAccess();
-  });
+  }, [signedIn, offline]);
   const queryClient = new QueryClient();
 
   const refreshAccess = async () => {
@@ -158,11 +206,17 @@ const App = () => {
 
   const RootStack = createNativeStackNavigator();
   return (
-    <AuthContext.Provider value={authContextValue}>
+    <AuthContext.Provider value={{...authContextValue, ...offlineContextValue}}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <RootStack.Navigator>
-            {signedIn === false ? (
+            {offline === true ? (
+              <RootStack.Screen
+                name="OfflineApp"
+                component={OfflineStackScreen}
+                options={{headerShown: false}}
+              />
+            ) : signedIn === false ? (
               <RootStack.Screen
                 name="Auth"
                 component={AuthStackScreen}

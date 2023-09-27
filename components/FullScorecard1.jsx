@@ -20,131 +20,54 @@ import {
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 
-const FullScorecard = ({route, navigation}) => {
-  const {id} = route.params;
+const FullScorecard1 = ({route, navigation}) => {
+  const {scoreCard, courseName} = route.params;
+
   const [scorecardData, setScorecardData] = useState({});
-  const [holesData, setHolesData] = useState([]);
   const [showEndButton, setShowEndButton] = useState(false);
   const windowWidth = Dimensions.get('window').width;
-  const queryClient = useQueryClient();
 
-  const getScorecard = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+  const retrieveUserData = async () => {
     try {
-      const scoreC = await axios.get(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${id}`,
-        {
-          headers,
-        },
-      );
-      setScorecardData(scoreC.data);
-      setHolesData(scoreC.data.holes);
+      const jsonUserData = await AsyncStorage.getItem('userData');
+      return jsonUserData != null ? JSON.parse(jsonUserData) : null;
     } catch (error) {
-      throw new Error('Error getting scorecard');
+      console.error('Error retrieving userData from AsyncStorage:', error);
+      return null;
     }
   };
-
-  const updateStrokesPlus = async (id, strokes) => {
-    const token = await AsyncStorage.getItem('token');
-
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+  let scorecardId = 0;
+  const saveScorecard = async () => {
     try {
-      await axios.patch(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
-        {strokes: strokes + 1},
-        {headers},
-      );
-      queryClient.invalidateQueries('scorecardData');
-      getScorecard();
+      const userData = await retrieveUserData();
+      if (userData !== null) {
+        scorecardId = Math.max(...userData.scorecards.map(sc => sc.id), 0) + 1;
+        const scorecardWithId = {
+          id: scorecardId,
+          courseName: courseName,
+          isCompleted: true,
+          scorecardData,
+        };
+        userData.scorecards.push(scorecardWithId);
+        await AsyncStorage.setItem('userData', JSON.stringify(userData));
+        navigation.navigate('Scorecards1', {reset: true});
+        console.log('Scorecard added to userData.');
+      } else {
+        console.log('userData not found in AsyncStorage.');
+      }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error updating stroke + 1');
+      console.error('Error adding scorecard:', error);
     }
   };
+  useEffect(() => {
+    setScorecardData(scoreCard.sort((a, b) => a.hole - b.hole));
+  }, [scoreCard]);
 
-  const updateStrokesMinus = async (id, strokes) => {
-    const token = await AsyncStorage.getItem('token');
+  // const saveScoreCard = async () => {
+  //   await AsyncStorage.setItem('scoreCard', JSON.stringify(scorecardData));
+  //   navigation.navigate('Scorecards1');
+  // };
 
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      await axios.patch(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
-        {strokes: strokes - 1},
-        {headers},
-      );
-      queryClient.invalidateQueries('scorecardData');
-      getScorecard();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error updating stroke - 1');
-    }
-  };
-
-  const updateParPlus = async (id, par) => {
-    const token = await AsyncStorage.getItem('token');
-
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      await axios.patch(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
-        {par: par + 1},
-        {headers},
-      );
-      queryClient.invalidateQueries('scorecardData');
-      getScorecard();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error updating stroke + 1');
-    }
-  };
-  const updateParMinus = async (id, par) => {
-    const token = await AsyncStorage.getItem('token');
-
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      await axios.patch(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
-        {par: par - 1},
-        {headers},
-      );
-      queryClient.invalidateQueries('scorecardData');
-      getScorecard();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error updating par - 1');
-    }
-  };
-
-  const finishScorecard = async () => {
-    const scorecardId = scorecardData.id;
-    const token = await AsyncStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      await axios.patch(
-        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/${scorecardId}`,
-        {isCompleted: true, courseLength: scorecardData.courseLength},
-        {headers},
-      );
-      queryClient.invalidateQueries('scorecardData');
-      await navigation.navigate('Scorecard');
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error completing scorecard');
-    }
-  };
   const plusIcon = (
     <FontAwesomeIcon
       icon={faCirclePlus}
@@ -166,7 +89,7 @@ const FullScorecard = ({route, navigation}) => {
   const renderItem = ({item}) => {
     return (
       <View style={[styles.flatlistView, {width: ITEM_WIDTH}]}>
-        <Text style={styles.renderParentText}>Hole {item.holeNumber}</Text>
+        <Text style={styles.renderParentText}>Hole {item.hole}</Text>
 
         <View style={styles.parStrokeView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -180,7 +103,16 @@ const FullScorecard = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateParMinus(item.id, item.par)}
+              onPress={() => {
+                setScorecardData(
+                  scorecardData.map(cardItem => {
+                    if (cardItem.hole === item.hole) {
+                      return {...cardItem, par: cardItem.par - 1};
+                    }
+                    return cardItem;
+                  }),
+                );
+              }}
               testID="minus-icon-1">
               {minusIcon}
             </TouchableOpacity>
@@ -196,7 +128,16 @@ const FullScorecard = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateParPlus(item.id, item.par)}
+              onPress={() => {
+                setScorecardData(
+                  scorecardData.map(cardItem => {
+                    if (cardItem.hole === item.hole) {
+                      return {...cardItem, par: cardItem.par + 1};
+                    }
+                    return cardItem;
+                  }),
+                );
+              }}
               testID="plus-icon-1">
               {plusIcon}
             </TouchableOpacity>
@@ -204,7 +145,12 @@ const FullScorecard = ({route, navigation}) => {
         </View>
 
         <View style={styles.parStrokeView}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+            }}>
             <Text style={styles.renderText}>Strokes</Text>
           </View>
           <View
@@ -215,7 +161,16 @@ const FullScorecard = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateStrokesMinus(item.id, item.strokes)}
+              onPress={() => {
+                setScorecardData(
+                  scorecardData.map(cardItem => {
+                    if (cardItem.hole === item.hole) {
+                      return {...cardItem, strokes: cardItem.strokes - 1};
+                    }
+                    return cardItem;
+                  }),
+                );
+              }}
               testID="minus-icon-1">
               {minusIcon}
             </TouchableOpacity>
@@ -231,7 +186,16 @@ const FullScorecard = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.parButton}
               activeOpacity={0.5}
-              onPress={() => updateStrokesPlus(item.id, item.strokes)}
+              onPress={() => {
+                setScorecardData(
+                  scorecardData.map(cardItem => {
+                    if (cardItem.hole === item.hole) {
+                      return {...cardItem, strokes: cardItem.strokes + 1};
+                    }
+                    return cardItem;
+                  }),
+                );
+              }}
               testID="plus-icon-1">
               {plusIcon}
             </TouchableOpacity>
@@ -241,42 +205,33 @@ const FullScorecard = ({route, navigation}) => {
     );
   };
 
-  useEffect(() => {
-    getScorecard();
-  }, []);
-
   const handleEndReached = () => {
     setShowEndButton(true);
   };
-
-  const sortedData = holesData.sort((a, b) => a.holeNumber - b.holeNumber);
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
         <View
           style={{
             flexDirection: 'row',
-            backgroundColor: 'white',
-            justifyContent: 'space-evenly',
-            padding: 4,
+            justifyContent: 'center',
           }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Scorecard')}
+          {/* <TouchableOpacity
+            onPress={() => navigation.navigate('Scorecards1')}
             style={{flex: 1}}
             testID="back-arrow1">
             <FontAwesomeIcon
               icon={faArrowLeft}
               size={20}
-              style={{marginLeft: 15, marginTop: 18}}
+              style={{marginLeft: 15, marginTop: 18, backgroundColor: 'white'}}
             />
-          </TouchableOpacity>
-          <Text style={styles.homeText}>{scorecardData.courseName}</Text>
-          <View style={{flex: 1}}></View>
+          </TouchableOpacity> */}
+          <Text style={styles.homeText}>{courseName}</Text>
         </View>
         <View style={styles.flatlistContainer}>
           <FlatList
             renderItem={renderItem}
-            data={sortedData}
+            data={scorecardData}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             pagingEnabled={true}
@@ -287,7 +242,7 @@ const FullScorecard = ({route, navigation}) => {
         {showEndButton && (
           <TouchableOpacity
             style={styles.finishScorecardButton}
-            onPress={finishScorecard}
+            onPress={saveScorecard}
             testID="finish-scorecard-button">
             <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
           </TouchableOpacity>
@@ -297,7 +252,7 @@ const FullScorecard = ({route, navigation}) => {
   );
 };
 
-export default FullScorecard;
+export default FullScorecard1;
 
 const styles = StyleSheet.create({
   box1: {
@@ -316,6 +271,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Satoshi-Medium',
     textAlign: 'center',
     margin: 10,
+    backgroundColor: 'white',
   },
   parButton: {
     // height: 30,
@@ -343,6 +299,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: 'white',
     borderRadius: 15,
+    margin: 10,
     paddingHorizontal: 30,
   },
   flatlistContainer: {
@@ -369,6 +326,7 @@ const styles = StyleSheet.create({
   flatlistView: {
     height: 300,
     justifyContent: 'space-evenly',
+    // alignItems: '',
     margin: 20,
     backgroundColor: '#F9FAFB',
     borderRadius: 20,

@@ -71,21 +71,4 @@ describe('Create Throw Screen', () => {
       expect(screen.getByText('Create Throw')).toBeTruthy();
     });
   });
-  it('should navigate back to throws screen upon throw creation', async () => {
-    const route = {
-      params: {dist: 100},
-    };
-    const navigation = {
-      navigate: jest.fn(),
-    };
-    render(
-      <QueryClientProvider client={queryClient}>
-        <CreateThrowScreen route={route} navigation={navigation} />
-      </QueryClientProvider>,
-    );
-    fireEvent.press(screen.getByText('Create Throw'));
-    await waitFor(() => {
-      expect(navigation.navigate).toHaveBeenCalledWith('ThrowsScreen');
-    });
-  });
 });

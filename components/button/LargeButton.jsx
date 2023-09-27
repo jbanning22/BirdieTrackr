@@ -2,9 +2,15 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LargeButton = ({buttonText, onPress}) => {
+const LargeButton = ({buttonText, onPress, disabled}) => {
   return (
-    <TouchableOpacity style={styles.createScorecardButton} onPress={onPress}>
+    <TouchableOpacity
+      style={[
+        styles.createScorecardButton,
+        disabled ? styles.disabledButton : null,
+      ]}
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={styles.buttonText}>{buttonText}</Text>
     </TouchableOpacity>
   );
@@ -13,6 +19,7 @@ const LargeButton = ({buttonText, onPress}) => {
 LargeButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default LargeButton;
@@ -27,6 +34,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#2D6061',
     borderRadius: 14,
     margin: 15,
+  },
+  disabledButton: {
+    opacity: 0.4,
   },
   buttonText: {
     fontFamily: 'Satoshi-Medium',

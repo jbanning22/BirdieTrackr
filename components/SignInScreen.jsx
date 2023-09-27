@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   TextInput,
   View,
-  ScrollView,
+  SafeAreaView,
+  Platform,
   KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
@@ -73,14 +74,14 @@ const SignInScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.box1}>
+    <SafeAreaView style={styles.box1}>
       <View
         style={{
-          flex: 1,
+          // flex: 1,
           alignSelf: 'flex-start',
           marginLeft: 20,
-          marginTop: 60,
-          marginBottom: 140,
+          marginTop: 20,
+          marginBottom: 100,
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
           <FontAwesomeIcon icon={faArrowLeft} size={20} />
@@ -89,7 +90,8 @@ const SignInScreen = ({navigation}) => {
       <Text style={styles.homeText}>
         Sign In to <Text style={{color: '#45B369'}}>DG Scorecard</Text>
       </Text>
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.inputView}>
           <FontAwesomeIcon
             icon={faEnvelope}
@@ -159,7 +161,7 @@ const SignInScreen = ({navigation}) => {
           and <Text style={styles.legalNames}>Privacy Policy</Text>.
         </Text>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
