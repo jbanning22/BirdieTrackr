@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react-native';
+import {render, screen, waitFor} from '@testing-library/react-native';
 import CreateThrowScreen from './CreateThrow.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
