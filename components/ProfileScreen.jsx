@@ -79,7 +79,7 @@ const ProfileScreen = () => {
     );
   };
 
-  const getProfilePic = async key => {
+  const getProfilePic = async () => {
     try {
       const value = await AsyncStorage.getItem('profileImageData');
       if (value !== null) {
@@ -137,8 +137,8 @@ const ProfileScreen = () => {
   // }, []);
 
   useEffect(() => {
-    getProfilePic('profileImageData');
-  }, [imageData]);
+    getProfilePic();
+  }, []);
 
   return (
     <ImageBackground source={myImage} style={styles.imageBackground}>

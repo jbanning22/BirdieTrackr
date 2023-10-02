@@ -15,8 +15,6 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import {Alert} from 'react-native';
-import {useQueryClient} from '@tanstack/react-query';
-import {useGetThrowDetails} from './hooks/getThrowDataQuery';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 import LargeButton from './button/LargeButton';
@@ -25,7 +23,6 @@ import {AuthContext} from '../AuthContext';
 const Throws1 = ({navigation, route}) => {
   const reset = route.params;
   const [refresh, setRefresh] = useState(false);
-  // const {data: throwData, isLoading, isError, error} = useGetThrowDetails();
   const [throwData, setThrowData] = useState({});
   const [isEnabled, setIsEnabled] = useState(false);
   const {setSignedIn, setOffline} = useContext(AuthContext);
@@ -34,7 +31,6 @@ const Throws1 = ({navigation, route}) => {
   useEffect(() => {
     retrieveUserData().then(userData => {
       if (userData !== null) {
-        console.log('userData.throws is: ', userData.throws);
         setThrowData(userData.throws);
       }
     });
@@ -51,33 +47,6 @@ const Throws1 = ({navigation, route}) => {
       return null;
     }
   };
-
-  // const addScorecardsAndMeasuredThrows = async () => {
-  //   try {
-  //     const userData = await retrieveUserData();
-  //     console.log('userData inside of Throws1 is: ', userData);
-
-  //     if (userData !== null) {
-  //       // just doublechecking it exists in AS
-
-  //       userData.scorecards.push({
-  //         /* Your scorecard data here */
-  //       });
-  //       userData.measuredThrows.push({
-  //         /* Your measured throw data here */
-  //       });
-
-  //       // Step 3: Save the updated userData object back to AsyncStorage
-  //       await AsyncStorage.setItem('userData', JSON.stringify(userData));
-
-  //       console.log('Scorecards and measured throws added to userData.');
-  //     } else {
-  //       console.log('userData not found in AsyncStorage.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding scorecards and measured throws:', error);
-  //   }
-  // };
 
   const deleteThrow = async id => {
     Alert.alert(

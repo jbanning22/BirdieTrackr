@@ -17,7 +17,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faExclamation} from '@fortawesome/free-solid-svg-icons/faExclamation';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons/faTrashCan';
-import {useQueryClient} from '@tanstack/react-query';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 import LargeButton from './button/LargeButton';
@@ -36,27 +35,12 @@ const Scorecard1 = ({navigation, route}) => {
   useEffect(() => {
     retrieveUserData().then(userData => {
       if (userData !== null) {
-        console.log(
-          'userData.scorecards is: ',
-          JSON.stringify(userData.scorecards),
-        );
+        console.log('userData is: ', JSON.stringify(userData));
         setScorecardData(userData.scorecards);
         setCourseName(userData.courseName);
       }
     });
   }, [reset, refresh]);
-  // useEffect(() => {
-  // const clearStorage = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('userData');
-  //     console.log('AsyncStorage cleared successfully.');
-  //   } catch (error) {
-  //     console.error('Error clearing AsyncStorage:', error);
-  //   }
-  // };
-  //   clearStorage();
-  // }, []);
-
   const retrieveUserData = async () => {
     try {
       const jsonUserData = await AsyncStorage.getItem('userData');
@@ -87,7 +71,6 @@ const Scorecard1 = ({navigation, route}) => {
         await AsyncStorage.setItem('token', access_token);
         await AsyncStorage.setItem('ReToken', refresh_token);
         setSignedIn(true);
-        // clearStorage();
         return refresh.data;
       } else {
         setSignedIn(false);

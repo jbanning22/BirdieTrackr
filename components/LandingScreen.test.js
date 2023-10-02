@@ -24,7 +24,7 @@ describe('Landing Screen', () => {
         <LandingScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Welcome to DG Scorecard')).toBeTruthy();
+    expect(screen.getByText('Welcome to AceTracker')).toBeTruthy();
   });
   it('should render offline switch', async () => {
     const authContext = {

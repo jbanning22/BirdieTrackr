@@ -30,7 +30,7 @@ describe('Sign Up Screen', () => {
         <SignUpScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Welcome to DG Scorecard')).toBeTruthy();
+    expect(screen.getByText('Welcome to AceTracker')).toBeTruthy();
   });
   it('should display sign up button', async () => {
     const authContextValue = {
@@ -69,7 +69,7 @@ describe('Sign Up Screen', () => {
       </AuthContext.Provider>,
     );
     const text1 = getByText('Privacy Policy');
-    const text2 = getByText('DG Scorecard Terms & Conditions');
+    const text2 = getByText('AceTracker Terms & Conditions');
 
     expect(text1).toBeDefined();
     expect(text2).toBeDefined();
