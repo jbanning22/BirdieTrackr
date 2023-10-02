@@ -71,7 +71,7 @@ exports[`Sign In Screen should match the snapshot 1`] = `
         }
       }
     >
-      DG Scorecard
+      AceTracker
     </Text>
   </Text>
   <View
@@ -218,7 +218,7 @@ exports[`Sign In Screen should match the snapshot 1`] = `
       }
       accessible={true}
       collapsable={false}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -308,6 +308,7 @@ exports[`Sign In Screen should match the snapshot 1`] = `
           "fontSize": 14,
           "marginTop": 150,
           "paddingBottom": 5,
+          "paddingHorizontal": 16,
           "textAlign": "center",
         }
       }
@@ -318,11 +319,12 @@ exports[`Sign In Screen should match the snapshot 1`] = `
         style={
           {
             "color": "black",
+            "fontFamily": "Satoshi-Medium",
             "fontWeight": "400",
           }
         }
       >
-        DG Scorecard Terms & Conditions
+        AceTracker Terms & Conditions
       </Text>
        
       and 
@@ -330,6 +332,7 @@ exports[`Sign In Screen should match the snapshot 1`] = `
         style={
           {
             "color": "black",
+            "fontFamily": "Satoshi-Medium",
             "fontWeight": "400",
           }
         }
@@ -338,6 +341,24 @@ exports[`Sign In Screen should match the snapshot 1`] = `
       </Text>
       .
     </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "marginTop": 22,
+      }
+    }
+  >
+    <Modal
+      animationType="slide"
+      hardwareAccelerated={false}
+      onRequestClose={[Function]}
+      transparent={true}
+      visible={false}
+    />
   </View>
 </RCTSafeAreaView>
 `;

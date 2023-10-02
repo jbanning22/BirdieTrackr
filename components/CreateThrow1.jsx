@@ -99,11 +99,10 @@ const CreateThrow1 = ({navigation, route}) => {
         <Text style={styles.singUpText}>Measure Throw</Text>
         <View
           style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 2,
             marginTop: 2,
+            backgroundColor: '#F9FAFB',
+            alignItems: 'center',
+            alignSelf: 'center',
             borderRadius: 15,
             shadowColor: '#000',
             shadowOffset: {
@@ -180,7 +179,7 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     backgroundColor: 'white',
-    marginBottom: 15,
+    margin: 15,
     borderRadius: 10,
   },
   textButton: {

@@ -94,7 +94,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               }
             }
           >
-            DG Scorecard
+            AceTracker
           </Text>
         </Text>
         <Text
@@ -118,7 +118,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -142,7 +142,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -166,7 +166,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -190,7 +190,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -216,7 +216,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -239,7 +239,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -261,7 +261,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               "borderRadius": 20,
               "flexDirection": "row",
               "height": 50,
-              "margin": 5,
+              "margin": 2,
               "width": 327,
             }
           }
@@ -402,7 +402,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
           }
         }
       >
-        DG Scorecard Terms & Conditions
+        AceTracker Terms & Conditions
       </Text>
        
       and 

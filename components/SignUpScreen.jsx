@@ -87,7 +87,7 @@ const SignUpScreen = ({navigation}) => {
         </View>
         <ScrollView contentContainerStyle={styles.box1}>
           <Text style={styles.singUpText}>
-            Welcome to <Text style={{color: '#45B369'}}>DG Scorecard</Text>
+            Welcome to <Text style={{color: '#45B369'}}>AceTracker</Text>
           </Text>
           <Text style={styles.createAccountText}>
             Create a commitment-free profile to explore products.
@@ -217,7 +217,7 @@ const SignUpScreen = ({navigation}) => {
       <View>
         <Text style={styles.legalText} numberOfLines={2}>
           By signing up, you agree to the{' '}
-          <Text style={styles.legalNames}>DG Scorecard Terms & Conditions</Text>{' '}
+          <Text style={styles.legalNames}>AceTracker Terms & Conditions</Text>{' '}
           and <Text style={styles.legalNames}>Privacy Policy</Text>.
         </Text>
       </View>
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 20,
     backgroundColor: 'white',
-    margin: 5,
+    margin: 2,
     width: 327,
     height: 50,
   },
