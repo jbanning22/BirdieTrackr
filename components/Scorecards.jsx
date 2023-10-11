@@ -182,7 +182,7 @@ const Scorecards = ({navigation}) => {
                 fontSize: 14,
                 fontFamily: 'Satoshi-Medium',
               }}>
-              AceTracker
+              BirdieTrackr
             </Text>
             !
           </Text>

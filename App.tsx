@@ -18,6 +18,8 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {useNetInfo} from '@react-native-community/netinfo';
+// import SplashScreen from 'react-native-splash-screen';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -162,6 +164,7 @@ const AppStackScreen = () => {
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [offline, setOffline] = useState(false);
+  const netInfo = useNetInfo();
 
   const authContextValue = {
     signedIn,
@@ -175,6 +178,10 @@ const App = () => {
     refreshAccess();
   }, [signedIn, offline]);
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    console.log('connection info is: ', netInfo.isConnected?.toString());
+  }, []);
 
   const refreshAccess = async () => {
     const reToken = await AsyncStorage.getItem('ReToken');
@@ -237,4 +244,8 @@ const App = () => {
 };
 
 export default App;
+
+function componentDidMount() {
+  throw new Error('Function not implemented.');
+}
 // const styles = StyleSheet.create({});

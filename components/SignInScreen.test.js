@@ -30,7 +30,7 @@ describe('Sign In Screen', () => {
         <SignInScreen />
       </AuthContext.Provider>,
     );
-    expect(screen.getByText('Sign In to AceTracker')).toBeTruthy();
+    expect(screen.getByText('Sign In to BirdieTrackr')).toBeTruthy();
   });
   it('should display log in button', async () => {
     const authContextValue = {
@@ -67,7 +67,7 @@ describe('Sign In Screen', () => {
       </AuthContext.Provider>,
     );
     const text1 = getByText('Privacy Policy');
-    const text2 = getByText('AceTracker Terms & Conditions');
+    const text2 = getByText('BirdieTrackr Terms & Conditions');
 
     expect(text1).toBeDefined();
     expect(text2).toBeDefined();

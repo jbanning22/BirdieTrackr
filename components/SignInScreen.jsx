@@ -138,7 +138,7 @@ const SignInScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Text style={styles.homeText}>
-        Sign In to <Text style={{color: '#45B369'}}>AceTracker</Text>
+        Sign In to <Text style={{color: '#45B369'}}>BirdieTrackr</Text>
       </Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -203,7 +203,7 @@ const SignInScreen = ({navigation}) => {
       <View>
         <Text style={styles.legalText} numberOfLines={2}>
           By signing in, you agree to the{' '}
-          <Text style={styles.legalNames}>AceTracker Terms & Conditions</Text>{' '}
+          <Text style={styles.legalNames}>BirdieTrackr Terms & Conditions</Text>{' '}
           and <Text style={styles.legalNames}>Privacy Policy</Text>.
         </Text>
       </View>

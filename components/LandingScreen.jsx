@@ -44,7 +44,7 @@ const LandingScreen = ({navigation}) => {
         style={{width: 300, height: 300, borderRadius: 150}}
       />
       <Text style={styles.homeText}>
-        Welcome to <Text style={styles.appTitle}>AceTracker</Text>
+        Welcome to <Text style={styles.appTitle}>BirdieTrackr</Text>
       </Text>
       <Text style={styles.messageText}>
         Now you can enjoy disc golf with us!
