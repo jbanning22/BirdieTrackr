@@ -90,7 +90,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
               }
             }
           >
-            AceTracker
+            BirdieTrackr
           </Text>
           !
         </Text>

@@ -83,7 +83,7 @@ exports[`Landing Screen should match the snapshot 1`] = `
         }
       }
     >
-      AceTracker
+      BirdieTrackr
     </Text>
   </Text>
   <Text

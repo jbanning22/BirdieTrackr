@@ -35,7 +35,7 @@ const Scorecard1 = ({navigation, route}) => {
   useEffect(() => {
     retrieveUserData().then(userData => {
       if (userData !== null) {
-        console.log('userData is: ', JSON.stringify(userData));
+        // console.log('userData is: ', JSON.stringify(userData));
         setScorecardData(userData.scorecards);
         setCourseName(userData.courseName);
       }

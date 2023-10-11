@@ -94,7 +94,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
               }
             }
           >
-            AceTracker
+            BirdieTrackr
           </Text>
         </Text>
         <Text
@@ -402,7 +402,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
           }
         }
       >
-        AceTracker Terms & Conditions
+        BirdieTrackr Terms & Conditions
       </Text>
        
       and 

@@ -218,7 +218,7 @@ describe('Scorecards Landing', () => {
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(screen.getByText('Welcome back to AceTracker!')).toBeTruthy();
+      expect(screen.getByText('Welcome back to BirdieTrackr!')).toBeTruthy();
     });
   });
 
