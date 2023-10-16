@@ -24,7 +24,7 @@ const CreateScorecard1 = ({navigation}) => {
 
   const initializeScoreCard = holes => {
     return Array.from({length: holes}, (_, index) => ({
-      hole: index + 1,
+      holeNumber: index + 1,
       par: 3,
       strokes: 3,
     }));

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useDebugValue} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -19,7 +19,11 @@ import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {useNetInfo} from '@react-native-community/netinfo';
+import {Alert} from 'react-native';
+import {faUserFriends} from '@fortawesome/free-solid-svg-icons';
 // import SplashScreen from 'react-native-splash-screen';
+
+const SERVER_URL = 'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -161,9 +165,12 @@ const AppStackScreen = () => {
     </Tab.Navigator>
   );
 };
+
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [offline, setOffline] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  // const [userData, setUserData] = useState(null);
   const netInfo = useNetInfo();
 
   const authContextValue = {
@@ -177,11 +184,111 @@ const App = () => {
   useEffect(() => {
     refreshAccess();
   }, [signedIn, offline]);
+
   const queryClient = new QueryClient();
 
   useEffect(() => {
-    console.log('connection info is: ', netInfo.isConnected?.toString());
-  }, []);
+    if (netInfo.isConnected) {
+      checkServerConnection();
+      setIsConnected(true);
+    }
+  }, [netInfo.isConnected]);
+
+  // useEffect(() => {
+  //   retrieveUserData().then(userData => {
+  //     if (userData !== null) {
+  //       console.log(userData.scorecards);
+  //       console.log(userData.courseName);
+  //     }
+  //   });
+  // });
+
+  const checkServerConnection = () => {
+    fetch(SERVER_URL)
+      .then(async response => {
+        if (response.ok) {
+          const userData = await retrieveUserData();
+          console.log('Successfully connected to the server! ', userData);
+          // send the userData to the backend
+          createOfflineData();
+        } else {
+          console.log('Server returned an error:', response.statusText);
+          setIsConnected(false);
+        }
+      })
+      .catch(error => {
+        Alert.alert('Server offline.\nPlease use offline mode.');
+        setIsConnected(false);
+      });
+  };
+
+  const retrieveUserData = async () => {
+    try {
+      const jsonUserData = await AsyncStorage.getItem('userData');
+      let result = jsonUserData != null ? JSON.parse(jsonUserData) : null;
+      return result;
+    } catch (error) {
+      console.error('Error retrieving userData from AsyncStorage:', error);
+      return null;
+    }
+  };
+
+  const createOfflineData = async () => {
+    // try {
+    const userData = await retrieveUserData();
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const offlineDataResponse = await axios.post(
+      'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/offline',
+      {userData},
+      {headers},
+    );
+
+    //   if (userData && userData.length > 0) {
+    //     const {courseName, scorecardData, isCompleted} = userData[0];
+
+    //     const token = await AsyncStorage.getItem('token');
+
+    //     const headers = {
+    //       Authorization: `Bearer ${token}`,
+    //     };
+
+    //     const scorecard = await axios.post(
+    //       'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard',
+    //       {courseName, scorecardData, isCompleted},
+    //       {headers},
+    //     );
+    //     // queryClient.invalidateQueries('scorecardData');
+    //   } else {
+    //     console.error('No scorecards data found in userData');
+    //   }
+    // } catch (error) {
+    //   console.error('Error in createScorecard function:', error);
+    // }
+  };
+
+  const updateStrokesMinus = async (id, strokes) => {
+    const token = await AsyncStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      await axios.patch(
+        `http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/hole/${id}`,
+        {strokes: strokes - 1},
+        {headers},
+      );
+      queryClient.invalidateQueries('scorecardData');
+      getScorecard();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('error updating stroke - 1');
+    }
+  };
 
   const refreshAccess = async () => {
     const reToken = await AsyncStorage.getItem('ReToken');
