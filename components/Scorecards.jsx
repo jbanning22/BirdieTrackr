@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,8 +23,13 @@ import {useGetUserDetails} from './hooks/getUserDataQuery';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 import LargeButton from './button/LargeButton';
+import {useNetInfo} from '@react-native-community/netinfo';
+
+const SERVER_URL = 'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000';
 
 const Scorecards = ({navigation}) => {
+  const [isConnected, setIsConnected] = useState(false);
+  const netInfo = useNetInfo();
   const {
     data: scorecardData,
     // isLoading: isScorecardLoading,
@@ -40,6 +45,65 @@ const Scorecards = ({navigation}) => {
   const queryClient = useQueryClient();
   const windowWidth = Dimensions.get('window').width;
   // const windowHeight = Dimensions.get('window').height;
+
+  useEffect(() => {
+    const createOfflineData = async () => {
+      try {
+        const userData = await retrieveUserData();
+        if (
+          !userData ||
+          !userData.scorecards ||
+          userData.scorecards.length === 0
+        ) {
+          console.log('No scorecards found in userData. Exiting function.');
+          return;
+        }
+
+        const token = await AsyncStorage.getItem('token');
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const offlineDataResponse = await axios.post(
+          'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/scorecard/offline',
+          {userData},
+          {headers},
+        );
+
+        if (offlineDataResponse.status === 201) {
+          try {
+            let userDataJSON = await AsyncStorage.getItem('userData');
+            if (userDataJSON) {
+              let userData = JSON.parse(userDataJSON);
+              userData.scorecards = [];
+              await AsyncStorage.setItem('userData', JSON.stringify(userData));
+              queryClient.refetchQueries('scorecardData');
+              console.log('userData updated in AsyncStorage');
+            } else {
+              console.log('userData not found in AsyncStorage');
+            }
+          } catch (error) {
+            console.error('Error updating userData in AsyncStorage:', error);
+          }
+        }
+      } catch (error) {
+        console.error('Error in createScorecard function:', error);
+      }
+    };
+
+    createOfflineData();
+  }, []);
+
+  const retrieveUserData = async () => {
+    try {
+      const jsonUserData = await AsyncStorage.getItem('userData');
+      let result = jsonUserData != null ? JSON.parse(jsonUserData) : null;
+      return result;
+    } catch (error) {
+      console.error('Error retrieving userData from AsyncStorage:', error);
+      return null;
+    }
+  };
 
   const handleScorecardPressed = async id => {
     const token = await AsyncStorage.getItem('token');
