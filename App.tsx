@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useDebugValue} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -17,9 +17,16 @@ import ThrowsStack from './components/ThrowsStack';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQueryClient,
+} from '@tanstack/react-query';
+import {Alert} from 'react-native';
 import {useNetInfo} from '@react-native-community/netinfo';
 // import SplashScreen from 'react-native-splash-screen';
+
+const SERVER_URL = 'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -161,11 +168,13 @@ const AppStackScreen = () => {
     </Tab.Navigator>
   );
 };
+
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [offline, setOffline] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const queryClient = new QueryClient();
   const netInfo = useNetInfo();
-
   const authContextValue = {
     signedIn,
     setSignedIn,
@@ -177,12 +186,28 @@ const App = () => {
   useEffect(() => {
     refreshAccess();
   }, [signedIn, offline]);
-  const queryClient = new QueryClient();
-
   useEffect(() => {
-    console.log('connection info is: ', netInfo.isConnected?.toString());
+    if (netInfo.isConnected) {
+      checkServerConnection();
+      setIsConnected(true);
+    }
   }, []);
 
+  const checkServerConnection = () => {
+    fetch(SERVER_URL)
+      .then(async response => {
+        if (response.ok) {
+          console.log('Successfully connected to the server! ');
+        } else {
+          console.log('Server returned an error:', response.statusText);
+          setIsConnected(false);
+        }
+      })
+      .catch(error => {
+        Alert.alert('Server offline.\nPlease use offline mode.');
+        setIsConnected(false);
+      });
+  };
   const refreshAccess = async () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
