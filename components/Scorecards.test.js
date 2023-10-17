@@ -17,6 +17,11 @@ jest.mock('@react-native-async-storage/async-storage');
 jest.mock('./hooks/getScorecardsQuery', () => ({
   useGetScorecards: jest.fn(),
 }));
+jest.mock('@react-native-community/netinfo', () => ({
+  useNetInfo: () => ({
+    isConnected: true,
+  }),
+}));
 jest.mock('axios');
 
 describe('Scorecards Landing', () => {
