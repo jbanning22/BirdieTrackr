@@ -232,7 +232,7 @@ const App = () => {
         setSignedIn(false);
       }
     } catch (error) {
-      console.log('error signing in', error);
+      // console.log('error signing in', error);
     }
   };
 

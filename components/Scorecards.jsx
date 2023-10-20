@@ -47,7 +47,7 @@ const Scorecards = ({navigation}) => {
   // const windowHeight = Dimensions.get('window').height;
 
   useEffect(() => {
-    const createOfflineData = async () => {
+    const createOfflineScorecards = async () => {
       try {
         const userData = await retrieveUserData();
         if (
@@ -55,10 +55,8 @@ const Scorecards = ({navigation}) => {
           !userData.scorecards ||
           userData.scorecards.length === 0
         ) {
-          console.log('No scorecards found in userData. Exiting function.');
           return;
         }
-
         const token = await AsyncStorage.getItem('token');
         const headers = {
           Authorization: `Bearer ${token}`,
@@ -91,7 +89,46 @@ const Scorecards = ({navigation}) => {
       }
     };
 
-    createOfflineData();
+    const createOfflineThrows = async () => {
+      try {
+        const userData = await retrieveUserData();
+        if (!userData || !userData.throws || userData.throws.length === 0) {
+          return;
+        }
+        const token = await AsyncStorage.getItem('token');
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const offlineDataResponse = await axios.post(
+          'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/measure-throws/offline',
+          {userData},
+          {headers},
+        );
+
+        if (offlineDataResponse.status === 201) {
+          try {
+            let userDataJSON = await AsyncStorage.getItem('userData');
+            if (userDataJSON) {
+              let userData = JSON.parse(userDataJSON);
+              userData.throws = [];
+              await AsyncStorage.setItem('userData', JSON.stringify(userData));
+              queryClient.invalidateQueries('throwData');
+              console.log('userData updated in AsyncStorage');
+            } else {
+              console.log('userData not found in AsyncStorage');
+            }
+          } catch (error) {
+            console.error('Error updating userData in AsyncStorage:', error);
+          }
+        }
+      } catch (error) {
+        console.error('Error in createScorecard function:', error);
+      }
+    };
+
+    createOfflineScorecards();
+    createOfflineThrows();
   }, []);
 
   const retrieveUserData = async () => {

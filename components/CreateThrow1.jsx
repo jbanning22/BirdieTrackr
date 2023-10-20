@@ -39,10 +39,10 @@ const CreateThrow1 = ({navigation, route}) => {
       throwId = Math.max(...userData.throws.map(sc => sc.id), 0) + 1;
       const measuredThrow = {
         id: throwId,
-        dist: dist,
-        discName: discName,
-        discColor: discColor,
-        throwType: throwType,
+        distance: dist,
+        disc: discName,
+        color: discColor,
+        throwtype: throwType,
       };
       if (userData !== null) {
         userData.throws.push(measuredThrow);
