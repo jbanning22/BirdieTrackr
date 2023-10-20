@@ -25,8 +25,6 @@ import {Dimensions} from 'react-native';
 import LargeButton from './button/LargeButton';
 import {useNetInfo} from '@react-native-community/netinfo';
 
-const SERVER_URL = 'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000';
-
 const Scorecards = ({navigation}) => {
   const [isConnected, setIsConnected] = useState(false);
   const netInfo = useNetInfo();
@@ -295,7 +293,7 @@ const Scorecards = ({navigation}) => {
             alignItems: 'center',
             alignContent: 'center',
             justifyContent: 'center',
-            height: 570,
+            height: 540,
             width: windowWidth,
           }}>
           {scorecardData && scorecardData.length === 0 ? (
@@ -313,10 +311,12 @@ const Scorecards = ({navigation}) => {
         </View>
 
         <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 20,
-          }}>
+          style={
+            {
+              // alignItems: 'center',
+              // marginBottom: 20,
+            }
+          }>
           <LargeButton
             buttonText="Create Scorecard"
             onPress={() => navigation.navigate('CreateScorecard')}

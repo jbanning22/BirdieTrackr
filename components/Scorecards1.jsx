@@ -41,7 +41,7 @@ const Scorecard1 = ({navigation, route}) => {
   const retrieveUserData = async () => {
     try {
       const jsonUserData = await AsyncStorage.getItem('userData');
-      console.log('Async is: ', jsonUserData);
+      // console.log('Async is: ', jsonUserData);
       let result = jsonUserData != null ? JSON.parse(jsonUserData) : null;
       return result;
     } catch (error) {
@@ -82,7 +82,9 @@ const Scorecard1 = ({navigation, route}) => {
   const handleScorecardPressed = (courseName, scoreFromList) => {
     navigation.navigate('EditScorecard', {
       scoreCard: scoreFromList.scorecardData,
+      scorecardID: scoreFromList.id,
       courseName,
+      previousRouteName: 'Scorecards1',
     });
   };
 
@@ -154,7 +156,9 @@ const Scorecard1 = ({navigation, route}) => {
     return (
       <View style={styles.flatListItemContainer}>
         <TouchableOpacity
-          onPress={() => handleScorecardPressed(item.courseName, item)}>
+          onPress={() =>
+            handleScorecardPressed(item.courseName, item, item.id)
+          }>
           <View style={styles.flatlistTextItemStyle}>
             <Text style={styles.renderCourseName}>{item.courseName}</Text>
             <Text style={styles.renderHoleText}>
@@ -232,7 +236,7 @@ const Scorecard1 = ({navigation, route}) => {
               renderItem={renderItem}
               data={scorecardData}
               showsVerticalScrollIndicator={false}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={item => item.id}
             />
           ) : (
             <Text
