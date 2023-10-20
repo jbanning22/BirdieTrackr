@@ -97,9 +97,9 @@ const Throws1 = ({navigation, route}) => {
     return (
       <View style={styles.flatListParent}>
         <View style={styles.flatlistStyle}>
-          <Text style={styles.renderCourseName}>{item.dist} ft</Text>
-          <Text style={styles.renderHoleText}>{item.discName}</Text>
-          <Text style={styles.throwTypeText}>{item.throwType}</Text>
+          <Text style={styles.renderCourseName}>{item.distance} ft</Text>
+          <Text style={styles.renderHoleText}>{item.disc}</Text>
+          <Text style={styles.throwTypeText}>{item.throwtype}</Text>
           <Text style={styles.renderText}>{date}</Text>
         </View>
         <TouchableOpacity onPress={() => deleteThrow(item.id)}>

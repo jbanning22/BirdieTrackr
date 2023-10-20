@@ -20,12 +20,20 @@ import {
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 
-const FullScorecard1 = ({route, navigation}) => {
+const EditOfflineScorecard = ({route, navigation}) => {
   const {scoreCard, courseName} = route.params;
 
-  const [scorecardData, setScorecardData] = useState({});
+  const [scorecardData, setScorecardData] = useState(
+    scoreCard.sort((a, b) => a.holeNumber - b.holeNumber),
+  );
   const [showEndButton, setShowEndButton] = useState(false);
   const windowWidth = Dimensions.get('window').width;
+
+  useEffect(() => {
+    if (!scorecardData) {
+      setScorecardData(scoreCard.sort((a, b) => a.holeNumber - b.holeNumber));
+    }
+  }, [scorecardData]);
 
   const retrieveUserData = async () => {
     try {
@@ -59,14 +67,6 @@ const FullScorecard1 = ({route, navigation}) => {
       console.error('Error adding scorecard:', error);
     }
   };
-  useEffect(() => {
-    setScorecardData(scoreCard.sort((a, b) => a.hole - b.hole));
-  }, [scoreCard]);
-
-  // const saveScoreCard = async () => {
-  //   await AsyncStorage.setItem('scoreCard', JSON.stringify(scorecardData));
-  //   navigation.navigate('Scorecards1');
-  // };
 
   const plusIcon = (
     <FontAwesomeIcon
@@ -89,8 +89,7 @@ const FullScorecard1 = ({route, navigation}) => {
   const renderItem = ({item}) => {
     return (
       <View style={[styles.flatlistView, {width: ITEM_WIDTH}]}>
-        <Text style={styles.renderParentText}>Hole {item.hole}</Text>
-
+        <Text style={styles.renderParentText}>Hole {item?.holeNumber}</Text>
         <View style={styles.parStrokeView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={styles.renderText}>Par</Text>
@@ -106,9 +105,10 @@ const FullScorecard1 = ({route, navigation}) => {
               onPress={() => {
                 setScorecardData(
                   scorecardData.map(cardItem => {
-                    if (cardItem.hole === item.hole) {
+                    if (cardItem.holeNumber === item.holeNumber) {
                       return {...cardItem, par: cardItem.par - 1};
                     }
+                    // editScorecard();
                     return cardItem;
                   }),
                 );
@@ -208,24 +208,25 @@ const FullScorecard1 = ({route, navigation}) => {
   const handleEndReached = () => {
     setShowEndButton(true);
   };
+
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Scorecards1')}
+          style={{}}
+          testID="back-arrow1">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            size={20}
+            style={{marginLeft: 15, marginTop: 18, backgroundColor: 'white'}}
+          />
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          {/* <TouchableOpacity
-            onPress={() => navigation.navigate('Scorecards1')}
-            style={{flex: 1}}
-            testID="back-arrow1">
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              size={20}
-              style={{marginLeft: 15, marginTop: 18, backgroundColor: 'white'}}
-            />
-          </TouchableOpacity> */}
           <Text style={styles.homeText}>{courseName}</Text>
         </View>
         <View style={styles.flatlistContainer}>
@@ -252,7 +253,7 @@ const FullScorecard1 = ({route, navigation}) => {
   );
 };
 
-export default FullScorecard1;
+export default EditOfflineScorecard;
 
 const styles = StyleSheet.create({
   box1: {
@@ -272,10 +273,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     backgroundColor: 'white',
-  },
-  parButton: {
-    // height: 30,
-    // width: 30,
   },
   finishScorecardButton: {
     width: 327,

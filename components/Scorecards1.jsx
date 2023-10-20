@@ -28,22 +28,20 @@ const Scorecard1 = ({navigation, route}) => {
   const windowWidth = Dimensions.get('window').width;
   const [refresh, setRefresh] = useState(false);
   const [scorecardData, setScorecardData] = useState([]);
-  const [courseName, setCourseName] = useState('');
   const [isEnabled, setIsEnabled] = useState(false);
   const {setSignedIn, setOffline} = useContext(AuthContext);
 
   useEffect(() => {
     retrieveUserData().then(userData => {
       if (userData !== null) {
-        // console.log('userData is: ', JSON.stringify(userData));
         setScorecardData(userData.scorecards);
-        setCourseName(userData.courseName);
       }
     });
   }, [reset, refresh]);
   const retrieveUserData = async () => {
     try {
       const jsonUserData = await AsyncStorage.getItem('userData');
+      console.log('Async is: ', jsonUserData);
       let result = jsonUserData != null ? JSON.parse(jsonUserData) : null;
       return result;
     } catch (error) {
@@ -81,9 +79,10 @@ const Scorecard1 = ({navigation, route}) => {
     }
   };
 
-  const handleScorecardPressed = () => {
-    navigation.navigate('FullScorecard', {
-      data: scorecardData,
+  const handleScorecardPressed = (courseName, scoreFromList) => {
+    navigation.navigate('EditScorecard', {
+      scoreCard: scoreFromList.scorecardData,
+      courseName,
     });
   };
 
@@ -155,7 +154,7 @@ const Scorecard1 = ({navigation, route}) => {
     return (
       <View style={styles.flatListItemContainer}>
         <TouchableOpacity
-          onPress={() => handleScorecardPressed(item.id, item.courseLength)}>
+          onPress={() => handleScorecardPressed(item.courseName, item)}>
           <View style={styles.flatlistTextItemStyle}>
             <Text style={styles.renderCourseName}>{item.courseName}</Text>
             <Text style={styles.renderHoleText}>

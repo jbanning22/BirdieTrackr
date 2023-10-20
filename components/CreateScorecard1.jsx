@@ -33,7 +33,7 @@ const CreateScorecard1 = ({navigation}) => {
   const init9HoleScoreCard = () => {
     const newScoreCard = initializeScoreCard(9);
     setScoreCard(newScoreCard);
-    navigation.navigate('FullScorecard1', {
+    navigation.navigate('EditScorecard', {
       scoreCard: newScoreCard,
       courseName: courseName,
     });
@@ -42,7 +42,7 @@ const CreateScorecard1 = ({navigation}) => {
   const init18HoleScoreCard = () => {
     const newScoreCard = initializeScoreCard(18);
     setScoreCard(newScoreCard);
-    navigation.navigate('FullScorecard1', {
+    navigation.navigate('EditScorecard', {
       scoreCard: newScoreCard,
       courseName: courseName,
     });
