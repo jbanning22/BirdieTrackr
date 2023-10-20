@@ -100,7 +100,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
           {
             "alignContent": "center",
             "alignItems": "center",
-            "height": 570,
+            "height": 540,
             "justifyContent": "center",
             "padding": 20,
             "width": 750,
@@ -449,12 +449,7 @@ exports[`Scorecards Landing should match the snapshot 1`] = `
         </RCTScrollView>
       </View>
       <View
-        style={
-          {
-            "alignItems": "center",
-            "marginBottom": 20,
-          }
-        }
+        style={{}}
       >
         <View
           accessibilityState={

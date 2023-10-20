@@ -23,7 +23,6 @@ exports[`Full Scorecard Screen should match the snapshot 1`] = `
     style={
       {
         "flex": 1,
-        "justifyContent": "space-evenly",
         "resizeMode": "cover",
       }
     }
@@ -52,66 +51,67 @@ exports[`Full Scorecard Screen should match the snapshot 1`] = `
       }
     />
     <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         {
           "backgroundColor": "white",
-          "flexDirection": "row",
-          "justifyContent": "space-evenly",
-          "padding": 4,
+          "left": 10,
+          "opacity": 1,
+          "position": "absolute",
+          "top": 10,
+        }
+      }
+      testID="back-arrow1"
+    />
+    <View
+      style={
+        {
+          "alignSelf": "center",
         }
       }
     >
       <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           {
-            "flex": 1,
-            "opacity": 1,
+            "flex": 0.25,
           }
         }
-        testID="back-arrow1"
       />
       <Text
         style={
           {
+            "backgroundColor": "white",
             "fontFamily": "Satoshi-Medium",
             "fontSize": 28,
             "fontWeight": "600",
             "margin": 10,
             "textAlign": "center",
-          }
-        }
-      />
-      <View
-        style={
-          {
-            "flex": 1,
           }
         }
       />
@@ -131,7 +131,6 @@ exports[`Full Scorecard Screen should match the snapshot 1`] = `
         horizontal={true}
         keyExtractor={[Function]}
         onContentSizeChange={[Function]}
-        onEndReached={[Function]}
         onLayout={[Function]}
         onMomentumScrollBegin={[Function]}
         onMomentumScrollEnd={[Function]}
@@ -149,6 +148,62 @@ exports[`Full Scorecard Screen should match the snapshot 1`] = `
       >
         <View />
       </RCTScrollView>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#2D6061",
+          "borderRadius": 14,
+          "height": 56,
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": 327,
+        }
+      }
+      testID="finish-scorecard-button"
+    >
+      <Text
+        style={
+          {
+            "alignSelf": "center",
+            "color": "white",
+            "fontFamily": "Satoshi-Medium",
+            "fontSize": 18,
+            "fontWeight": "500",
+          }
+        }
+      >
+        Finish Scorecard
+      </Text>
     </View>
   </View>
 </RNCSafeAreaView>
