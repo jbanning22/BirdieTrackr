@@ -7,9 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useQueryClient} from '@tanstack/react-query';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
@@ -21,7 +19,7 @@ import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
 
 const EditOfflineScorecard = ({route, navigation}) => {
-  const {scoreCard, courseName} = route.params;
+  const {scoreCard, courseName, previousRouteName, scorecardID} = route.params;
 
   const [scorecardData, setScorecardData] = useState(
     scoreCard.sort((a, b) => a.holeNumber - b.holeNumber),
@@ -45,7 +43,8 @@ const EditOfflineScorecard = ({route, navigation}) => {
     }
   };
   let scorecardId = 0;
-  const saveScorecard = async () => {
+
+  const saveNewScorecard = async () => {
     try {
       const userData = await retrieveUserData();
       if (userData !== null) {
@@ -65,6 +64,43 @@ const EditOfflineScorecard = ({route, navigation}) => {
       }
     } catch (error) {
       console.error('Error adding scorecard:', error);
+    }
+  };
+
+  const updateScorecard = async () => {
+    try {
+      const userData = await retrieveUserData();
+      if (userData !== null) {
+        const existingScorecardId = scorecardID;
+        const index = userData.scorecards.findIndex(
+          sc => sc.id === existingScorecardId,
+        );
+        if (index !== -1) {
+          const updatedScorecard = {
+            id: existingScorecardId, // keep the same id
+            courseName: courseName,
+            isCompleted: true,
+            scorecardData,
+          };
+          userData.scorecards[index] = updatedScorecard;
+          await AsyncStorage.setItem('userData', JSON.stringify(userData));
+          navigation.navigate('Scorecards1', {reset: true});
+          console.log('Scorecard updated successfully.');
+        } else {
+          console.error('Scorecard not found.');
+        }
+      } else {
+        console.error('userData not found in AsyncStorage.');
+      }
+    } catch (error) {
+      console.error('Error updating scorecard:', error);
+    }
+  };
+  const saveScorecard = async () => {
+    if (previousRouteName === 'CreateScorecard1') {
+      saveNewScorecard();
+    } else {
+      updateScorecard();
     }
   };
 
@@ -131,7 +167,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
               onPress={() => {
                 setScorecardData(
                   scorecardData.map(cardItem => {
-                    if (cardItem.hole === item.hole) {
+                    if (cardItem.holeNumber === item.holeNumber) {
                       return {...cardItem, par: cardItem.par + 1};
                     }
                     return cardItem;
@@ -164,7 +200,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
               onPress={() => {
                 setScorecardData(
                   scorecardData.map(cardItem => {
-                    if (cardItem.hole === item.hole) {
+                    if (cardItem.holeNumber === item.holeNumber) {
                       return {...cardItem, strokes: cardItem.strokes - 1};
                     }
                     return cardItem;
@@ -189,7 +225,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
               onPress={() => {
                 setScorecardData(
                   scorecardData.map(cardItem => {
-                    if (cardItem.hole === item.hole) {
+                    if (cardItem.holeNumber === item.holeNumber) {
                       return {...cardItem, strokes: cardItem.strokes + 1};
                     }
                     return cardItem;
@@ -205,30 +241,30 @@ const EditOfflineScorecard = ({route, navigation}) => {
     );
   };
 
-  const handleEndReached = () => {
-    setShowEndButton(true);
-  };
+  // const handleEndReached = () => {
+  //   setShowEndButton(true);
+  // };
 
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Scorecards1')}
-          style={{}}
+          style={{position: 'absolute', top: 10, left: 10}}
           testID="back-arrow1">
           <FontAwesomeIcon
             icon={faArrowLeft}
             size={20}
-            style={{marginLeft: 15, marginTop: 18, backgroundColor: 'white'}}
+            style={{marginLeft: 10, backgroundColor: 'white'}}
           />
         </TouchableOpacity>
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-          }}>
-          <Text style={styles.homeText}>{courseName}</Text>
-        </View>
+          }}> */}
+        <Text style={styles.homeText}>{courseName}</Text>
+        {/* </View> */}
         <View style={styles.flatlistContainer}>
           <FlatList
             renderItem={renderItem}
@@ -236,18 +272,18 @@ const EditOfflineScorecard = ({route, navigation}) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             pagingEnabled={true}
-            onEndReached={handleEndReached}
+            // onEndReached={handleEndReached}
             snapToAlignment={'center'}
           />
         </View>
-        {showEndButton && (
-          <TouchableOpacity
-            style={styles.finishScorecardButton}
-            onPress={saveScorecard}
-            testID="finish-scorecard-button">
-            <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
-          </TouchableOpacity>
-        )}
+        {/* {showEndButton && ( */}
+        <TouchableOpacity
+          style={styles.finishScorecardButton}
+          onPress={saveScorecard}
+          testID="finish-scorecard-button">
+          <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
+        </TouchableOpacity>
+        {/* )} */}
       </ImageBackground>
     </SafeAreaView>
   );
@@ -263,8 +299,10 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'space-evenly',
+    // resizeMode: 'cover',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
   },
   homeText: {
     fontSize: 28,

@@ -8,10 +8,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useQueryClient} from '@tanstack/react-query';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import myImage from '../assets/images/BasketBackground2.png';
@@ -36,6 +33,7 @@ const CreateScorecard1 = ({navigation}) => {
     navigation.navigate('EditScorecard', {
       scoreCard: newScoreCard,
       courseName: courseName,
+      previousRouteName: 'CreateScorecard1',
     });
   };
 
@@ -45,6 +43,7 @@ const CreateScorecard1 = ({navigation}) => {
     navigation.navigate('EditScorecard', {
       scoreCard: newScoreCard,
       courseName: courseName,
+      previousRouteName: 'CreateScorecard1',
     });
   };
 
@@ -55,14 +54,12 @@ const CreateScorecard1 = ({navigation}) => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            // backgroundColor: 'white',
           }}>
           <TouchableOpacity onPress={() => navigation.navigate('Scorecards1')}>
             <FontAwesomeIcon
               icon={faArrowLeft}
               size={20}
-              style={{marginLeft: 10, backgroundColor: 'white'}}
+              style={{marginHorizontal: 25, backgroundColor: 'white'}}
             />
           </TouchableOpacity>
           <Text style={styles.titleText}>Choose a Scorecard!</Text>
@@ -133,7 +130,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
     margin: 6,
-    marginLeft: 45,
+    // marginLeft: 45,
+    // alignSelf: 'center',
   },
   questionText: {
     fontSize: 18,

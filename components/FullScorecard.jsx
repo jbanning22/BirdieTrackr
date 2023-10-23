@@ -245,33 +245,35 @@ const FullScorecard = ({route, navigation}) => {
     getScorecard();
   }, []);
 
-  const handleEndReached = () => {
-    setShowEndButton(true);
-  };
+  // const handleEndReached = () => {
+  //   setShowEndButton(true);
+  // };
 
   const sortedData = holesData.sort((a, b) => a.holeNumber - b.holeNumber);
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Scorecard')}
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            backgroundColor: 'white',
+          }}
+          testID="back-arrow1">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            size={20}
+            style={{marginLeft: 15, marginTop: 18}}
+          />
+        </TouchableOpacity>
         <View
           style={{
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            justifyContent: 'space-evenly',
-            padding: 4,
+            alignSelf: 'center',
           }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Scorecard')}
-            style={{flex: 1}}
-            testID="back-arrow1">
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              size={20}
-              style={{marginLeft: 15, marginTop: 18}}
-            />
-          </TouchableOpacity>
+          <View style={{flex: 0.25}}></View>
           <Text style={styles.homeText}>{scorecardData.courseName}</Text>
-          <View style={{flex: 1}}></View>
         </View>
         <View style={styles.flatlistContainer}>
           <FlatList
@@ -280,18 +282,18 @@ const FullScorecard = ({route, navigation}) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             pagingEnabled={true}
-            onEndReached={handleEndReached}
+            // onEndReached={handleEndReached}
             snapToAlignment={'center'}
           />
         </View>
-        {showEndButton && (
-          <TouchableOpacity
-            style={styles.finishScorecardButton}
-            onPress={finishScorecard}
-            testID="finish-scorecard-button">
-            <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
-          </TouchableOpacity>
-        )}
+        {/* {showEndButton && ( */}
+        <TouchableOpacity
+          style={styles.finishScorecardButton}
+          onPress={finishScorecard}
+          testID="finish-scorecard-button">
+          <Text style={styles.scorecardButtonText}>Finish Scorecard</Text>
+        </TouchableOpacity>
+        {/* )} */}
       </ImageBackground>
     </SafeAreaView>
   );
@@ -308,7 +310,7 @@ const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
   },
   homeText: {
     fontSize: 28,
@@ -316,6 +318,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Satoshi-Medium',
     textAlign: 'center',
     margin: 10,
+    backgroundColor: 'white',
   },
   parButton: {
     // height: 30,
