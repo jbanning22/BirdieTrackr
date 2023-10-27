@@ -17,6 +17,7 @@ import ThrowsStack from './components/ThrowsStack';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
+import SplashScreen from 'react-native-splash-screen';
 import {
   QueryClient,
   QueryClientProvider,
@@ -170,6 +171,7 @@ const AppStackScreen = () => {
 };
 
 const App = () => {
+  SplashScreen.hide();
   const [signedIn, setSignedIn] = useState(false);
   const [offline, setOffline] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -269,8 +271,4 @@ const App = () => {
 };
 
 export default App;
-
-function componentDidMount() {
-  throw new Error('Function not implemented.');
-}
 // const styles = StyleSheet.create({});
