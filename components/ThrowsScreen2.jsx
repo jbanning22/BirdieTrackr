@@ -52,7 +52,7 @@ const ThrowsScreen2 = ({navigation}) => {
   };
 
   async function distance(lat2, lon2) {
-    setEndLocation({lat2, lon2});
+    setEndLocation({latitude: lat2, longitude: lon2});
     const lat1 = startingLocation.latitude;
     const lon1 = startingLocation.longitude;
     if (lat1 === lat2 && lon1 === lon2) {
@@ -80,7 +80,6 @@ const ThrowsScreen2 = ({navigation}) => {
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
-        // Request location permission for iOS here
         Geolocation.requestAuthorization('always');
       } else if (Platform.OS === 'android') {
         try {
@@ -154,7 +153,7 @@ const ThrowsScreen2 = ({navigation}) => {
                 }}
               />
             )}
-            {endingLocation !== null && (
+            {endingLocation && (
               <Marker
                 coordinate={{
                   latitude: endingLocation.latitude,
