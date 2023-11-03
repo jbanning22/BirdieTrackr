@@ -1,4 +1,9 @@
 {
   "name": "BirdieTrackr",
-  "displayName": "BirdieTrackr"
+  "displayName": "BirdieTrackr",
+  "config": {
+    "googleMaps": {
+      "apiKey": "AIzaSyAWFYZQp_ww27UAMJIm2nnYu4cBM0vXK0w"
+    }
+  },
 }
