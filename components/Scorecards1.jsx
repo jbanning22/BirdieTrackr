@@ -204,7 +204,7 @@ const Scorecard1 = ({navigation, route}) => {
             fontFamily: 'Satoshi-Medium',
             alignSelf: 'center',
             backgroundColor: 'white',
-            // alignItems: 'space-between',
+            color: 'black',
           }}>
           Scorecards
         </Text>

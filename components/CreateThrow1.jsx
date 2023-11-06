@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ImageBackground,
   Platform,
-  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,30 +75,20 @@ const CreateThrow1 = ({navigation, route}) => {
     message = 'That was launched! Is your arm ok?';
   }
 
-  // const createThrow = async () => {
-  //   const newThrowData = [dist, discName, discColor, throwType];
-  //   await AsyncStorage.setItem('measuredThrow', JSON.stringify(newThrowData));
-  //   navigation.navigate('Throws1');
-  // };
   return (
     <ImageBackground source={myImage} style={styles.imageBackground}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1}}>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.backArrowParent}>
           <TouchableOpacity
             onPress={() => navigation.navigate('ThrowsScreen1')}>
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              size={20}
-              style={{marginLeft: 10}}
-            />
+            <FontAwesomeIcon icon={faArrowLeft} size={20} />
           </TouchableOpacity>
         </View>
         <Text style={styles.singUpText}>Measure Throw</Text>
         <View
           style={{
-            marginTop: 2,
+            marginTop: 60,
             backgroundColor: '#F9FAFB',
             alignItems: 'center',
             alignSelf: 'center',
@@ -154,7 +143,6 @@ export default CreateThrow1;
 
 const styles = StyleSheet.create({
   box1: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -162,10 +150,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '500',
     fontFamily: 'Helvetica',
-    // marginBottom: 80,
+    color: 'black',
     margin: 40,
     alignSelf: 'center',
     backgroundColor: 'white',
+    marginTop: 80,
   },
   inputContainer: {
     marginBottom: 15,
@@ -193,8 +182,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 18,
-    marginTop: 30,
-    marginBottom: 30,
+    marginBottom: 50,
     color: '#45B369',
     backgroundColor: 'white',
   },
@@ -202,6 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 35,
     marginLeft: 15,
+    position: 'absolute',
   },
   imageBackground: {
     height: '100%',

@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Helvetica',
     marginBottom: 80,
+    color: 'black',
   },
   inputContainer: {
     marginBottom: 15,
