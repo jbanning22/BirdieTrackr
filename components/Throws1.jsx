@@ -194,7 +194,8 @@ const Throws1 = ({navigation, route}) => {
             </Text>
           )}
         </View>
-        <View style={{alignSelf: 'center'}}>
+        <View
+          style={{alignSelf: 'center', marginBottom: 20, paddingBottom: 20}}>
           <LargeButton
             buttonText="Measure a Throw"
             onPress={() => navigation.navigate('ThrowsScreen1')}

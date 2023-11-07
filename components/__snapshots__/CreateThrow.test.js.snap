@@ -96,6 +96,7 @@ exports[`Create Throw Screen should match the snapshot 1`] = `
     <Text
       style={
         {
+          "color": "black",
           "fontFamily": "Helvetica",
           "fontSize": 28,
           "fontWeight": "500",

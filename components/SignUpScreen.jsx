@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
+import {Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {AuthContext} from '../AuthContext';
@@ -78,7 +79,7 @@ const SignUpScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View style={styles.backIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
