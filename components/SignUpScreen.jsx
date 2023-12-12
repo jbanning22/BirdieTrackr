@@ -109,6 +109,7 @@ const SignUpScreen = ({navigation}) => {
               value={formData.userName}
               onChangeText={text => setFormData({...formData, userName: text})}
               autoCorrect={false}
+              autoCapitalize={'none'}
             />
           </View>
           <View style={styles.inputStyle}>

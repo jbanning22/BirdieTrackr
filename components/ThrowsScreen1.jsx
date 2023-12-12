@@ -82,6 +82,21 @@ const ThrowsScreen1 = ({navigation}) => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
         Geolocation.requestAuthorization('always');
+        Geolocation.setRNConfiguration({
+          skipPermissionRequests: false,
+          authorizationLevel: 'always',
+        });
+        Geolocation.getCurrentPosition(
+          position => {
+            // Permission was granted
+            getPresentLocation();
+          },
+          error => {
+            // Permission denied or other error
+            console.log('Location permission error: ', error);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
       } else if (Platform.OS === 'android') {
         try {
           const granted = await PermissionsAndroid.request(

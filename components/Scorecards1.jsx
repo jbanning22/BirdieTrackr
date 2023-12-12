@@ -219,7 +219,7 @@ const Scorecard1 = ({navigation, route}) => {
             trackColor={{false: '#2D6061'}}
             thumbColor={isEnabled ? 'white' : '#2D6061'}
             onValueChange={toggleSwitch}
-            value={isEnabled}
+            value={!isEnabled}
           />
         </View>
         <View

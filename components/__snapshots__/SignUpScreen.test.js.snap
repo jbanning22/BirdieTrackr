@@ -124,6 +124,7 @@ exports[`Sign Up Screen should match the snapshot 1`] = `
           }
         >
           <TextInput
+            autoCapitalize="none"
             autoCorrect={false}
             onChangeText={[Function]}
             placeholder="Username"

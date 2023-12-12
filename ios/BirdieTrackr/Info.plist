@@ -40,15 +40,15 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
+	<string>BirdieTrackr would like to access your location in order to calculate distances.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>BirdieTrackr would like to access your location in order to calculate distances.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>BirdieTrackr would like to access your location in order to calculate distances.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>IDISC would like to save photos to your photo gallery</string>
+	<string>BirdieTrackr would like to save photos to your photo gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>IDISC would like to access your photo gallery</string>
+	<string>BirdieTrackr would like to access your photo gallery</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Satoshi-Black.otf</string>
