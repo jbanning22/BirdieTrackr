@@ -17,6 +17,7 @@ import {Platform, PermissionsAndroid} from 'react-native';
 import myImage from '../assets/images/BasketBackground2.png';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -34,6 +35,7 @@ const ThrowsScreen2 = ({navigation}) => {
   }, [presentLocation]);
 
   const getPresentLocation = () => {
+    console.log('get present location called (online) !');
     return Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
@@ -80,22 +82,21 @@ const ThrowsScreen2 = ({navigation}) => {
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
-        Geolocation.requestAuthorization('always');
-        Geolocation.setRNConfiguration({
-          skipPermissionRequests: false,
-          authorizationLevel: 'always',
-        });
-        Geolocation.getCurrentPosition(
-          position => {
-            // Permission was granted
-            getPresentLocation();
-          },
-          error => {
-            // Permission denied or other error
-            console.log('Location permission error: ', error);
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-        );
+        const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+        if (status === RESULTS.GRANTED) {
+          console.log('ios PERMISSION GRANTED (offline) !!!!');
+          getPresentLocation();
+        } else {
+          Geolocation.requestAuthorization('always');
+          setTimeout(async () => {
+            const newStatus = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+            if (newStatus === RESULTS.GRANTED) {
+              getPresentLocation();
+            } else {
+              console.log('Location permission denied');
+            }
+          }, 2000);
+        }
       } else if (Platform.OS === 'android') {
         try {
           const granted = await PermissionsAndroid.request(
