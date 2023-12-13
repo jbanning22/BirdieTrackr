@@ -135,11 +135,24 @@ exports[`Throws Screen should match the snapshot 1`] = `
                       "fontFamily": "Satoshi-Medium",
                       "fontSize": 26,
                       "fontWeight": "600",
+                      "marginLeft": 25,
                     }
                   }
                 >
                   281
                    ft
+                </Text>
+                <Text
+                  style={
+                    {
+                      "color": "white",
+                      "fontFamily": "Satoshi-Medium",
+                      "fontSize": 20,
+                      "fontWeight": "500",
+                    }
+                  }
+                >
+                  Test
                 </Text>
                 <Text
                   style={
@@ -158,19 +171,7 @@ exports[`Throws Screen should match the snapshot 1`] = `
                     {
                       "color": "white",
                       "fontFamily": "Satoshi-Medium",
-                      "fontSize": 16,
-                      "fontWeight": "500",
-                    }
-                  }
-                >
-                  Test
-                </Text>
-                <Text
-                  style={
-                    {
-                      "color": "white",
-                      "fontFamily": "Satoshi-Medium",
-                      "fontSize": 12,
+                      "fontSize": 14,
                       "fontWeight": "500",
                       "marginBottom": 5,
                     }
