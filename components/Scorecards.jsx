@@ -26,7 +26,7 @@ import LargeButton from './button/LargeButton';
 import {useNetInfo} from '@react-native-community/netinfo';
 
 const Scorecards = ({navigation}) => {
-  const [isConnected, setIsConnected] = useState(false);
+  // const [isConnected, setIsConnected] = useState(false);
   const netInfo = useNetInfo();
   const {
     data: scorecardData,
@@ -163,7 +163,7 @@ const Scorecards = ({navigation}) => {
 
   const renderItem = ({item}) => {
     const date = moment(item.createdAt).format('MMMM Do, YYYY');
-    // console.log('item in flatlist is: ', item);
+
     const score = course => {
       const totalStrokes = course.holes.reduce(
         (acc, hole) => acc + hole.strokes,
@@ -173,18 +173,23 @@ const Scorecards = ({navigation}) => {
       return totalStrokes - totalPars;
     };
 
+    // Format the total score similarly to the first renderItem
+    const totalScore = score(item);
+    const formattedTotalScore =
+      totalScore > 0 ? `+${totalScore}` : totalScore.toString();
+
     const icon = item.isCompleted ? (
       <FontAwesomeIcon
         icon={faCheck}
         color={'white'}
-        size={12}
+        size={16}
         style={{margin: 8}}
       />
     ) : (
       <FontAwesomeIcon
         icon={faExclamation}
         color={'white'}
-        size={12}
+        size={16}
         style={{margin: 8}}
       />
     );
@@ -207,12 +212,12 @@ const Scorecards = ({navigation}) => {
             marginRight: 5,
           }}>
           {icon}
-          <Text style={styles.renderScore}>{score(item)}</Text>
+          <Text style={styles.renderScore}>{formattedTotalScore}</Text>
           <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
             <FontAwesomeIcon
               icon={faTrashCan}
               color={'white'}
-              size={12}
+              size={16}
               style={{margin: 8}}
             />
           </TouchableOpacity>

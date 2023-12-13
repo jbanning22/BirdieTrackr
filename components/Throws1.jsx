@@ -106,8 +106,8 @@ const Throws1 = ({navigation, route}) => {
           <FontAwesomeIcon
             icon={faTrashCan}
             color={'white'}
-            size={12}
-            style={{margin: 4}}
+            size={16}
+            style={{margin: 8}}
           />
         </TouchableOpacity>
       </View>
@@ -194,8 +194,7 @@ const Throws1 = ({navigation, route}) => {
             </Text>
           )}
         </View>
-        <View
-          style={{alignSelf: 'center', marginBottom: 20, paddingBottom: 20}}>
+        <View style={{alignSelf: 'center'}}>
           <LargeButton
             buttonText="Measure a Throw"
             onPress={() => navigation.navigate('ThrowsScreen1')}
@@ -266,21 +265,22 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
+    marginLeft: 25,
   },
   renderHoleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
   },
   throwTypeText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
   },
   renderText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
     marginBottom: 5,
     color: 'white',

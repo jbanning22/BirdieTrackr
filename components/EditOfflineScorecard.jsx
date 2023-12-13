@@ -5,8 +5,9 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  Animated,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -14,12 +15,16 @@ import {
   faArrowLeft,
   faCirclePlus,
   faCircleMinus,
+  faAngleRight,
+  faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
+import {Alert} from 'react-native';
 
 const EditOfflineScorecard = ({route, navigation}) => {
   const {scoreCard, courseName, previousRouteName, scorecardID} = route.params;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [scorecardData, setScorecardData] = useState(
     scoreCard.sort((a, b) => a.holeNumber - b.holeNumber),
@@ -27,11 +32,30 @@ const EditOfflineScorecard = ({route, navigation}) => {
   const [showEndButton, setShowEndButton] = useState(false);
   const windowWidth = Dimensions.get('window').width;
 
+  const flatListRef = useRef(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
     if (!scorecardData) {
       setScorecardData(scoreCard.sort((a, b) => a.holeNumber - b.holeNumber));
     }
   }, [scorecardData]);
+
+  const confirmExit = () => {
+    Alert.alert(
+      'Confirm Exit',
+      'Are you sure you want to exit without saving your progress?',
+      [
+        {
+          text: 'No',
+          // onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Yes', onPress: () => navigation.navigate('Scorecards1')},
+      ],
+      {cancelable: false},
+    );
+  };
 
   const retrieveUserData = async () => {
     try {
@@ -58,7 +82,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
         userData.scorecards.push(scorecardWithId);
         await AsyncStorage.setItem('userData', JSON.stringify(userData));
         navigation.navigate('Scorecards1', {reset: true});
-        console.log('Scorecard added to userData.');
+        // console.log('Scorecard added to userData.');
       } else {
         console.log('userData not found in AsyncStorage.');
       }
@@ -77,7 +101,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
         );
         if (index !== -1) {
           const updatedScorecard = {
-            id: existingScorecardId, // keep the same id
+            id: existingScorecardId,
             courseName: courseName,
             isCompleted: true,
             scorecardData,
@@ -85,7 +109,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
           userData.scorecards[index] = updatedScorecard;
           await AsyncStorage.setItem('userData', JSON.stringify(userData));
           navigation.navigate('Scorecards1', {reset: true});
-          console.log('Scorecard updated successfully.');
+          // console.log('Scorecard updated successfully.');
         } else {
           console.error('Scorecard not found.');
         }
@@ -244,12 +268,36 @@ const EditOfflineScorecard = ({route, navigation}) => {
   // const handleEndReached = () => {
   //   setShowEndButton(true);
   // };
+  const handlePrev = () => {
+    const newIndex = currentIndex - 1;
+    if (newIndex >= 0) {
+      flatListRef.current.scrollToIndex({index: newIndex, animated: true});
+      setCurrentIndex(newIndex); // Update the current index
+    }
+  };
+
+  const handleNext = () => {
+    const newIndex = currentIndex + 1;
+    if (newIndex < scorecardData.length) {
+      flatListRef.current.scrollToIndex({index: newIndex, animated: true});
+      setCurrentIndex(newIndex); // Update the current index
+    }
+  };
+  useEffect(() => {
+    const listener = scrollX.addListener(({value}) => {
+      const index = Math.round(value / windowWidth); // Assuming windowWidth is the width of your items
+      setCurrentIndex(index);
+    });
+    return () => {
+      scrollX.removeListener(listener);
+    };
+  }, [scrollX]);
 
   return (
     <SafeAreaView style={styles.box1}>
       <ImageBackground source={myImage} style={styles.imageBackground}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Scorecards1')}
+          onPress={confirmExit}
           style={{position: 'absolute', top: 10, left: 10}}
           testID="back-arrow1">
           <FontAwesomeIcon
@@ -267,6 +315,7 @@ const EditOfflineScorecard = ({route, navigation}) => {
         {/* </View> */}
         <View style={styles.flatlistContainer}>
           <FlatList
+            ref={flatListRef}
             renderItem={renderItem}
             data={scorecardData}
             showsHorizontalScrollIndicator={false}
@@ -274,7 +323,36 @@ const EditOfflineScorecard = ({route, navigation}) => {
             pagingEnabled={true}
             // onEndReached={handleEndReached}
             snapToAlignment={'center'}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {x: scrollX}}}],
+              {useNativeDriver: false},
+            )}
+            viewabilityConfig={{itemVisiblePercentThreshold: 50}}
           />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: 55,
+            marginVertical: 5,
+          }}>
+          {currentIndex === 0 ? (
+            <View style={styles.transparentButton} />
+          ) : (
+            <TouchableOpacity onPress={handlePrev} style={styles.navButton}>
+              {/* <Text style={styles.navButtonText}>Prev</Text> */}
+              <FontAwesomeIcon icon={faAngleLeft} size={18} color="white" />
+            </TouchableOpacity>
+          )}
+          {currentIndex === scorecardData.length - 1 ? (
+            <View style={styles.transparentButton} />
+          ) : (
+            <TouchableOpacity onPress={handleNext} style={styles.navButton}>
+              {/* <Text style={styles.navButtonText}>Next</Text> */}
+              <FontAwesomeIcon icon={faAngleRight} size={18} color="white" />
+            </TouchableOpacity>
+          )}
         </View>
         {/* {showEndButton && ( */}
         <TouchableOpacity
@@ -299,7 +377,6 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    // resizeMode: 'cover',
     height: '100%',
     width: '100%',
     justifyContent: 'center',
@@ -320,6 +397,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#2D6061',
     borderRadius: 14,
+    marginTop: 20,
   },
   scorecardButtonText: {
     color: 'white',
@@ -361,7 +439,6 @@ const styles = StyleSheet.create({
   flatlistView: {
     height: 300,
     justifyContent: 'space-evenly',
-    // alignItems: '',
     margin: 20,
     backgroundColor: '#F9FAFB',
     borderRadius: 20,
@@ -373,5 +450,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 25,
+    marginVertical: 5,
+  },
+  navButton: {
+    backgroundColor: '#2D6061',
+    padding: 8,
+    borderRadius: 10,
+  },
+  disabledButton: {
+    opacity: 0,
+  },
+  navButtonText: {
+    fontSize: 16,
+    fontFamily: 'Satoshi-Medium',
+    color: 'white',
+    fontWeight: '700',
+  },
+  transparentButton: {
+    padding: 8,
+    borderRadius: 10,
+    opacity: 0,
+    backgroundColor: 'transparent',
   },
 });

@@ -71,8 +71,8 @@ const ThrowsScreen = ({navigation}) => {
           <FontAwesomeIcon
             icon={faTrashCan}
             color={'white'}
-            size={12}
-            style={{margin: 4}}
+            size={16}
+            style={{margin: 8}}
           />
         </TouchableOpacity>
       </View>
@@ -177,21 +177,22 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
+    marginLeft: 25,
   },
   renderHoleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
   },
   throwTypeText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     color: 'white',
     fontFamily: 'Satoshi-Medium',
   },
   renderText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
     marginBottom: 5,
     color: 'white',

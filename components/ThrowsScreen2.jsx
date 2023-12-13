@@ -35,7 +35,7 @@ const ThrowsScreen2 = ({navigation}) => {
   }, [presentLocation]);
 
   const getPresentLocation = () => {
-    console.log('get present location called (online) !');
+    // console.log('get present location called (online) !');
     return Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
@@ -84,7 +84,7 @@ const ThrowsScreen2 = ({navigation}) => {
       if (Platform.OS === 'ios') {
         const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
         if (status === RESULTS.GRANTED) {
-          console.log('ios PERMISSION GRANTED (offline) !!!!');
+          // console.log('ios PERMISSION GRANTED (offline) !!!!');
           getPresentLocation();
         } else {
           Geolocation.requestAuthorization('always');
@@ -92,10 +92,11 @@ const ThrowsScreen2 = ({navigation}) => {
             const newStatus = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
             if (newStatus === RESULTS.GRANTED) {
               getPresentLocation();
-            } else {
-              console.log('Location permission denied');
             }
-          }, 2000);
+            //  else {
+            //   console.log('Location permission denied');
+            // }
+          }, 3000);
         }
       } else if (Platform.OS === 'android') {
         try {

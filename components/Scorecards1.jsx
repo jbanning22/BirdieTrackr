@@ -138,18 +138,20 @@ const Scorecard1 = ({navigation, route}) => {
     const totalScore = scorecardData?.reduce((acc, hole) => {
       return acc + (hole.strokes - hole.par);
     }, 0);
+    const formattedTotalScore =
+      totalScore > 0 ? `+${totalScore}` : totalScore.toString();
     const icon = item.isCompleted ? (
       <FontAwesomeIcon
         icon={faCheck}
         color={'white'}
-        size={12}
+        size={16}
         style={{margin: 8}}
       />
     ) : (
       <FontAwesomeIcon
         icon={faExclamation}
         color={'white'}
-        size={12}
+        size={16}
         style={{margin: 8}}
       />
     );
@@ -172,15 +174,15 @@ const Scorecard1 = ({navigation, route}) => {
           style={{
             flexDirection: 'column',
             justifyContent: 'space-between',
-            marginRight: 5,
+            marginHorizontal: 5,
           }}>
           {icon}
-          <Text style={styles.renderScore}>{totalScore}</Text>
+          <Text style={styles.renderScore}>{formattedTotalScore}</Text>
           <TouchableOpacity onPress={() => deleteScorecard(item.id)}>
             <FontAwesomeIcon
               icon={faTrashCan}
               color={'white'}
-              size={12}
+              size={16}
               style={{margin: 8}}
             />
           </TouchableOpacity>
@@ -216,7 +218,7 @@ const Scorecard1 = ({navigation, route}) => {
           }}>
           <Text style={styles.offlineText}>Offline?</Text>
           <Switch
-            trackColor={{false: '#2D6061'}}
+            trackColor={{true: '#d2d3d6'}}
             thumbColor={isEnabled ? 'white' : '#2D6061'}
             onValueChange={toggleSwitch}
             value={!isEnabled}
@@ -312,7 +314,7 @@ const styles = StyleSheet.create({
   },
   renderCourseName: {
     fontFamily: 'Satoshi-Medium',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
     color: 'white',
     textAlign: 'left',
@@ -320,7 +322,7 @@ const styles = StyleSheet.create({
   },
   renderHoleText: {
     fontFamily: 'Satoshi-Medium',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     color: 'white',
     textAlign: 'left',
@@ -332,10 +334,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'white',
     alignSelf: 'flex-end',
+    // paddingRight: 4,
   },
   renderText: {
     fontFamily: 'Satoshi-Medium',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
     color: 'white',
   },

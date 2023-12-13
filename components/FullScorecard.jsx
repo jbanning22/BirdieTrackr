@@ -5,17 +5,20 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  Animated,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useQueryClient} from '@tanstack/react-query';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
+  faAngleLeft,
   faArrowLeft,
   faCirclePlus,
   faCircleMinus,
+  faAngleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import myImage from '../assets/images/BasketBackground2.png';
 import {Dimensions} from 'react-native';
@@ -24,7 +27,10 @@ const FullScorecard = ({route, navigation}) => {
   const {id} = route.params;
   const [scorecardData, setScorecardData] = useState({});
   const [holesData, setHolesData] = useState([]);
-  const [showEndButton, setShowEndButton] = useState(false);
+  // const [showEndButton, setShowEndButton] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const flatListRef = useRef(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get('window').width;
   const queryClient = useQueryClient();
 
@@ -59,7 +65,7 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes + 1},
         {headers},
       );
-      queryClient.invalidateQueries('scorecardData');
+      queryClient.refetchQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -79,7 +85,7 @@ const FullScorecard = ({route, navigation}) => {
         {strokes: strokes - 1},
         {headers},
       );
-      queryClient.invalidateQueries('scorecardData');
+      queryClient.refetchQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -99,7 +105,7 @@ const FullScorecard = ({route, navigation}) => {
         {par: par + 1},
         {headers},
       );
-      queryClient.invalidateQueries('scorecardData');
+      queryClient.refetchQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -118,7 +124,7 @@ const FullScorecard = ({route, navigation}) => {
         {par: par - 1},
         {headers},
       );
-      queryClient.invalidateQueries('scorecardData');
+      queryClient.refetchQueries('scorecardData');
       getScorecard();
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -138,7 +144,7 @@ const FullScorecard = ({route, navigation}) => {
         {isCompleted: true, courseLength: scorecardData.courseLength},
         {headers},
       );
-      queryClient.invalidateQueries('scorecardData');
+      queryClient.refetchQueries('scorecardData');
       await navigation.navigate('Scorecard');
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -245,6 +251,31 @@ const FullScorecard = ({route, navigation}) => {
     getScorecard();
   }, []);
 
+  useEffect(() => {
+    const listener = scrollX.addListener(({value}) => {
+      const index = Math.round(value / windowWidth);
+      setCurrentIndex(index);
+    });
+    return () => {
+      scrollX.removeListener(listener);
+    };
+  }, [scrollX]);
+
+  const handlePrev = () => {
+    const newIndex = currentIndex - 1;
+    if (newIndex >= 0) {
+      flatListRef.current.scrollToIndex({index: newIndex, animated: true});
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const handleNext = () => {
+    const newIndex = currentIndex + 1;
+    if (newIndex < holesData.length) {
+      flatListRef.current.scrollToIndex({index: newIndex, animated: true});
+      setCurrentIndex(newIndex);
+    }
+  };
   // const handleEndReached = () => {
   //   setShowEndButton(true);
   // };
@@ -259,24 +290,24 @@ const FullScorecard = ({route, navigation}) => {
             position: 'absolute',
             top: 10,
             left: 10,
-            backgroundColor: 'white',
           }}
           testID="back-arrow1">
           <FontAwesomeIcon
             icon={faArrowLeft}
             size={20}
-            style={{marginLeft: 15, marginTop: 18}}
+            style={{marginLeft: 10, backgroundColor: 'white'}}
           />
         </TouchableOpacity>
-        <View
+        {/* <View
           style={{
             alignSelf: 'center',
-          }}>
-          <View style={{flex: 0.25}}></View>
-          <Text style={styles.homeText}>{scorecardData.courseName}</Text>
-        </View>
+          }}> */}
+        <View style={{flex: 0.25}}></View>
+        <Text style={styles.homeText}>{scorecardData.courseName}</Text>
+        {/* </View> */}
         <View style={styles.flatlistContainer}>
           <FlatList
+            ref={flatListRef}
             renderItem={renderItem}
             data={sortedData}
             showsHorizontalScrollIndicator={false}
@@ -286,7 +317,28 @@ const FullScorecard = ({route, navigation}) => {
             snapToAlignment={'center'}
           />
         </View>
-        {/* {showEndButton && ( */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: 55,
+            marginVertical: 5,
+          }}>
+          {currentIndex === 0 ? (
+            <View style={styles.transparentButton} />
+          ) : (
+            <TouchableOpacity onPress={handlePrev} style={styles.navButton}>
+              <FontAwesomeIcon icon={faAngleLeft} size={18} color="white" />
+            </TouchableOpacity>
+          )}
+          {currentIndex === holesData.length - 1 ? (
+            <View style={styles.transparentButton} />
+          ) : (
+            <TouchableOpacity onPress={handleNext} style={styles.navButton}>
+              <FontAwesomeIcon icon={faAngleRight} size={18} color="white" />
+            </TouchableOpacity>
+          )}
+        </View>
         <TouchableOpacity
           style={styles.finishScorecardButton}
           onPress={finishScorecard}
@@ -309,8 +361,9 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    resizeMode: 'cover',
-    // justifyContent: 'space-evenly',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
   },
   homeText: {
     fontSize: 28,
@@ -332,6 +385,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#2D6061',
     borderRadius: 14,
+    marginTop: 20,
   },
   scorecardButtonText: {
     color: 'white',
@@ -383,5 +437,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  navButton: {
+    backgroundColor: '#2D6061',
+    padding: 8,
+    borderRadius: 10,
+  },
+  transparentButton: {
+    padding: 8,
+    borderRadius: 10,
+    opacity: 0,
+    backgroundColor: 'transparent',
   },
 });
