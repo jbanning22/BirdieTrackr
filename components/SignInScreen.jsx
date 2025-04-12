@@ -27,6 +27,7 @@ import {
   faEye,
 } from '@fortawesome/free-regular-svg-icons';
 import LargeButton from './button/LargeButton';
+import {SERVER_URL} from '../config';
 
 const SignInScreen = ({navigation}) => {
   const {setSignedIn} = useContext(AuthContext);
@@ -57,13 +58,10 @@ const SignInScreen = ({navigation}) => {
       return;
     } else {
       try {
-        const signInRes = await axios.post(
-          'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/signin',
-          {
-            email: formData.email,
-            password: formData.password,
-          },
-        );
+        const signInRes = await axios.post(`${SERVER_URL}/auth/signin`, {
+          email: formData.email,
+          password: formData.password,
+        });
         if (signInRes.status === 200) {
           const access_token = await signInRes.data.access_token;
           const refresh_token = await signInRes.data.refresh_token;
@@ -88,7 +86,7 @@ const SignInScreen = ({navigation}) => {
     setModalVisible(!modalVisible);
     try {
       const resetPassword = await axios.patch(
-        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/reset-password',
+        `${SERVER_URL}/auth/reset-password`,
         {
           email: resetFormData.email,
           password: resetFormData.password,

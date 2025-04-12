@@ -79,47 +79,35 @@ const ThrowsScreen1 = ({navigation}) => {
       navigation.navigate('CreateThrow1', {dist});
     }
   }
-  // useEffect
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
         const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
         if (status === RESULTS.GRANTED) {
-          console.log('ios PERMISSION GRANTED (offline) !!!!');
           getPresentLocation();
         } else {
-          Geolocation.requestAuthorization('always');
-          setTimeout(async () => {
-            const newStatus = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-            if (newStatus === RESULTS.GRANTED) {
-              console.log('ios PERMISSION GRANTED (offline) !!!!');
-              getPresentLocation();
-            }
-            // else {
-            //   console.log('Location permission denied');
-            // }
-          }, 3000);
+          const request = await Geolocation.requestAuthorization('whenInUse');
+          if (request === 'granted') {
+            getPresentLocation(); // call after permission granted
+          } else {
+            console.log('Permission denied');
+          }
         }
       } else if (Platform.OS === 'android') {
-        try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-              title: 'Location Permission',
-              message: 'This app requires access to your location.',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-            },
-          );
-
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            getPresentLocation();
-          } else {
-            console.log('Location permission denied');
-          }
-        } catch (err) {
-          console.warn(err);
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Permission',
+            message: 'This app requires access to your location.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          getPresentLocation();
+        } else {
+          console.log('Permission denied');
         }
       }
     };
