@@ -2,18 +2,18 @@ import React, {useState, useEffect, useDebugValue} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LandingScreen from './components/LandingScreen';
-import SignInScreen from './components/SignInScreen';
-import SignUpScreen from './components/SignUpScreen';
+import LandingScreen from './components/LandingScreen.jsx';
+import SignInScreen from './components/SignInScreen.jsx';
+import SignUpScreen from './components/SignUpScreen.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ScorecardStack from './components/ScorecardStack';
-import OfflineScorecardStack from './components/OfflineScorecardStack';
-import OfflineThrowsStack from './components/OfflineThrowsStack';
-import ProfileStack from './components/ProfileStack';
+import ScorecardStack from './components/ScorecardStack.jsx';
+import OfflineScorecardStack from './components/OfflineScorecardStack.jsx';
+import OfflineThrowsStack from './components/OfflineThrowsStack.jsx';
+import ProfileStack from './components/ProfileStack.jsx';
 import axios from 'axios';
-import {AuthContext} from './AuthContext';
+import {AuthContext} from './AuthContext.js';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import ThrowsStack from './components/ThrowsStack';
+import ThrowsStack from './components/ThrowsStack.jsx';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faRuler} from '@fortawesome/free-solid-svg-icons/faRuler';
 import {faRectangleList} from '@fortawesome/free-regular-svg-icons/faRectangleList';
@@ -26,10 +26,10 @@ import {
 import {Alert} from 'react-native';
 import {useNetInfo} from '@react-native-community/netinfo';
 // import SplashScreen from 'react-native-splash-screen';
-import {enableLatestRenderer} from 'react-native-maps';
-enableLatestRenderer();
+//import {enableLatestRenderer} from 'react-native-maps';
+//enableLatestRenderer();
 
-const SERVER_URL = 'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000';
+const SERVER_URL = 'http://10.0.0.139:3000';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -71,7 +71,7 @@ const OfflineStackScreen = () => {
           title: 'Scorecards',
           tabBarLabelStyle: {color: '#2D6061'},
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({focused}: {focused: boolean}) => (
             <FontAwesomeIcon
               icon={faRectangleList}
               color={focused ? '#2D6061' : 'black'}
@@ -88,7 +88,7 @@ const OfflineStackScreen = () => {
           title: 'Throws',
           tabBarLabelStyle: {color: '#2D6061'},
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({focused}: {focused: boolean}) => (
             <FontAwesomeIcon
               icon={faRuler}
               color={focused ? '#2D6061' : 'black'}
@@ -125,7 +125,7 @@ const AppStackScreen = () => {
           title: 'Scorecards',
           tabBarLabelStyle: {color: '#2D6061'},
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({focused}: {focused: boolean}) => (
             <FontAwesomeIcon
               icon={faRectangleList}
               color={focused ? '#2D6061' : 'black'}
@@ -142,7 +142,7 @@ const AppStackScreen = () => {
           title: 'Throws',
           tabBarLabelStyle: {color: '#2D6061'},
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({focused}: {focused: boolean}) => (
             <FontAwesomeIcon
               icon={faRuler}
               color={focused ? '#2D6061' : 'black'}
@@ -158,7 +158,7 @@ const AppStackScreen = () => {
         component={ProfileStack}
         options={{
           tabBarLabelStyle: {color: '#2D6061'},
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({focused}: {focused: boolean}) => (
             <FontAwesomeIcon
               icon={faUser}
               color={focused ? '#2D6061' : 'black'}
@@ -215,15 +215,11 @@ const App = () => {
   const refreshAccess = async () => {
     const reToken = await AsyncStorage.getItem('ReToken');
     try {
-      const refresh = await axios.post(
-        'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/refresh',
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${reToken}`,
-          },
+      const refresh = await axios.post(`${SERVER_URL}/auth/refresh`, null, {
+        headers: {
+          Authorization: `Bearer ${reToken}`,
         },
-      );
+      });
       if (refresh.status === 201) {
         const access_token = await refresh.data.access_token;
         const refresh_token = await refresh.data.refresh_token;

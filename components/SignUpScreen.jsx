@@ -23,6 +23,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import LargeButton from './button/LargeButton';
+import {SERVER_URL} from '../config';
 
 const SignUpScreen = ({navigation}) => {
   const {setSignedIn} = useContext(AuthContext);
@@ -51,9 +52,10 @@ const SignUpScreen = ({navigation}) => {
     } else {
       try {
         const signUpRes = await axios.post(
-          'http://ec2-54-173-139-185.compute-1.amazonaws.com:3000/auth/signup',
+          `${SERVER_URL}/auth/signup`,
           formData,
         );
+
         if (signUpRes.status === 201) {
           const access_token = await signUpRes.data.access_token;
           const refresh_token = await signUpRes.data.refresh_token;
@@ -64,8 +66,8 @@ const SignUpScreen = ({navigation}) => {
           return signUpRes.data;
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log('error signing up', error);
+        console.error('Signup error:', error);
+        throw error;
       }
     }
   };
